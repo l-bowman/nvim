@@ -49,18 +49,12 @@ npm i -g prettier
 pamac install stylua
 ```
 
-Check your package manager for availability if not on an Arch based distro -
-_brew, apt_ etc.
-
-[autopep8](https://pypi.org/project/autopep8/) for python is in Manjaro/Arch
-repos
+[autopep8](https://pypi.org/project/autopep8/)
+Check your package manager for availability. Example with brew
 
 ```bash
-sudo pacman -S autopep8
+brew install autopep8
 ```
-
-Check your package manager for availability if not on an Arch based distro -
-_brew, apt_ etc.
 
 [yamlfmt](https://pypi.org/project/yamlfmt/) for yaml available with pip
 
