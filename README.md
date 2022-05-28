@@ -1,4 +1,4 @@
-Fork of a fantastic config by bushblade: https://github.com/bushblade/nvim
+Fork of a fantastic Neovim config by bushblade: https://github.com/bushblade/nvim
 
 Thanks, Will!
 
