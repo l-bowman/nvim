@@ -16,15 +16,6 @@ Uses the latest 0.8+ Neovim
 git clone https://github.com/l-bowman/nvim.git ~/.config/nvim
 ```
 
-## Install Packer
-
-[ Packer Neovim plugin manager ](https://github.com/wbthomason/packer.nvim)
-
-```bash
-git clone https://github.com/wbthomason/packer.nvim\
- ~/.local/share/nvim/site/pack/packer/start/packer.nvim
-```
-
 ## Install language servers
 
 Most available via npm
