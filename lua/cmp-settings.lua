@@ -7,8 +7,6 @@ luasnip.filetype_extend("javascript", { "html" })
 luasnip.filetype_extend("javascriptreact", { "html" })
 luasnip.filetype_extend("typescriptreact", { "html" })
 
-require("luasnip/loaders/from_vscode").lazy_load()
-
 -- load snippets from path/of/your/nvim/config/my-cool-snippets
 require("luasnip.loaders.from_vscode").lazy_load({ paths = { "./snippets" } })
 

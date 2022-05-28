@@ -18,6 +18,9 @@ return require("packer").startup({
       run = ":TSUpdate",
     })
 
+    --Indent lines
+    use("lukas-reineke/indent-blankline.nvim")
+
     -- LuaLine
     use({
       "hoob3rt/lualine.nvim",
@@ -150,9 +153,6 @@ return require("packer").startup({
         })
       end,
     })
-
-    -- Rich presence in Discord
-    use("andweeb/presence.nvim")
 
     -- Dashboard
     use("goolord/alpha-nvim")

@@ -1,4 +1,6 @@
-# Leaving the CoC behind.
+Fork of a fantastic config by bushblade: https://github.com/bushblade/nvim
+
+Thanks, Will!
 
 ![Screenshot](https://res.cloudinary.com/bushblade/image/upload/v1650398285/nvim-screenshot.webp)
 [kitty terminal](https://sw.kovidgoyal.net/kitty/) with [TokyoNight](https://sw.kovidgoyal.net/kitty/) terminal theme and [Victor Mono](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/VictorMono) nerd font.
@@ -6,7 +8,7 @@
 **My config for Nvim using native LSP with some sane defaults and settings**, mainly
 aimed at web development but ready to go with Python, Rust, Golang and Lua.
 
-Uses the latest 0.7+ Neovim
+Uses the latest 0.8+ Neovim
 
 ## Clone the repository into ~/.config/nvim
 
@@ -172,10 +174,9 @@ One test snippet is included as an example.
   highlighting and completion for Firebase rules
 - [rmagatti/auto-session](https://github.com/rmagatti/auto-session) Session
   management
-- [andweeb/presence.nvim](https://github.com/andweeb/presence.nvim) Rich
-  presence in Discord
 - [goolord/alpha-nvim](https://github.com/goolord/alpha-nvim) Dashboard
 - [mbbill/undotree](https://github.com/mbbill/undotree) Undotree
+- [lukas-reineke/indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim) Indentation
 
 ## Resources and inspiration
 

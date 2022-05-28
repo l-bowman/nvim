@@ -1,7 +1,9 @@
-vim.g.nvim_tree_git_hl = 1
-vim.g.nvim_tree_highlight_opened_files = 1
-
 require("nvim-tree").setup({
+  actions = {
+    open_file = {
+      quit_on_open = true,
+    },
+  },
   diagnostics = {
     enable = true,
     icons = {
@@ -11,15 +13,12 @@ require("nvim-tree").setup({
       error = " ",
     },
   },
-  update_cwd = true,
   update_focused_file = {
     enable = true,
-    update_cwd = true,
   },
-  -- filters = {
-  --   custom = { ".git" },
-  -- },
   renderer = {
+    highlight_git = true,
+    highlight_opened_files = "1",
     indent_markers = {
       enable = true,
       icons = {

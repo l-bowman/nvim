@@ -25,8 +25,8 @@ require("bufferline-settings")
 require("spectre-settings")
 require("autopairs-settings")
 require("Comment-settings")
-require("presence-settings")
 require("dashboard-settings")
+require("indent-blankline-settings")
 
 -- keymappings
 require("keymappings")

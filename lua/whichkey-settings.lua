@@ -65,7 +65,7 @@ wk.register({
     b = { "<cmd>Telescope buffers<cr>", "Find Buffer" },
     n = { "<cmd>TodoTelescope<cr>", "Find Notes" },
     t = { "<cmd>Telescope builtin<cr>", "Telescope builtin" },
-    s = { "<cmd>Telescope live_grep<cr>", "Search In Files" },
+    g = { "<cmd>Telescope live_grep<cr>", "Search In Files" },
     c = { "<cmd>Telescope lsp_code_actions<cr>", "Code Actions" },
     r = { "<cmd>Telescope lsp_references<cr>", "Find References" },
     d = { "<cmd>Telescope diagnostics<cr>", "Document Diagnostics" },
@@ -81,7 +81,7 @@ wk.register({
     u = "Undo Changes",
   },
   e = { "<cmd>NvimTreeToggle<CR>", "File Tree" },
-  u = { "<cmd>UndotreeToggle<CR>", "Undotree" },
+  u = { "<cmd>UndotreeToggle<CR><cmd>UndotreeFocus<CR>", "Undotree" },
   -- trouble bindings
   t = {
     name = "Trouble",
