@@ -67,11 +67,7 @@ sudo pip install yamlfmt
 
 On the first run of nvim be sure to install plugins.
 
-`:PackerInstall`
-
-Then compile loader file.
-
-`:PackerCompile`
+`:PackerSync`
 
 ## Note: Installing Firenvim
 
