@@ -27,7 +27,7 @@ npm install -g typescript typescript-language-server vscode-langservers-extracte
 
 > TIP: [No sudo on global npm install](https://github.com/sindresorhus/guides/blob/main/npm-global-without-sudo.md)
 
-### Lua, Pyright and rust-analyzer available in Arch/Manjaro repos
+### Lua, Pyright and rust-analyzer
 
 Check your package manager for availability. Example with brew:
 
