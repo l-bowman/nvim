@@ -43,14 +43,15 @@ prettier with npm
 npm i -g prettier
 ```
 
-[ stylua ](https://github.com/JohnnyMorganz/StyLua) is in the AUR
+[ stylua ](https://github.com/JohnnyMorganz/StyLua)
+Check your package manager for availability. Example with brew:
 
 ```bash
-pamac install stylua
+brew install stylua
 ```
 
 [autopep8](https://pypi.org/project/autopep8/)
-Check your package manager for availability. Example with brew
+Check your package manager for availability. Example with brew:
 
 ```bash
 brew install autopep8
