@@ -13,7 +13,7 @@ Uses the latest 0.8+ Neovim
 ## Clone the repository into ~/.config/nvim
 
 ```bash
-git clone https://github.com/bushblade/nvim.git ~/.config/nvim
+git clone https://github.com/l-bowman/nvim.git ~/.config/nvim
 ```
 
 ## Install Packer
