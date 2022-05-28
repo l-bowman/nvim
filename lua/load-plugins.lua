@@ -1,168 +1,185 @@
-return require("packer").startup({
-  function(use)
-    -- Packer can manage itself
-    use("wbthomason/packer.nvim")
+local fn = vim.fn
+local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+if fn.empty(fn.glob(install_path)) > 0 then
+  packer_bootstrap = fn.system({
+    "git",
+    "clone",
+    "--depth",
+    "1",
+    "https://github.com/wbthomason/packer.nvim",
+    install_path,
+  })
+end
 
-    -- lsp
-    use("neovim/nvim-lspconfig")
+return require("packer").startup(function(use)
+  -- Packer can manage itself
+  use("wbthomason/packer.nvim")
 
-    -- Telescope
-    use({
-      "nvim-telescope/telescope.nvim",
-      requires = { { "nvim-lua/popup.nvim" }, { "nvim-lua/plenary.nvim" } },
-    })
+  -- lsp
+  use("neovim/nvim-lspconfig")
 
-    -- Treesitter
-    use({
-      "nvim-treesitter/nvim-treesitter",
-      run = ":TSUpdate",
-    })
+  -- Telescope
+  use({
+    "nvim-telescope/telescope.nvim",
+    requires = { { "nvim-lua/popup.nvim" }, { "nvim-lua/plenary.nvim" } },
+  })
 
-    --Indent lines
-    use("lukas-reineke/indent-blankline.nvim")
+  -- Treesitter
+  use({
+    "nvim-treesitter/nvim-treesitter",
+    run = ":TSUpdate",
+  })
 
-    -- LuaLine
-    use({
-      "hoob3rt/lualine.nvim",
-      requires = { "kyazdani42/nvim-web-devicons", opt = true },
-    })
+  --Indent lines
+  use("lukas-reineke/indent-blankline.nvim")
 
-    -- Autocomplete
-    use({
-      "hrsh7th/nvim-cmp",
-      requires = {
-        "hrsh7th/cmp-cmdline", -- command line
-        "hrsh7th/cmp-buffer", -- buffer completions
-        "hrsh7th/cmp-nvim-lua", -- nvim config completions
-        "hrsh7th/cmp-nvim-lsp", -- lsp completions
-        "hrsh7th/cmp-path", -- file path completions
-        "saadparwaiz1/cmp_luasnip", -- snippets completions
-      },
-    })
+  -- LuaLine
+  use({
+    "hoob3rt/lualine.nvim",
+    requires = { "kyazdani42/nvim-web-devicons", opt = true },
+  })
 
-    -- snippets
-    use({
-      "L3MON4D3/LuaSnip",
-      requires = {
-        "rafamadriz/friendly-snippets",
-      },
-    })
+  -- Autocomplete
+  use({
+    "hrsh7th/nvim-cmp",
+    requires = {
+      "hrsh7th/cmp-cmdline", -- command line
+      "hrsh7th/cmp-buffer", -- buffer completions
+      "hrsh7th/cmp-nvim-lua", -- nvim config completions
+      "hrsh7th/cmp-nvim-lsp", -- lsp completions
+      "hrsh7th/cmp-path", -- file path completions
+      "saadparwaiz1/cmp_luasnip", -- snippets completions
+    },
+  })
 
-    -- tpope
-    use("tpope/vim-fugitive")
-    use("tpope/vim-surround")
+  -- snippets
+  use({
+    "L3MON4D3/LuaSnip",
+    requires = {
+      "rafamadriz/friendly-snippets",
+    },
+  })
 
-    -- commenting
-    use("JoosepAlviste/nvim-ts-context-commentstring")
-    use({ "numToStr/Comment.nvim", tag = "v0.6" })
+  -- tpope
+  use("tpope/vim-fugitive")
+  use("tpope/vim-surround")
 
-    -- move between kitty windows
-    use("knubie/vim-kitty-navigator")
+  -- commenting
+  use("JoosepAlviste/nvim-ts-context-commentstring")
+  use({ "numToStr/Comment.nvim", tag = "v0.6" })
 
-    -- windwp
-    use("windwp/nvim-ts-autotag") -- auto close and rename tags
-    use("windwp/nvim-autopairs")
-    use("windwp/nvim-spectre") -- Spectre for find and replace
+  -- move between kitty windows
+  use("knubie/vim-kitty-navigator")
 
-    -- Formatting
-    use("mhartington/formatter.nvim")
+  -- windwp
+  use("windwp/nvim-ts-autotag") -- auto close and rename tags
+  use("windwp/nvim-autopairs")
+  use("windwp/nvim-spectre") -- Spectre for find and replace
 
-    use("airblade/vim-gitgutter")
+  -- Formatting
+  use("mhartington/formatter.nvim")
 
-    -- hightlight matching tag in html,jsx etc.
-    use("leafOfTree/vim-matchtag")
+  use("airblade/vim-gitgutter")
 
-    use({
-      "phaazon/hop.nvim",
-      as = "hop",
-      config = function()
-        require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
-      end,
-    })
+  -- hightlight matching tag in html,jsx etc.
+  use("leafOfTree/vim-matchtag")
 
-    -- Undotree
-    use("mbbill/undotree")
+  use({
+    "phaazon/hop.nvim",
+    as = "hop",
+    config = function()
+      require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
+    end,
+  })
 
-    -- file tree
-    use({
-      "kyazdani42/nvim-tree.lua",
-      requires = { "kyazdani42/nvim-web-devicons" },
-    })
+  -- Undotree
+  use("mbbill/undotree")
 
-    -- icons in completion
-    use("onsails/lspkind-nvim")
+  -- file tree
+  use({
+    "kyazdani42/nvim-tree.lua",
+    requires = { "kyazdani42/nvim-web-devicons" },
+  })
 
-    -- Folke plugins
-    -- Theme
-    use("folke/tokyonight.nvim")
+  -- icons in completion
+  use("onsails/lspkind-nvim")
 
-    -- Trouble
-    use({
-      "folke/trouble.nvim",
-      requires = "kyazdani42/nvim-web-devicons",
-      config = function()
-        require("trouble").setup({})
-      end,
-    })
+  -- Folke plugins
+  -- Theme
+  use("folke/tokyonight.nvim")
 
-    -- WhichKey
-    use("folke/which-key.nvim")
+  -- Trouble
+  use({
+    "folke/trouble.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
+    config = function()
+      require("trouble").setup({})
+    end,
+  })
 
-    -- Todo comments
-    use({
-      "folke/todo-comments.nvim",
-      requires = "nvim-lua/plenary.nvim",
-      config = function()
-        require("todo-comments").setup({})
-      end,
-    })
+  -- WhichKey
+  use("folke/which-key.nvim")
 
-    -- Colorizer
-    use("norcalli/nvim-colorizer.lua")
+  -- Todo comments
+  use({
+    "folke/todo-comments.nvim",
+    requires = "nvim-lua/plenary.nvim",
+    config = function()
+      require("todo-comments").setup({})
+    end,
+  })
 
-    -- jsonc file type for json - comments in json
-    use("kevinoid/vim-jsonc")
+  -- Colorizer
+  use("norcalli/nvim-colorizer.lua")
 
-    -- bufferline for buffers in 'tabs'
-    use({ "akinsho/bufferline.nvim", tag = "*", requires = "kyazdani42/nvim-web-devicons" })
+  -- jsonc file type for json - comments in json
+  use("kevinoid/vim-jsonc")
 
-    -- better code action menu
-    use({
-      "weilbith/nvim-code-action-menu",
-      cmd = "CodeActionMenu",
-    })
+  -- bufferline for buffers in 'tabs'
+  use({ "akinsho/bufferline.nvim", tag = "*", requires = "kyazdani42/nvim-web-devicons" })
 
-    -- firebase rules
-    use("delphinus/vim-firestore")
+  -- better code action menu
+  use({
+    "weilbith/nvim-code-action-menu",
+    cmd = "CodeActionMenu",
+  })
 
-    -- sessions
-    use({
-      "rmagatti/auto-session",
-      config = function()
-        require("auto-session").setup({
-          log_level = "info",
-          auto_session_suppress_dirs = { "~/", "~/Projects" },
-        })
-      end,
-    })
+  -- firebase rules
+  use("delphinus/vim-firestore")
 
-    use({
-      "rmagatti/session-lens",
-      config = function()
-        require("session-lens").setup({--[[your custom config--]]
-        })
-      end,
-    })
+  -- sessions
+  use({
+    "rmagatti/auto-session",
+    config = function()
+      require("auto-session").setup({
+        log_level = "info",
+        auto_session_suppress_dirs = { "~/", "~/Projects" },
+      })
+    end,
+  })
 
-    -- Dashboard
-    use("goolord/alpha-nvim")
+  use({
+    "rmagatti/session-lens",
+    config = function()
+      require("session-lens").setup({--[[your custom config--]]
+      })
+    end,
+  })
 
-    -- Firenvim (vim in browser)
-    use({
-      "glacambre/firenvim",
-      run = function()
-        vim.fn["firenvim#install"](0)
-      end,
-    })
-  end,
-})
+  -- Dashboard
+  use("goolord/alpha-nvim")
+
+  -- Firenvim (vim in browser)
+  use({
+    "glacambre/firenvim",
+    run = function()
+      vim.fn["firenvim#install"](0)
+    end,
+  })
+
+  -- Automatically set up your configuration after cloning packer.nvim
+  -- Put this at the end after all plugins
+  if packer_bootstrap then
+    require("packer").sync()
+  end
+end)
