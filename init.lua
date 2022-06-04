@@ -27,6 +27,7 @@ require("autopairs-settings")
 require("Comment-settings")
 require("dashboard-settings")
 require("indent-blankline-settings")
+require("undo-tree-settings")
 
 -- keymappings
 require("keymappings")

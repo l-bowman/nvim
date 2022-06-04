@@ -1,9 +1,4 @@
 require("nvim-tree").setup({
-  actions = {
-    open_file = {
-      quit_on_open = true,
-    },
-  },
   diagnostics = {
     enable = true,
     icons = {
@@ -13,12 +8,14 @@ require("nvim-tree").setup({
       error = " ",
     },
   },
+  update_cwd = true,
   update_focused_file = {
     enable = true,
+    update_cwd = true,
   },
   renderer = {
     highlight_git = true,
-    highlight_opened_files = "1",
+    highlight_opened_files = "all",
     indent_markers = {
       enable = true,
       icons = {
@@ -26,6 +23,11 @@ require("nvim-tree").setup({
         edge = "│ ",
         none = "  ",
       },
+    },
+  },
+  actions = {
+    open_file = {
+      quit_on_open = true,
     },
   },
 })
