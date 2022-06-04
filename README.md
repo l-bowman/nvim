@@ -150,12 +150,10 @@ One test snippet is included as an example.
 29. [akinsho/bufferline.nvim](https://github.com/akinsho/bufferline.nvim) Buffers
     in tabs
 30. [weilbith/nvim-code-action-menu](https://github.com/ahmedkhalf/weilbith/nvim-code-action-menu) Better code actions
-31. [delphinus/vim-firestore](https://github.com/delphinus/vim-firestore) Syntax
-    highlighting and completion for Firebase rules
-32. [rmagatti/auto-session](https://github.com/rmagatti/auto-session) Session
+31. [rmagatti/auto-session](https://github.com/rmagatti/auto-session) Session
     management
-33. [goolord/alpha-nvim](https://github.com/goolord/alpha-nvim) Dashboard
-34. [mbbill/undotree](https://github.com/mbbill/undotree) Undotree
+32. [goolord/alpha-nvim](https://github.com/goolord/alpha-nvim) Dashboard
+33. [mbbill/undotree](https://github.com/mbbill/undotree) Undotree
 
 ## Resources and inspiration
 

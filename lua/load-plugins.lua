@@ -144,9 +144,6 @@ return require("packer").startup(function(use)
     cmd = "CodeActionMenu",
   })
 
-  -- firebase rules
-  use("delphinus/vim-firestore")
-
   -- sessions
   use({
     "rmagatti/auto-session",
