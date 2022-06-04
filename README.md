@@ -159,7 +159,7 @@ One test snippet is included as an example.
 
 ## Resources and inspiration
 
-[Bushblade] https://github.com/bushblade/nvim
+[Bushblade] (https://github.com/bushblade/nvim)
 
 [Nvim Lua guide](https://github.com/nanotee/nvim-lua-guide)
 
