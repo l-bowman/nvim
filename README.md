@@ -159,6 +159,8 @@ One test snippet is included as an example.
 
 ## Resources and inspiration
 
+[Bushblade] https://github.com/bushblade/nvim
+
 [Nvim Lua guide](https://github.com/nanotee/nvim-lua-guide)
 
 [Ben Frain has a nice setup](https://gist.github.com/benfrain/97f2b91087121b2d4ba0dcc4202d252f)
