@@ -58,8 +58,6 @@ wk.setup({
 
 -- register key bindings with <leader> prefix
 wk.register({
-  prefix = "<leader>",
-}, {
   f = {
     -- mostly Telescope bindings
     name = "Find with Telescope",
@@ -130,6 +128,8 @@ wk.register({
     d = { "<cmd>DeleteSession<cr>", "Delete session" },
     r = { "<cmd>RestoreSession<cr>", "Restore session" },
   },
+}, {
+  prefix = "<leader>",
 })
 
 wk.register({
