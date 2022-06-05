@@ -158,7 +158,8 @@ One test snippet is included as an example.
     management
 32. [goolord/alpha-nvim](https://github.com/goolord/alpha-nvim) Dashboard
 33. [mbbill/undotree](https://github.com/mbbill/undotree) Undotree
-34. [pwntester/octo.nvim](https://github.com/pwntester/octo.nvim)
+34. [pwntester/octo.nvim](https://github.com/pwntester/octo.nvim) GitHub
+    Integration
 
 ## Resources and inspiration
 
