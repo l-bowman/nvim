@@ -60,6 +60,16 @@ return require("packer").startup(function(use)
     },
   })
 
+  --octo
+  use({
+    "pwntester/octo.nvim",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+      "kyazdani42/nvim-web-devicons",
+    },
+  })
+
   -- tpope
   use("tpope/vim-fugitive")
   use("tpope/vim-surround")

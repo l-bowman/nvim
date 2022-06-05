@@ -28,6 +28,7 @@ require("Comment-settings")
 require("dashboard-settings")
 require("indent-blankline-settings")
 require("undo-tree-settings")
+require("octo-settings")
 
 -- keymappings
 require("keymappings")

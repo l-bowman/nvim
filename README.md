@@ -16,6 +16,10 @@ Uses the latest 0.8+ Neovim
 git clone https://github.com/l-bowman/nvim.git ~/.config/nvim
 ```
 
+## Install GitHub ClI
+
+https://cli.github.com/
+
 ## Install language servers
 
 Most available via npm
@@ -154,6 +158,7 @@ One test snippet is included as an example.
     management
 32. [goolord/alpha-nvim](https://github.com/goolord/alpha-nvim) Dashboard
 33. [mbbill/undotree](https://github.com/mbbill/undotree) Undotree
+34. [pwntester/octo.nvim](https://github.com/pwntester/octo.nvim)
 
 ## Resources and inspiration
 
