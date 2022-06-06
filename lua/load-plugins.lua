@@ -94,8 +94,10 @@ return require("packer").startup(function(use)
   -- hightlight matching tag in html,jsx etc.
   use("leafOfTree/vim-matchtag")
 
+  -- Easier motion
   use({
     "phaazon/hop.nvim",
+    branch = "v1", -- optional but strongly recommended
     as = "hop",
   })
 

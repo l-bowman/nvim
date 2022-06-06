@@ -96,7 +96,8 @@ wk.register({
   T = { "<cmd>TodoLocList<CR>", "Todos list" },
   c = { "<cmd>CodeActionMenu<CR>", "Code Actions" },
   d = { "<cmd>lua vim.diagnostic.open_float({ border = 'rounded' })<CR>", "Line Diagnostics" },
-  w = { "<cmd>WhichKey<CR>", "WhichKey" },
+  w = { "<cmd>write<CR>", "Quick Save" },
+  W = { "<cmd>WhichKey<CR>", "WhichKey" },
   s = { "<cmd>lua vim.o.spell = not vim.o.spell<cr>", "Toggle spell check" },
   r = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
   -- Bufferline
@@ -121,6 +122,7 @@ wk.register({
     R = { "<cmd> lua vim.lsp.buf.references()<CR>", "List references" },
     c = { "<cmd>CodeActionMenu<CR>", "Code actions" },
   },
+  m = { "<cmd>HopWord<cr>", "Move to Word" },
   a = {
     name = "Auto Sessions",
     S = { "<cmd>SaveSession<cr>", "Save session" },

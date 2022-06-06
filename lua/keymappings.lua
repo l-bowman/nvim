@@ -48,8 +48,8 @@ local mappings = {
     -- escape clears highlighting
     { "<esc>", "<cmd>noh<cr><esc>" },
     -- hop words
-    { "f", "<cmd>HopWord<cr>" },
-    { "F", "<cmd>HopLine<cr>" },
+    -- { "f", "<cmd>HopWord<cr>" },
+    -- { "F", "<cmd>HopLine<cr>" },
     -- yank to end of line on Y
     { "Y", "y$" },
     -- lsp mappings
