@@ -29,6 +29,7 @@ require("dashboard-settings")
 require("indent-blankline-settings")
 require("undo-tree-settings")
 require("octo-settings")
+require("hop-settings")
 
 -- keymappings
 require("keymappings")
