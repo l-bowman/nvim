@@ -102,9 +102,6 @@ local mappings = {
 
 register_mappings(mappings, { silent = true, noremap = true })
 
--- S for search and replace in buffer
-vim.cmd("nnoremap S <cmd>%s/")
-
 -- hop in motion
 local actions = { "d", "c", "<", ">", "y" }
 for _, a in ipairs(actions) do
