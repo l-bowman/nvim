@@ -103,7 +103,7 @@ local mappings = {
 register_mappings(mappings, { silent = true, noremap = true })
 
 -- hop in motion
-local actions = { "d", "c", "<", ">", "y" }
-for _, a in ipairs(actions) do
-  vim.keymap.set("n", a .. "f", a .. "<cmd>lua require'hop'.hint_char1()<cr>")
-end
+--local actions = { "d", "c", "<", ">", "y" }
+-- for _, a in ipairs(actions) do
+--   vim.keymap.set("n", a .. "f", a .. "<cmd>lua require'hop'.hint_char1()<cr>")
+-- end
