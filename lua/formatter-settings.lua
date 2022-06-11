@@ -66,12 +66,24 @@ require("formatter").setup({
 })
 
 -- Runs Formmater on save
-vim.api.nvim_exec(
-  [[
-augroup FormatAutogroup
-  autocmd!
-  autocmd BufWritePost *.js,*.jsx,*.ts,*.tsx,*.css,*.scss,*.md,*.html,*.lua,.*.json,*.jsonc,*.vue,*.py,*.gql,*.graphql,*.go FormatWrite
-augroup END
-]],
-  true
-)
+vim.api.nvim_create_autocmd("BufWritePost", {
+  pattern = {
+    "*.js",
+    "*.jsx",
+    "*.ts",
+    "*.tsx",
+    "*.css",
+    "*.scss",
+    "*.md",
+    "*.html",
+    "*.lua",
+    "*.json",
+    "*.jsonc",
+    "*.vue",
+    "*.py",
+    "*.gql",
+    "*.graphql",
+    "*.go",
+  },
+  command = "FormatWrite",
+})

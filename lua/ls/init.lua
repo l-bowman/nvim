@@ -15,6 +15,7 @@ require("ls.gql")
 require("ls.rust")
 require("ls.go")
 require("ls.deno")
+require("ls.astro")
 
 -- Customization and appearance -----------------------------------------
 -- change gutter diagnostic symbols

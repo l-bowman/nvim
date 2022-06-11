@@ -73,6 +73,7 @@ wk.register({
     k = { "<cmd>Telescope keymaps<CR>", "Key mappings" },
     M = { "<cmd>Telescope man_pages<CR>", "Man pages" },
     a = { "<cmd>Telescope session-lens search_session<CR>", "Search Sessions" },
+    h = { "<cmd>Telescope help_tags<CR>", "Search help" },
   },
   h = {
     name = "Git Gutter",
@@ -122,7 +123,6 @@ wk.register({
     R = { "<cmd> lua vim.lsp.buf.references()<CR>", "List references" },
     c = { "<cmd>CodeActionMenu<CR>", "Code actions" },
   },
-  m = { "<cmd>HopWord<cr>", "Move to Word" },
   a = {
     name = "Auto Sessions",
     S = { "<cmd>SaveSession<cr>", "Save session" },
