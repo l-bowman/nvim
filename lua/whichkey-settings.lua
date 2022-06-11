@@ -130,6 +130,12 @@ wk.register({
     d = { "<cmd>DeleteSession<cr>", "Delete session" },
     r = { "<cmd>RestoreSession<cr>", "Restore session" },
   },
+  y = {
+    name = "Yank",
+    n = { '<cmd>let @+ = expand("%:t")<cr>', "Filename" },
+    r = { '<cmd>let @+ = expand("%")<cr>', "Relative Path" },
+    f = { '<cmd>let @+ = expand("%:p")<cr>', "Full Path" },
+  },
 }, {
   prefix = "<leader>",
 })
