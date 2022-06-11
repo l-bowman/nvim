@@ -3,7 +3,9 @@ vim.opt.number = true
 vim.opt.cursorline = true -- show the cursor line
 vim.opt.cursorcolumn = true -- show the cursor column
 vim.opt.mouse = "a" -- enable mouse
-vim.opt.smartcase = true -- ignores case for search unless a capital is used in search
+-- ignores case for search unless a capital is used in search
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true -- spaces instead of tabs
