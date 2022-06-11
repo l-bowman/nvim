@@ -134,7 +134,7 @@ wk.register({
     name = "Yank",
     n = { '<cmd>let @+ = expand("%:t")<cr>', "Filename" },
     r = { '<cmd>let @+ = expand("%")<cr>', "Relative Path" },
-    f = { '<cmd>let @+ = expand("%:p")<cr>', "Full Path" },
+    a = { '<cmd>let @+ = expand("%:p")<cr>', "Absolute Path" },
   },
 }, {
   prefix = "<leader>",
