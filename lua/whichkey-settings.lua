@@ -104,7 +104,7 @@ wk.register({
   -- Bufferline
   b = {
     name = "Buffer",
-    a = { "<cmd>w|%bd|e#|bd#<CR><CR>", "Close all but current" },
+    a = { "<cmd>BufferLineCloseLeft<CR><cmd>BufferLineCloseRight<CR>", "Close all but current" },
     A = { "<cmd>%bd<CR>", "Close all" },
     b = { "<cmd>BufferLinePick<CR>", "Pick" },
     q = { "<cmd>BufferLinePickClose<CR>", "Pick to close" },
