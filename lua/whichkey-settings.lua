@@ -103,7 +103,9 @@ wk.register({
   r = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
   -- Bufferline
   b = {
-    name = "Bufferline",
+    name = "Buffer",
+    a = { "<cmd>w|%bd|e#|bd#<CR><CR>", "Close all but current" },
+    A = { "<cmd>%bd<CR>", "Close all" },
     b = { "<cmd>BufferLinePick<CR>", "Pick" },
     q = { "<cmd>BufferLinePickClose<CR>", "Pick to close" },
     l = { "<cmd>BufferLineCloseRight<CR>", "Close all to right" },
