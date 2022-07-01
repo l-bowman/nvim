@@ -52,6 +52,14 @@ require("formatter").setup({
         }
       end,
     },
+    rust = {
+      function()
+        return {
+          exe = "rustfmt",
+          stdin = true,
+        }
+      end,
+    },
     --[[ yaml = {
       -- yamlfmt
       function()
@@ -84,6 +92,7 @@ vim.api.nvim_create_autocmd("BufWritePost", {
     "*.gql",
     "*.graphql",
     "*.go",
+    "*.rs",
   },
   command = "FormatWrite",
 })
