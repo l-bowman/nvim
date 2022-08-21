@@ -8,7 +8,7 @@ Thanks, Will!
 **My config for Nvim using native LSP with some sane defaults and settings**, mainly
 aimed at web development but ready to go with Python, Rust, Golang, Deno and Lua.
 
-Uses the latest 0.8+ Neovim
+Uses nightly release of Neovim
 
 ## Clone the repository into ~/.config/nvim
 
@@ -160,19 +160,3 @@ One test snippet is included as an example.
 ## Resources and inspiration
 
 [Bushblade](https://github.com/bushblade/nvim)
-
-[Nvim Lua guide](https://github.com/nanotee/nvim-lua-guide)
-
-[Ben Frain has a nice setup](https://gist.github.com/benfrain/97f2b91087121b2d4ba0dcc4202d252f)
-
-[Lunar Vim for inspiration](https://github.com/ChristianChiarulli/LunarVim)
-
-[Ui Customization docs](https://github.com/neovim/nvim-lspconfig/wiki/UI-customization#change-diagnostic-symbols-in-the-sign-column-gutter)
-
-[Lua for Programmers](https://ebens.me/post/lua-for-programmers-part-1/)
-
-[LSP config](https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md)
-
-[Awesome list of plugins](https://github.com/rockerBOO/awesome-neovim)
-
-[Plugin Finder](https://neovimcraft.com/)
