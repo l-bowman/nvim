@@ -46,15 +46,26 @@ vim.cmd([[autocmd InsertEnter * norm zz]])
 
 -- Give me some fenced codeblock goodness
 vim.g.markdown_fenced_languages = {
-  "html",
-  "javascript",
-  "javascriptreact",
-  "typescript",
-  "json",
-  "css",
-  "scss",
-  "lua",
-  "vim",
-  "bash",
-  "ts=typescript",
+	"html",
+	"javascript",
+	"javascriptreact",
+	"typescript",
+	"json",
+	"css",
+	"scss",
+	"lua",
+	"vim",
+	"bash",
+	"ts=typescript",
 }
+--TODO; Convert this to lua.
+vim.cmd([[
+command! -nargs=0 -bar Qargs execute 'args' QuickfixFilenames()
+function! QuickfixFilenames()
+  let buffer_numbers = {}
+  for quickfix_item in getqflist()
+    let buffer_numbers[quickfix_item['bufnr'] ] = bufname(quickfix_item['bufnr'])
+  endfor
+  return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
+endfunction
+]])
