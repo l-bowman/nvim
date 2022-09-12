@@ -1,3 +1,4 @@
+vim.opt.swapfile = false
 vim.opt.relativenumber = true
 vim.opt.number = true
 vim.opt.cursorline = true -- show the cursor line
@@ -46,17 +47,17 @@ vim.cmd([[autocmd InsertEnter * norm zz]])
 
 -- Give me some fenced codeblock goodness
 vim.g.markdown_fenced_languages = {
-	"html",
-	"javascript",
-	"javascriptreact",
-	"typescript",
-	"json",
-	"css",
-	"scss",
-	"lua",
-	"vim",
-	"bash",
-	"ts=typescript",
+  "html",
+  "javascript",
+  "javascriptreact",
+  "typescript",
+  "json",
+  "css",
+  "scss",
+  "lua",
+  "vim",
+  "bash",
+  "ts=typescript",
 }
 --TODO; Convert this to lua.
 vim.cmd([[
