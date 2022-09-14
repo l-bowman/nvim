@@ -92,7 +92,6 @@ local mappings = {
     { "J", "<cmd>m '>+1<CR>gv=gv" },
     { "K", "<cmd>m '<-2<CR>gv=gv" },
   },
-  x = {},
 }
 
 register_mappings(mappings, { silent = true, noremap = true })
