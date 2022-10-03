@@ -19,7 +19,7 @@ require("ls.astro")
 
 -- Customization and appearance -----------------------------------------
 -- change gutter diagnostic symbols
-local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }
+local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 
 for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
@@ -34,6 +34,7 @@ vim.diagnostic.config({
   float = {
     source = "always",
   },
+  severity_sort = true,
 })
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {

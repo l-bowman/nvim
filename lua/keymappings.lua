@@ -30,6 +30,8 @@ local mappings = {
     -- moving text
     { "<C-j>", "<esc><cmd>m .+1<CR>==" },
     { "<C-k>", "<esc><cmd>m .-2<CR>==" },
+    -- Ctrl single quote for backtick
+    { "<C-'>", "``<esc>i" },
   },
   n = {
     -- Normal mode
