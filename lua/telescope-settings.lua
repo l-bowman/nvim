@@ -50,8 +50,7 @@ telescope.setup({
 
 -- live_grep a quickfix list!!!
 local builtin = require("telescope.builtin")
-local M = {}
-M.live_grep_qflist = function()
+Live_grep_qflist = function()
   local qflist = vim.fn.getqflist()
   local filetable = {}
   local hashlist = {}
@@ -67,6 +66,5 @@ M.live_grep_qflist = function()
 
   builtin.live_grep({ search_dirs = filetable })
 end
-vim.keymap.set("n", "fq", M.live_grep_qflist, {})
 
 telescope.load_extension("session-lens")

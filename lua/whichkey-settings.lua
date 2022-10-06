@@ -73,6 +73,7 @@ wk.register({
     M = { "<cmd>Telescope man_pages<CR>", "Man pages" },
     a = { "<cmd>Telescope session-lens search_session<CR>", "Search Sessions" },
     h = { "<cmd>Telescope help_tags<CR>", "Search help" },
+    q = { Live_grep_qflist, "Live grep quickfix list" },
   },
   h = {
     name = "Git Gutter",
