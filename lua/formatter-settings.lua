@@ -93,6 +93,8 @@ vim.api.nvim_create_autocmd("BufWritePost", {
     "*.go",
     "*.rs",
     "*.astro",
+    "*.yaml",
+    "*.yml",
   },
   command = "FormatWrite",
 })
