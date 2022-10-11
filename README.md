@@ -138,8 +138,6 @@ One test snippet is included as an example.
 30. [mbbill/undotree](https://github.com/mbbill/undotree) Undotree
 31. [pwntester/octo.nvim](https://github.com/pwntester/octo.nvim) GitHub
     Integration
-32. [folke/noice.nvim](https://github.com/folke/noice.nvim) Noice UI
-    improvements
 
 ## Resources and inspiration
 
