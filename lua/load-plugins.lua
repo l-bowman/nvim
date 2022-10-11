@@ -134,6 +134,22 @@ return require("packer").startup(function(use)
     end,
   })
 
+  --Noice
+  use({
+    "folke/noice.nvim",
+    event = "VimEnter",
+    config = function()
+      require("noice").setup()
+      require("notify").setup({
+        background_colour = "#1a1b26",
+      })
+    end,
+    requires = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+    },
+  })
+
   -- Colorizer
   use("norcalli/nvim-colorizer.lua")
 
@@ -170,14 +186,6 @@ return require("packer").startup(function(use)
 
   -- Dashboard
   use("goolord/alpha-nvim")
-
-  -- Firenvim (vim in browser)
-  use({
-    "glacambre/firenvim",
-    run = function()
-      vim.fn["firenvim#install"](0)
-    end,
-  })
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
