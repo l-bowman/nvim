@@ -169,7 +169,7 @@ return require("packer").startup(function(use)
   })
 
   -- Dashboard
-  use("goolord/alpha-nvim")
+  -- use("goolord/alpha-nvim")
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

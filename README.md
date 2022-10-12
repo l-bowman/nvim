@@ -133,10 +133,10 @@ One test snippet is included as an example.
     in tabs
 27. [weilbith/nvim-code-action-menu](https://github.com/ahmedkhalf/weilbith/nvim-code-action-menu) Better code actions
 28. [rmagatti/auto-session](https://github.com/rmagatti/auto-session) Session
-    management
-29. [goolord/alpha-nvim](https://github.com/goolord/alpha-nvim) Dashboard
-30. [mbbill/undotree](https://github.com/mbbill/undotree) Undotree
-31. [pwntester/octo.nvim](https://github.com/pwntester/octo.nvim) GitHub
+management
+<!-- 29. [goolord/alpha-nvim](https://github.com/goolord/alpha-nvim) Dashboard -->
+29. [mbbill/undotree](https://github.com/mbbill/undotree) Undotree
+30. [pwntester/octo.nvim](https://github.com/pwntester/octo.nvim) GitHub
     Integration
 
 ## Resources and inspiration
