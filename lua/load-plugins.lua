@@ -20,7 +20,8 @@ return require("packer").startup(function(use)
 
   -- Telescope
   use({
-    "nvim-telescope/telescope.nvim",
+    -- "nvim-telescope/telescope.nvim",
+    "nvim-telescope/telescope-fzf-native.nvim",
     requires = { { "nvim-lua/popup.nvim" }, { "nvim-lua/plenary.nvim" } },
   })
 
