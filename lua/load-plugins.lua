@@ -19,23 +19,9 @@ return require("packer").startup(function(use)
   use("neovim/nvim-lspconfig")
 
   -- Telescope
-  -- use({
-  --   -- "nvim-telescope/telescope.nvim",
-  --   "nvim-telescope/telescope-fzf-native.nvim",
-  --   requires = { { "nvim-lua/popup.nvim" }, { "nvim-lua/plenary.nvim" } },
-  -- }),
   use({
-    --using this temporarily because of a problem with M1 chip and plugin
-    --commented below:
-    --https://github.com/nvim-telescope/telescope-fzf-native.nvim/issues/79
-    "lucasfcosta/telescope-fzf-native.nvim",
-    -- "nvim-telescope/telescope-fzf-native.nvim",
-    run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
-    requires = {
-      { "nvim-lua/popup.nvim" },
-      { "nvim-lua/plenary.nvim" },
-      { "nvim-telescope/telescope-live-grep-args.nvim" },
-    },
+    "nvim-telescope/telescope.nvim",
+    requires = { { "nvim-lua/popup.nvim" }, { "nvim-lua/plenary.nvim" } },
   })
 
   -- Treesitter
@@ -91,6 +77,19 @@ return require("packer").startup(function(use)
   use("tpope/vim-fugitive")
   use("tpope/vim-surround")
   use("tpope/vim-abolish")
+
+  --Markdown Preview
+  use({
+    "iamcco/markdown-preview.nvim",
+    run = "cd app && npm install",
+    setup = function()
+      vim.g.mkdp_filetypes = { "markdown" }
+    end,
+    ft = { "markdown" },
+  })
+
+  --Vue stuff
+  use({ "leafOfTree/vim-vue-plugin" })
 
   -- commenting
   use("JoosepAlviste/nvim-ts-context-commentstring")

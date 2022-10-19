@@ -1,20 +1,7 @@
 -- most of this is default settings
 local telescope = require("telescope")
-local lga_actions = require("telescope-live-grep-args.actions")
 
 telescope.setup({
-  extensions = {
-    live_grep_args = {
-      auto_quoting = true, -- enable/disable auto-quoting
-      -- override default mappings
-      -- default_mappings = {},
-      mappings = { -- extend mappings
-        i = {
-          ["<C-k>"] = lga_actions.quote_prompt(),
-        },
-      },
-    },
-  },
   defaults = {
     vimgrep_arguments = {
       "rg",
@@ -77,9 +64,7 @@ Live_grep_qflist = function()
     end
   end
 
-  -- builtin.grep_string({ search = "", search_dirs = filetable })
   builtin.live_grep({ search_dirs = filetable })
 end
 
 telescope.load_extension("session-lens")
-telescope.load_extension("fzf")
