@@ -28,6 +28,7 @@ require("Comment-settings")
 require("indent-blankline-settings")
 require("undo-tree-settings")
 require("octo-settings")
+require("signify-settings")
 
 -- keymappings
 require("keymappings")

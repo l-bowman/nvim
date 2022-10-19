@@ -76,12 +76,6 @@ wk.register({
     h = { "<cmd>Telescope help_tags<CR>", "Search help" },
     q = { Live_grep_qflist, "Live grep quickfix list" },
   },
-  h = {
-    name = "Git Gutter",
-    p = "Preview Hunk",
-    s = "Stage Hunk",
-    u = "Undo Changes",
-  },
   e = { "<cmd>NvimTreeToggle<CR>", "File Tree" },
   u = { "<cmd>UndotreeToggle<CR><cmd>UndotreeFocus<CR>", "Undotree" },
   -- trouble bindings

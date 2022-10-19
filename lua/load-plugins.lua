@@ -105,7 +105,7 @@ return require("packer").startup(function(use)
   -- Formatting
   use("mhartington/formatter.nvim")
 
-  use("airblade/vim-gitgutter")
+  use("mhinz/vim-signify")
 
   -- hightlight matching tag in html,jsx etc.
   use("leafOfTree/vim-matchtag")

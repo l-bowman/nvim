@@ -110,7 +110,7 @@ One test snippet is included as an example.
     and quote pairs
 14. [mhartington/formatter.nvim](https://github.com/mhartington/formatter.nvim)
     Formatting
-15. [airblade/vim-gitgutter](https://github.com/airblade/vim-gitgutter) Git status
+15. [mhinz/vim-signify](https://github.com/mhinz/vim-signify) Git status
     in the sign column
 16. [leafOfTree/vim-matchtag](https://github.com/leafOfTree/vim-matchtag)
     Highlight matching tag in HTML/JSX
