@@ -67,4 +67,22 @@ Live_grep_qflist = function()
   builtin.live_grep({ search_dirs = filetable })
 end
 
+-- TODO: consolidate these two functions.
+Inverse_live_grep_qflist = function()
+  local qflist = vim.fn.getqflist()
+  local filetable = {}
+  local hashlist = {}
+
+  for _, value in pairs(qflist) do
+    local name = vim.api.nvim_buf_get_name(value.bufnr)
+
+    if not hashlist[name] then
+      hashlist[name] = true
+      table.insert(filetable, name)
+    end
+  end
+
+  builtin.live_grep({ search_dirs = filetable, additional_args = { "-lv" } })
+end
+
 telescope.load_extension("session-lens")
