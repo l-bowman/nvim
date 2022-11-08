@@ -65,7 +65,10 @@ wk.register({
     b = { "<cmd>Telescope buffers<cr>", "Find Buffer" },
     n = { "<cmd>TodoTelescope<cr>", "Find Notes" },
     t = { "<cmd>Telescope builtin<cr>", "Telescope builtin" },
-    i = { "<cmd>lua require('telescope.builtin').live_grep({additional_args = {'-lv'}})<CR>", "Live Grep" },
+    i = {
+      "<cmd>lua require('telescope.builtin').live_grep({additional_args = {'--files-without-match'}})<CR>",
+      "Inverse Live Grep",
+    },
     g = { "<cmd>lua require('telescope.builtin').live_grep()<CR>", "Live Grep" },
     r = { "<cmd>Telescope lsp_references<cr>", "Find References" },
     d = { "<cmd>Telescope diagnostics<cr>", "Document Diagnostics" },

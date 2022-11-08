@@ -82,7 +82,7 @@ Inverse_live_grep_qflist = function()
     end
   end
 
-  builtin.live_grep({ search_dirs = filetable, additional_args = { "-lv" } })
+  builtin.live_grep({ search_dirs = filetable, additional_args = { "--files-without-match" } })
 end
 
 telescope.load_extension("session-lens")
