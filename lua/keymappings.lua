@@ -73,6 +73,8 @@ local mappings = {
     -- bufferline
     { "H", "<cmd>BufferLineCyclePrev<CR>" },
     { "L", "<cmd>BufferLineCycleNext<CR>" },
+    { "<C-d>", "<C-d>zz" },
+    { "<C-u>", "<C-u>zz" },
   },
   t = {
     -- Terminal mode
