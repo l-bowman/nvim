@@ -30,6 +30,9 @@ return require("packer").startup(function(use)
     run = ":TSUpdate",
   })
 
+  -- Treesitter Text Object selection
+  use("nvim-treesitter/nvim-treesitter-textobjects")
+
   --Indent lines
   use("lukas-reineke/indent-blankline.nvim")
 
