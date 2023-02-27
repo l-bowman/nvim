@@ -53,6 +53,7 @@ return {
           vertical = { width = 0.5 },
           -- other layout configuration here
         },
+        file_sorter = require("telescope.sorters").get_fuzzy_file,
         file_ignore_patterns = { ".git/", "node_modules/", "env/" }, -- ignore git
         winblend = 0,
       },
