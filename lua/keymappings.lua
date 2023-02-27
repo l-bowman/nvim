@@ -80,8 +80,8 @@ local mappings = {
     { "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true } },
     -- open link under cursor
     -- Linux
-    -- { "gx", '<Cmd>call jobstart(["xdg-open", expand("<cfile>")],{"detach": v:true})<CR>' },
-    --Mac
+    -- { "gx", '<Cmd>call jobstart(["xdg-open", expand("<cfile>")], {"detach": v:true})<CR>' },
+    -- Mac
     { "gx", '<Cmd>call jobstart(["open", expand("<cfile>")],{"detach": v:true})<CR>' },
   },
   t = {
@@ -104,6 +104,13 @@ local mappings = {
     { "J", "<cmd>m '>+1<CR>gv=gv" },
     { "K", "<cmd>m '<-2<CR>gv=gv" },
   },
+  x = {
+    -- remap p to always paste from last yank
+    { "<leader>p", '"_dP' },
+  },
 }
 
 register_mappings(mappings, { silent = true, noremap = true })
+
+-- S for search and replace in buffer
+vim.cmd("nnoremap S :%s/")

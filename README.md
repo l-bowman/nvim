@@ -1,42 +1,37 @@
-Fork of a fantastic Neovim config by bushblade: https://github.com/bushblade/nvim
+# FORKED Config. Thanks, Will!
 
-Thanks, Will!
-
-![Screenshot](https://res.cloudinary.com/bushblade/image/upload/v1650398285/nvim-screenshot.webp)
+![Screenshot](https://res.cloudinary.com/bushblade/image/upload/w_1000/nvim-screenshot-03.webp)
 [kitty terminal](https://sw.kovidgoyal.net/kitty/) with [TokyoNight](https://sw.kovidgoyal.net/kitty/) terminal theme and [Victor Mono](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/VictorMono) nerd font.
 
 **My config for Nvim using native LSP with some sane defaults and settings**, mainly
 aimed at web development but ready to go with Python, Rust, Golang, Deno and Lua.
 
-Uses nightly release of Neovim
+Uses the nightly build of Neovim
 
 ## Clone the repository into ~/.config/nvim
 
 ```bash
-git clone https://github.com/l-bowman/nvim.git ~/.config/nvim
+git clone https://github.com/bushblade/nvim.git ~/.config/nvim
 ```
-
-## Install GitHub ClI
-
-https://cli.github.com/
 
 ## Install language servers
 
 Most available via npm
 
 ```bash
-npm install -g typescript typescript-language-server vscode-langservers-extracted vls @tailwindcss/language-server yaml-language-server @prisma/language-server emmet-ls neovim graphql-language-service-cli graphql-language-service-server @astrojs/language-server
+npm install -g typescript typescript-language-server vscode-langservers-extracted @volar/vue-language-server @tailwindcss/language-server yaml-language-server @prisma/language-server emmet-ls neovim graphql-language-service-cli @astrojs/language-server
 
 ```
 
 > TIP: [No sudo on global npm install](https://github.com/sindresorhus/guides/blob/main/npm-global-without-sudo.md)
 
-### Lua, Pyright, Deno, Gopls, Deno and rust-analyzer
+### Lua, Pyright, Deno, Gopls and rust-analyzer available in Arch/Manjaro repos
 
-Check your package manager for availability. Example with brew:
+Check your package manager for availability if not on an Arch based distro -
+_brew, apt_ etc.
 
 ```bash
-brew install lua-language-server deno pyright rust-analyzer gopls fd
+sudo pacman -S lua-language-server pyright deno rust-analyzer gopls
 ```
 
 ## Install formatters
@@ -47,25 +42,26 @@ prettier with npm
 npm i -g prettier
 ```
 
-[ stylua ](https://github.com/JohnnyMorganz/StyLua)
-Check your package manager for availability. Example with brew:
+[ stylua ](https://github.com/JohnnyMorganz/StyLua) is in the AUR
 
 ```bash
-brew install stylua
+pamac install stylua
 ```
 
-[autopep8](https://pypi.org/project/autopep8/)
-Check your package manager for availability. Example with brew:
+Check your package manager for availability if not on an Arch based distro -
+_brew, apt_ etc.
+
+[autopep8](https://pypi.org/project/autopep8/) for python is in Manjaro/Arch
+repos
 
 ```bash
-brew install autopep8
+sudo pacman -S autopep8
 ```
 
 ## Launch Nvim
 
-On the first run of nvim be sure to install plugins.
-
-`:PackerSync`
+Lazy will install all plugins, you may then need to quit and restart to get
+everything running correctly.
 
 ## Adding custom Snippets
 
@@ -78,7 +74,7 @@ One test snippet is included as an example.
 
 ## Currently installed plugins
 
-1. [wbthomason/packer.nvim](https://github.com/wbthomason/packer.nvim) - Plugin manager
+1. [/lazy/lazy.nvim](https://github.com/folke/lazy.nvim.git) - Plugin manager
 2. [neovim/nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) - LSP
 3. [nvim-telescope/telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) - Fuzzy find anything
 4. [nvim-treesitter/nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) Language parsing for highlighting and more
@@ -102,43 +98,56 @@ One test snippet is included as an example.
    pairs mappings
 10. [numToStr/Comment.nvim](https://github.com/numToStr/Comment.nvim) Vim style
     commenting
-11. [knubie/vim-kitty-navigator](https://github.com/knubie/vim-kitty-navigator)
-    Move between Nvim and Kitty splits
+11. ~~[knubie/vim-kitty-navigator](https://github.com/knubie/vim-kitty-navigator)
+    Move between Nvim and Kitty splits~~
 12. [windwp/nvim-ts-autotag](https://github.com/windwp/nvim-ts-autotag) HTML/JSX
     auto tags
 13. [windwp/nvim-autopairs](https://github.com/windwp/nvim-autopairs) Auto bracket
     and quote pairs
-14. [mhartington/formatter.nvim](https://github.com/mhartington/formatter.nvim)
+14. [windwp/nvim-spectre](https://github.com/windwp/nvim-spectre) Project wide
+    find and replace
+15. [mhartington/formatter.nvim](https://github.com/mhartington/formatter.nvim)
     Formatting
-15. [mhinz/vim-signify](https://github.com/mhinz/vim-signify) Git status
+16. [mhinz/vim-signify](https://github.com/airblade/vim-gitgutter) Git status
     in the sign column
-16. [leafOfTree/vim-matchtag](https://github.com/leafOfTree/vim-matchtag)
+17. [leafOfTree/vim-matchtag](https://github.com/leafOfTree/vim-matchtag)
     Highlight matching tag in HTML/JSX
-17. [kyazdani42/nvim-tree.lua](https://github.com/kyazdani42/nvim-tree.lua) File
+18. [kyazdani42/nvim-tree.lua](https://github.com/kyazdani42/nvim-tree.lua) File
     tree
-18. [JoosepAlviste/nvim-ts-context-commentstring](https://github.com/JoosepAlviste/nvim-ts-context-commentstring) Better commenting based on file type
-19. [onsails/lspkind-nvim](https://github.com/onsails/lspkind-nvim) Icons in
+19. [JoosepAlviste/nvim-ts-context-commentstring](https://github.com/JoosepAlviste/nvim-ts-context-commentstring) Better commenting based on file type
+20. [onsails/lspkind-nvim](https://github.com/onsails/lspkind-nvim) Icons in
     completion
-20. [folke/tokyonight.nvim](https://github.com/folke/tokyonight.nvim) Theme
-21. [folke/trouble.nvim](https://github.com/folke/trouble.nvim) Show the problems
+21. [folke/tokyonight.nvim](https://github.com/folke/tokyonight.nvim) Theme
+22. [folke/trouble.nvim](https://github.com/folke/trouble.nvim) Show the problems
     in your code
-22. [folke/which-key.nvim](https://github.com/folke/which-key.nvim) Keymap helper
-23. [folke/todo-comments.nvim](https://github.com/folke/todo-comments.nvim)
+23. [folke/which-key.nvim](https://github.com/folke/which-key.nvim) Keymap helper
+24. [folke/todo-comments.nvim](https://github.com/folke/todo-comments.nvim)
     Highlight and search project todos and notes
-24. [norcalli/nvim-colorizer.lua](https://github.com/norcalli/nvim-colorizer.lua)
+25. [norcalli/nvim-colorizer.lua](https://github.com/norcalli/nvim-colorizer.lua)
     Display the colour of your hex/rgb/hsl value
-25. [kevinoid/vim-jsonc](https://github.com/kevinoid/vim-jsonc) Comments in json
-    filetype
 26. [akinsho/bufferline.nvim](https://github.com/akinsho/bufferline.nvim) Buffers
     in tabs
-27. [weilbith/nvim-code-action-menu](https://github.com/ahmedkhalf/weilbith/nvim-code-action-menu) Better code actions
+27. [weilbith/nvim-code-action-menu](https://github.com/weilbith/nvim-code-action-menu) Better code actions
 28. [rmagatti/auto-session](https://github.com/rmagatti/auto-session) Session
-management
-<!-- 29. [goolord/alpha-nvim](https://github.com/goolord/alpha-nvim) Dashboard -->
+    management
 29. [mbbill/undotree](https://github.com/mbbill/undotree) Undotree
-30. [pwntester/octo.nvim](https://github.com/pwntester/octo.nvim) GitHub
-    Integration
+30. [j-hui/fidget.nvim](https://github.com/j-hui/fidget.nvim,) UI for lsp
+    progress
 
 ## Resources and inspiration
 
-[Bushblade](https://github.com/bushblade/nvim)
+[Nvim Lua guide](https://github.com/nanotee/nvim-lua-guide)
+
+[Ben Frain has a nice setup](https://gist.github.com/benfrain/97f2b91087121b2d4ba0dcc4202d252f)
+
+[Kick start your Nvim config](https://github.com/nvim-lua/kickstart.nvim)
+
+[Ui Customization docs](https://github.com/neovim/nvim-lspconfig/wiki/UI-customization#change-diagnostic-symbols-in-the-sign-column-gutter)
+
+[Lua for Programmers](https://ebens.me/post/lua-for-programmers-part-1/)
+
+[LSP config](https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md)
+
+[Awesome list of plugins](https://github.com/rockerBOO/awesome-neovim)
+
+[Plugin Finder](https://neovimcraft.com/)
