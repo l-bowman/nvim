@@ -49,6 +49,7 @@ return {
             g = { Live_grep_qflist, "Live Grep" },
             i = { Inverse_live_grep_qflist, "Inverse Live Grep" },
           },
+          e = { "<cmd>Telescope file_browser<CR>", "Browse Files" },
         },
         -- h = {
         --   name = "Git Gutter",
