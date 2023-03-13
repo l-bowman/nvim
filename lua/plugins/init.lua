@@ -6,8 +6,9 @@ return {
 
   -- NOTE: disabled for now as not working with nvim window bindings
   -- "knubie/vim-kitty-navigator",
-  -- "windwp/nvim-ts-autotag", -- auto close and rename tags
-  "simonward87/nvim-ts-autotag",
+  "windwp/nvim-ts-autotag", -- auto close and rename tags
+  -- "simonward87/nvim-ts-autotag", -- Not sure why Will moved to this. Needs
+  -- investigation
   "windwp/nvim-spectre", -- Spectre for find and replace
   "mhartington/formatter.nvim",
   "kyazdani42/nvim-web-devicons",
