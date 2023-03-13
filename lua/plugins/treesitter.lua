@@ -34,6 +34,7 @@ return {
         "rust",
         "help",
         "vim",
+        "css",
       }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
       -- ignore_install = {}, -- List of parsers to ignore installing
       highlight = {
@@ -44,7 +45,25 @@ return {
       },
 
       auto_install = true,
-      autotag = { enable = true },
+      -- autotag = { enable = true },
+      autotag = {
+        enable = true,
+        filetypes = {
+          "html",
+          "javascript",
+          "typescript",
+          "javascriptreact",
+          "typescriptreact",
+          "svelte",
+          "vue",
+          "tsx",
+          "jsx",
+          "markdown",
+          -- NOTE: not working in astro
+          --           -- https://github.com/windwp/nvim-ts-autotag/pull/89
+          --                     "astro",
+        },
+      },
       indent = {
         enable = true,
       },
