@@ -42,9 +42,9 @@ return {
       -- telescope.load_extension("session-lens")
       telescope.load_extension("file_browser")
 
-      -- live_grep a quickfix list!!!
       local builtin = require("telescope.builtin")
-      Live_grep_qflist = function()
+
+      local search_qflist = function(mode)
         local qflist = vim.fn.getqflist()
         local filetable = {}
         local hashlist = {}
@@ -58,26 +58,25 @@ return {
           end
         end
 
-        builtin.live_grep({ search_dirs = filetable })
-      end
+        local args = { search_dirs = filetable }
 
-      -- TODO: consolidate these two functions.
-      Inverse_live_grep_qflist = function()
-        local qflist = vim.fn.getqflist()
-        local filetable = {}
-        local hashlist = {}
-
-        for _, value in pairs(qflist) do
-          local name = vim.api.nvim_buf_get_name(value.bufnr)
-
-          if not hashlist[name] then
-            hashlist[name] = true
-            table.insert(filetable, name)
-          end
+        if mode == "live_grep" then
+          builtin.live_grep(args)
+        elseif mode == "inverse_live_grep" then
+          args.additional_args = { "--files-without-match" }
+          builtin.live_grep(args)
+        elseif mode == "find_files" then
+          builtin.find_files(args)
+        -- elseif mode == "inverse_find_files" then
+        --   args.additional_args = { "--files-without-match" }
+        --   builtin.find_files(args)
+        else
+          print("Invalid mode specified")
         end
-
-        builtin.live_grep({ search_dirs = filetable, additional_args = { "--files-without-match" } })
       end
+
+      -- assign function to global variable
+      _G.Live_grep_qflist = search_qflist
 
       telescope.load_extension("session-lens")
     end,
