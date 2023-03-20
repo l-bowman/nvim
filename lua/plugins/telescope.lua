@@ -76,7 +76,7 @@ return {
       end
 
       -- assign function to global variable
-      _G.Live_grep_qflist = search_qflist
+      _G.Search_qflist = search_qflist
 
       telescope.load_extension("session-lens")
     end,

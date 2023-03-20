@@ -46,9 +46,9 @@ return {
           g = { "<cmd>lua require('telescope.builtin').live_grep()<CR>", "Live Grep" },
           q = {
             name = "Live Grep Quickfix List",
-            g = { "<cmd>lua search_qflist('live_grep')<CR>", "Live Grep" },
-            i = { "<cmd>lua search_qflist('inverse_live_grep')<CR>", "Inverse Live Grep" },
-            f = { "<cmd>lua search_qflist('find_files')<CR>", "Find Files" },
+            g = { "<cmd>lua Search_qflist('live_grep')<CR>", "Live Grep" },
+            i = { "<cmd>lua Search_qflist('inverse_live_grep')<CR>", "Inverse Live Grep" },
+            f = { "<cmd>lua Search_qflist('find_files')<CR>", "Find Files" },
           },
           e = { "<cmd>Telescope file_browser<CR>", "Browse Files" },
         },
