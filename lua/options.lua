@@ -1,3 +1,4 @@
+vim.g.copilot_assume_mapped = true
 vim.cmd([[set noswapfile]])
 vim.opt.relativenumber = true
 vim.opt.cursorline = true -- show the cursor line

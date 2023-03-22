@@ -3,6 +3,7 @@ return {
 
   "tpope/vim-fugitive",
   "tpope/vim-surround",
+  "github/copilot.vim",
 
   -- NOTE: disabled for now as not working with nvim window bindings
   -- "knubie/vim-kitty-navigator",
