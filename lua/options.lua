@@ -1,3 +1,12 @@
+vim.cmd([[
+      highlight OctoEditable guibg=#000000
+      " highlight OctoIssueTitle guibg=#3733FF
+      " highlight OctoNvimFloating guibg=#3733FF
+      " highlight OctoNvimPopup guibg=#3733FF
+      " highlight OctoNvimBubbleRed guifg=#3733FF
+      " highlight OctoNvimBubbleGreen guifg=#3733FF
+      " highlight OctoNvimBubbleBlue guifg=#3733FF
+      ]])
 vim.g.copilot_assume_mapped = true
 vim.cmd([[set noswapfile]])
 vim.opt.relativenumber = true

@@ -9,16 +9,6 @@ return {
     lazy = false,
     opts = {
       defaults = {
-        vimgrep_arguments = {
-          "rg",
-          "--color=never",
-          "--no-heading",
-          "--with-filename",
-          "--line-number",
-          "--column",
-          "--smart-case",
-          -- "--glob",
-        },
         layout_config = {
           vertical = { width = 0.5 },
           -- other layout configuration here
