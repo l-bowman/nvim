@@ -1,3 +1,21 @@
+local previewers = require("telescope.previewers")
+local putils = require("telescope.previewers.utils")
+
+local run_just_command = previewers.new_buffer_previewer({
+  title = "Justfile Target",
+  get_buffer_by_name = function(_, entry)
+    return entry.value
+  end,
+
+  define_preview = function(self, entry, _)
+    local target = entry.value
+    putils.job_maker({ "just", "--show", target }, self.state.bufnr, {
+      value = target,
+      bufname = self.state.bufname,
+    })
+  end,
+})
+
 return {
   {
     "axkirillov/easypick.nvim",
@@ -6,17 +24,11 @@ return {
       local base_branch = "master"
       require("easypick").setup({
         pickers = {
-          -- add your custom pickers here
-          -- below you can find some examples of what those can look like
-
-          -- list files inside current folder with default previewer
           {
-            -- name for your custom picker, that can be invoked using :Easypick <name> (supports tab completion)
-            name = "ls",
-            -- the command to execute, output has to be a list of plain text entries
-            command = "ls",
-            -- specify your custom previwer, or use one of the easypick.previewers
-            previewer = easypick.previewers.default(),
+            name = "just",
+            command = "just --summary | tr ' ' '\n'",
+            previewer = run_just_command,
+            action = easypick.actions.nvim_command("! just"),
           },
 
           -- diff current branch with base_branch and show files that changed with respective diffs in preview
