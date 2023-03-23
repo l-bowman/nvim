@@ -73,6 +73,7 @@ return {
         },
         h = {
           name = "Git",
+          a = { "<cmd>Git stage . | Git commit -m 'wip' | Git push<CR>", "Stage, Commit WIP, and Push" },
           c = { "<cmd>Git commit -m 'wip'<CR>", "Commit WIP" },
           p = { "<cmd>Git push<CR>", "Push" },
           s = { "<cmd>Git stage .<CR>", "Stage All" },
