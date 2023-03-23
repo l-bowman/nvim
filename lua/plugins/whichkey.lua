@@ -71,6 +71,12 @@ return {
           T = { "<cmd>TodoTelescope<CR>", "Search Todos" },
           t = { "<cmd>Telescope builtin<cr>", "Telescope builtin" },
         },
+        h = {
+          name = "Git",
+          c = { "<cmd>Git commit -m 'wip'<CR>", "Commit WIP" },
+          p = { "<cmd>Git push<CR>", "Push" },
+          s = { "<cmd>Git stage .<CR>", "Stage All" },
+        },
         L = { "<cmd>Lazy<CR>", "Lazy" },
         l = {
           name = "LSP",
