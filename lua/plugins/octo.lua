@@ -1,3 +1,4 @@
+vim.cmd([[highlight OctoEditable guibg=#000000]])
 return {
   {
     "pwntester/octo.nvim",

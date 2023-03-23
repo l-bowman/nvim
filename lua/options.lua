@@ -1,19 +1,3 @@
-vim.cmd([[
-      highlight OctoEditable guibg=#000000
-      " highlight OctoIssueTitle guibg=#3733FF
-      " highlight OctoNvimFloating guibg=#3733FF
-      " highlight OctoNvimPopup guibg=#3733FF
-      " highlight OctoNvimBubbleRed guifg=#3733FF
-      " highlight OctoNvimBubbleGreen guifg=#3733FF
-      " highlight OctoNvimBubbleBlue guifg=#3733FF
-      ]])
--- vim.g["copilot_no_tab_map"] = true
-vim.g["copilot_assume_mapped"] = true
--- vim.api.nvim_set_keymap("i", "<C-/>", "copilot#Accept(“<CR>”)", { expr = true, silent = true })
-
--- vim.g.copilot_assume_mapped = true
--- vim.g.copilot_no_tab_map = true
--- vim.api.nvim_set_keymap("i", "<C-J>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
 vim.cmd([[set noswapfile]])
 vim.opt.relativenumber = true
 vim.opt.cursorline = true -- show the cursor line
