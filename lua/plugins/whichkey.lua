@@ -51,7 +51,8 @@ return {
         f = {
           name = "Find with Telescope",
           a = { "<cmd>Telescope session-lens search_session<CR>", "Search Sessions" },
-          b = { "<cmd>Telescope buffers<cr>", "Find Buffer" },
+          B = { "<cmd>Telescope buffers<cr>", "Find Buffer" },
+          b = { "<cmd>Telescope bookmarks<cr>", "Find Bookmark" },
           d = { "<cmd>Telescope diagnostics<cr>", "Document Diagnostics" },
           e = { "<cmd>Telescope file_browser<CR>", "Browse Files" },
           f = { [[<cmd> lua require"telescope.builtin".find_files({ hidden = true })<CR>]], "Find File" },
@@ -125,7 +126,7 @@ return {
         },
         u = { "<cmd>UndotreeToggle<CR><cmd>UndotreeFocus<CR>", "Undotree" },
         W = { "<cmd>WhichKey<CR>", "WhichKey" },
-        w = { "<cmd>FormatWrite<CR>", "Quick Save" },
+        w = { "<cmd>write<CR>", "Quick Save" },
         y = {
           name = "Yank",
           a = { '<cmd>let @+ = expand("%:p")<cr>', "Absolute Path" },
