@@ -34,12 +34,13 @@ return {
         lualine_a = { "mode" },
         lualine_b = { "branch" },
         lualine_c = { "encoding", "filetype", custom_warning_indicator },
-        lualine_y = { "progress" },
-        lualine_z = { "location" },
         lualine_x = {
           { "filename", file_status = true, path = 1 },
         },
-        -- lualine_x = {"encoding", "fileformat", "filetype"},
+        lualine_y = {
+          "progress",
+        },
+        lualine_z = { "location", "hostname" },
       },
       inactive_sections = {
         lualine_a = {},
