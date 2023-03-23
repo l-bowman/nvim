@@ -77,7 +77,7 @@ return {
         d = { "<cmd>lua vim.diagnostic.open_float({ border = 'rounded' })<CR>", "Line Diagnostics" },
         s = { "<cmd>lua vim.o.spell = not vim.o.spell<cr>", "Toggle spell check" },
         r = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
-        w = { "<cmd>write<CR>", "Quick Save" },
+        w = { "<cmd>FormatWrite<CR>", "Quick Save" },
         W = { "<cmd>WhichKey<CR>", "WhichKey" },
         -- Bufferline
         b = {
