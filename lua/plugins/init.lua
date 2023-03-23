@@ -7,6 +7,7 @@ return {
   "nvim-lua/plenary.nvim",
   "MunifTanjim/nui.nvim",
   "dpayne/CodeGPT.nvim",
+  "voldikss/vim-browser-search",
 
   "windwp/nvim-ts-autotag", -- auto close and rename tags
   -- "simonward87/nvim-ts-autotag", -- Not sure why Will moved to this. Needs
