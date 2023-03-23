@@ -125,7 +125,7 @@ return {
         },
         u = { "<cmd>UndotreeToggle<CR><cmd>UndotreeFocus<CR>", "Undotree" },
         W = { "<cmd>WhichKey<CR>", "WhichKey" },
-        w = { "<cmd>Format | write<CR>", "Quick Save" },
+        w = { "<cmd>FormatWrite<CR>", "Quick Save" },
         y = {
           name = "Yank",
           a = { '<cmd>let @+ = expand("%:p")<cr>', "Absolute Path" },

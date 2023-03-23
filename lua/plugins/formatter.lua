@@ -77,31 +77,31 @@ return {
     config = function(_, opts)
       require("formatter").setup(opts)
       -- Runs Formmater on save
-      -- vim.api.nvim_create_autocmd("BufWritePost", {
-      --   pattern = {
-      --     "*.js",
-      --     "*.mjs",
-      --     "*.cjs",
-      --     "*.jsx",
-      --     "*.ts",
-      --     "*.tsx",
-      --     "*.css",
-      --     "*.scss",
-      --     "*.md",
-      --     "*.html",
-      --     "*.lua",
-      --     "*.json",
-      --     "*.jsonc",
-      --     "*.vue",
-      --     "*.py",
-      --     "*.gql",
-      --     "*.graphql",
-      --     "*.go",
-      --     "*.rs",
-      --     "*.astro",
-      --   },
-      --   command = "FormatWrite",
-      -- })
+      vim.api.nvim_create_autocmd("BufWritePost", {
+        pattern = {
+          "*.js",
+          "*.mjs",
+          "*.cjs",
+          "*.jsx",
+          "*.ts",
+          "*.tsx",
+          "*.css",
+          "*.scss",
+          "*.md",
+          "*.html",
+          "*.lua",
+          "*.json",
+          "*.jsonc",
+          "*.vue",
+          "*.py",
+          "*.gql",
+          "*.graphql",
+          "*.go",
+          "*.rs",
+          "*.astro",
+        },
+        command = "FormatWrite",
+      })
     end,
   },
 }

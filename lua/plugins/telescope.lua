@@ -6,9 +6,15 @@ return {
       "rmagatti/session-lens",
       "nvim-telescope/telescope-file-browser.nvim",
       "nvim-telescope/telescope-live-grep-args.nvim",
+      "dhruvmanila/browser-bookmarks.nvim",
     },
     lazy = false,
     opts = {
+      extensions = {
+        bookmarks = {
+          selected_browser = "chrome",
+        },
+      },
       defaults = {
         layout_config = {
           vertical = { width = 0.5 },
@@ -80,6 +86,7 @@ return {
       -- assign function to global variable
       _G.Search_qflist = search_qflist
 
+      telescope.load_extension("bookmarks")
       telescope.load_extension("session-lens")
     end,
   },
