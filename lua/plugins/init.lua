@@ -3,6 +3,7 @@ return {
 
   "tpope/vim-fugitive",
   "tpope/vim-surround",
+  "tpope/vim-unimpaired",
   "nvim-lua/plenary.nvim",
   "MunifTanjim/nui.nvim",
   "dpayne/CodeGPT.nvim",
