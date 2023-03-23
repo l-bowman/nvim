@@ -113,7 +113,14 @@ return {
         y = {
           name = "Yank",
           n = { '<cmd>let @+ = expand("%:t")<cr>', "Filename" },
-          r = { '<cmd>let @+ = expand("%")<cr>', "Relative Path" },
+          r = {
+            '<cmd>let @+ = expand("%")<cr>',
+            "Relative Path (src)",
+          },
+          v = {
+            "<cmd>let @\" = 'import  from \"' . \"@/\" . substitute(expand(\"%\"), '\\(.*src\\)/\\?', '', ''). '\"' . ';'<cr>",
+            "Get Vue Style Import",
+          },
           a = { '<cmd>let @+ = expand("%:p")<cr>', "Absolute Path" },
         },
       }, {
