@@ -128,7 +128,7 @@ return {
           },
           v = {
             "<cmd>let @\" = 'import  from \"' . \"@/\" . substitute(expand(\"%\"), '\\(.*src\\)/\\?', '', ''). '\"' . ';'<cr>",
-            "Get Vue Style Import",
+            "Vue Style Import",
           },
         },
       }, {
