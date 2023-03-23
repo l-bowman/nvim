@@ -75,8 +75,16 @@ return {
           name = "Git",
           a = { "<cmd>Git stage . | Git commit -m 'wip' | Git push<CR>", "Stage, Commit WIP, and Push" },
           c = { "<cmd>Git commit -m 'wip'<CR>", "Commit WIP" },
+          d = { "<cmd>Gdiffsplit<CR>", "Show Diff (index on right)" },
+          g = { "<cmd>0Git<CR>", "0Git" },
+          h = {
+            "<cmd>Gllog origin/master -100 --decorate --first-parent --merges<CR>",
+            "Last 100 Merge Commits (origin/master)",
+          },
+          l = { "<cmd>0Gllog<CR>", "Show File Revisions" },
           p = { "<cmd>Git push<CR>", "Push" },
           s = { "<cmd>Git stage .<CR>", "Stage All" },
+          v = { "<cmd>Gvdiffsplit origin/master<CR>", "Diff with origin/master" },
         },
         L = { "<cmd>Lazy<CR>", "Lazy" },
         l = {
