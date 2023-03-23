@@ -3,14 +3,14 @@ return {
 
   "tpope/vim-fugitive",
   "tpope/vim-surround",
-  "github/copilot.vim",
+  "nvim-lua/plenary.nvim",
+  "MunifTanjim/nui.nvim",
+  "dpayne/CodeGPT.nvim",
 
-  -- NOTE: disabled for now as not working with nvim window bindings
-  -- "knubie/vim-kitty-navigator",
   "windwp/nvim-ts-autotag", -- auto close and rename tags
   -- "simonward87/nvim-ts-autotag", -- Not sure why Will moved to this. Needs
   -- investigation
-  "windwp/nvim-spectre", -- Spectre for find and replace
+  "windwp/nvim-spectre",
   "mhartington/formatter.nvim",
   "kyazdani42/nvim-web-devicons",
   "lukas-reineke/indent-blankline.nvim",

@@ -1,13 +1,13 @@
 return {
   {
-    "pwntester/octo.nvim",
+    "jackMort/ChatGPT.nvim",
     dependencies = {
+      "MunifTanjim/nui.nvim",
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope.nvim",
-      "kyazdani42/nvim-web-devicons",
     },
     config = function()
-      require("octo").setup()
+      require("chatgpt").setup()
     end,
   },
 }

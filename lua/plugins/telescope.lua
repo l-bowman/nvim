@@ -5,6 +5,7 @@ return {
       "nvim-lua/plenary.nvim",
       "rmagatti/session-lens",
       "nvim-telescope/telescope-file-browser.nvim",
+      "nvim-telescope/telescope-live-grep-args.nvim",
     },
     lazy = false,
     opts = {
@@ -41,6 +42,7 @@ return {
 
       -- telescope.load_extension("session-lens")
       telescope.load_extension("file_browser")
+      telescope.load_extension("live_grep_args")
 
       local builtin = require("telescope.builtin")
 
