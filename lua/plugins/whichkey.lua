@@ -28,6 +28,16 @@ return {
       wk.setup(opts)
       -- register key bindings with <leader> prefix
       wk.register({
+        o = {
+          name = "Octo",
+          a = { "<cmd>Octo comment add<cr>", "Add Comment" },
+          d = { "<cmd>Octo comment delete<cr>", "Delete Comment" },
+          c = { "<cmd>Octo pr checkout<cr>", "Checkout PR" },
+          t = { "<cmd>Octo pr list wyyerd/monorepo states=OPEN labels=team\\ orion<cr>", "Show Orion Team PRs" },
+          m = { "<cmd>Octo pr merge squash<cr>", "Squash Merge PR" },
+          p = { "<cmd>Octo search is:pr author:l-bowman<cr>", "Show All My PRs" },
+          o = { "<cmd>Octo search is:pr is:open author:l-bowman<cr>", "Show All My Open PRs" },
+        },
         f = {
           -- mostly Telescope bindings
           name = "Find with Telescope",
@@ -77,7 +87,7 @@ return {
         d = { "<cmd>lua vim.diagnostic.open_float({ border = 'rounded' })<CR>", "Line Diagnostics" },
         s = { "<cmd>lua vim.o.spell = not vim.o.spell<cr>", "Toggle spell check" },
         r = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
-        w = { "<cmd>FormatWrite<CR>", "Quick Save" },
+        w = { "<cmd>Format | write<CR>", "Quick Save" },
         W = { "<cmd>WhichKey<CR>", "WhichKey" },
         -- Bufferline
         b = {
