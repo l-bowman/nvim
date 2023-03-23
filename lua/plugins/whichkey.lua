@@ -47,7 +47,7 @@ return {
         },
         c = { "<cmd>CodeActionMenu<CR>", "Code Actions" },
         d = { "<cmd>lua vim.diagnostic.open_float({ border = 'rounded' })<CR>", "Line Diagnostics" },
-        D = { "<cmd>delmarks *<CR>", "Delete All Marks" },
+        D = { "<cmd>delm! | delm A-Z0-9<CR>", "Delete All Marks" },
         e = { "<cmd>NvimTreeToggle<CR>", "File Tree" },
         f = {
           name = "Find with Telescope",
