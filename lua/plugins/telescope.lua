@@ -7,7 +7,6 @@ return {
       "nvim-telescope/telescope-file-browser.nvim",
       "nvim-telescope/telescope-live-grep-args.nvim",
       "dhruvmanila/browser-bookmarks.nvim",
-      "lua/keymappings.lua",
     },
     lazy = false,
     opts = {
