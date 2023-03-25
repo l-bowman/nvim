@@ -131,7 +131,8 @@ return {
         },
         u = { "<cmd>UndotreeToggle<CR><cmd>UndotreeFocus<CR>", "Undotree" },
         W = { "<cmd>WhichKey<CR>", "WhichKey" },
-        w = { "<cmd>write<CR>", "Format and Write Buffer" },
+        -- Extra write command here is a hack to work around situations where the formatter fails because no formatting occurs
+        w = { "<cmd>write | Format | write<CR>", "Format and Write Buffer" },
         x = {
           name = "TrailBlazer",
           b = { "<cmd>TrailBlazerTrackBack<cr>", "Track Back" },
@@ -153,13 +154,10 @@ return {
           name = "Yank",
           a = { '<cmd>let @+ = expand("%:p")<cr>', "Absolute Path" },
           n = { '<cmd>let @+ = expand("%:t")<cr>', "Filename" },
-          r = {
-            '<cmd>let @+ = expand("%")<cr>',
-            "Relative Path (src)",
-          },
+          r = { '<cmd>let @+ = expand("%")<cr>', "Relative Path (src)" },
           v = {
             "<cmd>let @\" = 'import  from \"' . \"@/\" . substitute(expand(\"%\"), '\\(.*src\\)/\\?', '', ''). '\"' . ';'<cr>",
-            "Vue Style Import",
+            "Vue-Style Import",
           },
         },
       }, {
