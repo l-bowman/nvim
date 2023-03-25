@@ -75,7 +75,7 @@ return {
           T = { "<cmd>TodoTelescope<CR>", "Search Todos" },
           t = { "<cmd>Telescope builtin<cr>", "Telescope builtin" },
         },
-        h = {
+        g = {
           name = "Git",
           a = { "<cmd>Git stage . | Git commit -m 'wip' | Git push<CR>", "Stage, Commit WIP, and Push" },
           c = { "<cmd>Git commit -m 'wip'<CR>", "Commit WIP" },
@@ -161,11 +161,11 @@ return {
       })
 
       wk.register({
-        name = "Go to",
+        name = "Navigate to",
         D = "Declaration",
         d = "Definition",
         r = "References",
-      }, { prefix = "g" })
+      }, { prefix = "n" })
     end,
   },
 }
