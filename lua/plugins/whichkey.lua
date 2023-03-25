@@ -144,7 +144,7 @@ return {
           p = { "<cmd>TrailBlazerPasteAtLastTrailMark<cr>", "Paste at Last Trail Mark" },
           P = { "<cmd>TrailBlazerPasteAtAllTrailMarks<cr>", "Paste at All Trail Marks" },
           s = { "<cmd>TrailBlazerTrailMarkSelectMode<cr>", "Trail Mark Select Mode" },
-          t = { "<cmd>TrailBlazerToggleTrailMarkQuickFixList<cr>", "Toggle Trail Mark QuickFix List" },
+          t = { "<cmd>TrailBlazerToggleTrailMarkList<cr>", "Toggle Trail Mark QuickFix List" },
         },
         y = {
           name = "Yank",

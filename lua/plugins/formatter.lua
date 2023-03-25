@@ -19,34 +19,32 @@ _G.FormatWrite = function()
   local opts = {
     -- Get the formatter for the current filetype
     -- You can add more filetypes to this table if needed
-    filetype = vim.tbl_filter(
-      function(ft)
-        return ft == vim.bo.filetype
-      end,
-      {
-        "typescriptreact",
-        "javascriptreact",
-        "javascript",
-        "typescript",
-        "json",
-        "jsonc",
-        "html",
-        "css",
-        "scss",
-        "graphql",
-        "markdown",
-        "vue",
-        "astro",
-        "yaml",
-        "go",
-        "lua",
-        "python",
-        "rust",
-      }
-    ),
+    filetype = vim.tbl_filter(function(ft)
+      return ft == vim.bo.filetype
+    end, {
+      "typescriptreact",
+      "javascriptreact",
+      "javascript",
+      "typescript",
+      "json",
+      "jsonc",
+      "html",
+      "css",
+      "scss",
+      "graphql",
+      "markdown",
+      "vue",
+      "astro",
+      "yaml",
+      "go",
+      "lua",
+      "python",
+      "rust",
+    }),
   }
 
   require("formatter").format(opts, prettier())
+  vim.cmd("write")
 end
 
 return {
