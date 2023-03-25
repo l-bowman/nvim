@@ -132,7 +132,11 @@ return {
         u = { "<cmd>UndotreeToggle<CR><cmd>UndotreeFocus<CR>", "Undotree" },
         W = { "<cmd>WhichKey<CR>", "WhichKey" },
         -- Extra write command here is a hack to work around situations where the formatter fails because no formatting occurs
-        w = { "<cmd>write | Format | write<CR>", "Format and Write Buffer" },
+        -- Additional hack shows my TrailBlazer signs after formatting clears them.
+        w = {
+          "<cmd>write | FormatWrite | sleep 100m | TrailBlazerLoadSession<CR>",
+          "Format and Write Buffer",
+        },
         x = {
           name = "TrailBlazer",
           b = { "<cmd>TrailBlazerTrackBack<cr>", "Track Back" },
