@@ -14,6 +14,41 @@ local prettier = function()
   }
 end
 
+-- Define global function to format the current buffer
+_G.FormatWrite = function()
+  local opts = {
+    -- Get the formatter for the current filetype
+    -- You can add more filetypes to this table if needed
+    filetype = vim.tbl_filter(
+      function(ft)
+        return ft == vim.bo.filetype
+      end,
+      {
+        "typescriptreact",
+        "javascriptreact",
+        "javascript",
+        "typescript",
+        "json",
+        "jsonc",
+        "html",
+        "css",
+        "scss",
+        "graphql",
+        "markdown",
+        "vue",
+        "astro",
+        "yaml",
+        "go",
+        "lua",
+        "python",
+        "rust",
+      }
+    ),
+  }
+
+  require("formatter").format(opts, prettier())
+end
+
 return {
   {
     "mhartington/formatter.nvim",
@@ -77,31 +112,31 @@ return {
     config = function(_, opts)
       require("formatter").setup(opts)
       -- Runs Formmater on save
-      vim.api.nvim_create_autocmd("BufWritePost", {
-        pattern = {
-          "*.js",
-          "*.mjs",
-          "*.cjs",
-          "*.jsx",
-          "*.ts",
-          "*.tsx",
-          "*.css",
-          "*.scss",
-          "*.md",
-          "*.html",
-          "*.lua",
-          "*.json",
-          "*.jsonc",
-          "*.vue",
-          "*.py",
-          "*.gql",
-          "*.graphql",
-          "*.go",
-          "*.rs",
-          "*.astro",
-        },
-        command = "FormatWrite",
-      })
+      -- vim.api.nvim_create_autocmd("BufWritePost", {
+      --   pattern = {
+      --     "*.js",
+      --     "*.mjs",
+      --     "*.cjs",
+      --     "*.jsx",
+      --     "*.ts",
+      --     "*.tsx",
+      --     "*.css",
+      --     "*.scss",
+      --     "*.md",
+      --     "*.html",
+      --     "*.lua",
+      --     "*.json",
+      --     "*.jsonc",
+      --     "*.vue",
+      --     "*.py",
+      --     "*.gql",
+      --     "*.graphql",
+      --     "*.go",
+      --     "*.rs",
+      --     "*.astro",
+      --   },
+      --   command = "FormatWrite",
+      -- })
     end,
   },
 }
