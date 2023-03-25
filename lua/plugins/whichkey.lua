@@ -127,7 +127,7 @@ return {
           r = { "<cmd>Trouble lsp_references<CR>", "References" },
           t = { "<cmd>TroubleToggle<CR>", "Toggle" },
           T = { "<cmd>TodoTrouble<CR>", "Todos" },
-          w = { "<cmd>Trouble workspace_diagnostics<CR>", "Workspace Diagnostics" },
+                  w = { "<cmd>Trouble workspace_diagnostics<CR>", "Workspace Diagnostics" },
         },
         u = { "<cmd>UndotreeToggle<CR><cmd>UndotreeFocus<CR>", "Undotree" },
         W = { "<cmd>WhichKey<CR>", "WhichKey" },
