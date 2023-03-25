@@ -59,9 +59,10 @@ return {
           F = { "<cmd>Telescope file_browser<CR>", "Browse Files" },
           f = { [[<cmd> lua require"telescope.builtin".find_files({ hidden = true })<CR>]], "Find File" },
           g = { "<cmd>lua require('telescope.builtin').live_grep()<CR>", "Live Grep" },
-          h = { "<cmd>Telescope help_tags<CR>", "Search help" },
-          k = { "<cmd>Telescope keymaps<CR>", "Key mappings" },
-          M = { "<cmd>Telescope man_pages<CR>", "Man pages" },
+          H = { "<cmd>Telescope harpoon marks<CR>", "Harpoon Marks" },
+          h = { "<cmd>Telescope help_tags<CR>", "Search Help" },
+          k = { "<cmd>Telescope keymaps<CR>", "Key Mappings" },
+          M = { "<cmd>Telescope man_pages<CR>", "Man Pages" },
           m = { "<cmd>Telescope marks<CR>", "Marks" },
           n = { "<cmd>TodoTelescope<cr>", "Find Notes" },
           q = {
@@ -98,6 +99,14 @@ return {
           r = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
           R = { "<cmd> lua vim.lsp.buf.references()<CR>", "List references" },
         },
+        m = {
+          name = "Harpoon",
+          a = { "<cmd>lua require('harpoon.mark').add_file()<CR>", "Add File Mark" },
+          t = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>", "Toggle Quick Menu" },
+          n = { "<cmd>lua require('harpoon.ui').nav_next()<CR>", "Navigate to Next Mark" },
+          p = { "<cmd>lua require('harpoon.ui').nav_prev()<CR>", "Navigate to Previous Mark" },
+        },
+
         o = {
           name = "Octo",
           a = { "<cmd>Octo comment add<cr>", "Add Comment" },
@@ -132,27 +141,10 @@ return {
         u = { "<cmd>UndotreeToggle<CR><cmd>UndotreeFocus<CR>", "Undotree" },
         W = { "<cmd>WhichKey<CR>", "WhichKey" },
         -- Extra write command here is a hack to work around situations where the formatter fails because no formatting occurs
-        -- Additional hack shows my TrailBlazer signs after formatting clears them.
-        w = {
-          "<cmd>write | FormatWrite | sleep 100m | TrailBlazerLoadSession<CR>",
-          "Format and Write Buffer",
-        },
-        x = {
-          name = "TrailBlazer",
-          b = { "<cmd>TrailBlazerTrackBack<cr>", "Track Back" },
-          c = { "<cmd>TrailBlazerMoveToTrailMarkCursor<cr>", "Move to Trail Mark Cursor" },
-          D = { "<cmd>TrailBlazerDeleteAllTrailMarks<cr>", "Delete All Trail Marks" },
-          d = { "<cmd>TrailBlazerPeekMoveNextDown<cr>", "Peek Move Next Down" },
-          e = { "<cmd>TrailBlazerMoveToNearest<cr>", "Move to Nearest" },
-          l = { "<cmd>TrailBlazerLoadSession<cr>", "Load TrailBlazer Session" },
-          n = { "<cmd>TrailBlazerNewTrailMark<cr>", "New Trail Mark" },
-          P = { "<cmd>TrailBlazerPasteAtAllTrailMarks<cr>", "Paste at All Trail Marks" },
-          p = { "<cmd>TrailBlazerPasteAtLastTrailMark<cr>", "Paste at Last Trail Mark" },
-          q = { "<cmd>TrailBlazerToggleTrailMarkList<cr>", "Toggle Trail Mark QuickFix List" },
-          R = { "<cmd>TrailBlazerDeleteSession<cr>", "Delete TrailBlazer Session" },
-          s = { "<cmd>TrailBlazerTrailMarkSelectMode<cr>", "Trail Mark Select Mode" },
-          S = { "<cmd>TrailBlazerSaveSession<cr>", "Save TrailBlazer Session" },
-          u = { "<cmd>TrailBlazerPeekMovePreviousUp<cr>", "Peek Move Previous Up" },
+        w = { "<cmd>write | FormatWrite<CR>", "Format and Write Buffer" },
+        Y = {
+          "<cmd>!cd portals/management && npx eslint --fix %:p && cd -<cr>",
+          "Run yarn lint on current buffer",
         },
         y = {
           name = "Yank",

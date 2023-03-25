@@ -10,6 +10,7 @@ local prettier = function()
       vim.fn.shellescape(vim.api.nvim_buf_get_name(0)),
     },
     stdin = true,
+    ignore_exitcode = true,
     try_node_modules = true,
   }
 end

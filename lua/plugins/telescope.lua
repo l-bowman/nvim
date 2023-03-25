@@ -7,6 +7,7 @@ return {
       "nvim-telescope/telescope-file-browser.nvim",
       "nvim-telescope/telescope-live-grep-args.nvim",
       "dhruvmanila/browser-bookmarks.nvim",
+      "lua/keymappings.lua",
     },
     lazy = false,
     opts = {
@@ -49,6 +50,7 @@ return {
       -- telescope.load_extension("session-lens")
       telescope.load_extension("file_browser")
       telescope.load_extension("live_grep_args")
+      telescope.load_extension("harpoon")
 
       local builtin = require("telescope.builtin")
 
