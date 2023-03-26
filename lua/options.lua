@@ -61,3 +61,30 @@ vim.g.markdown_fenced_languages = {
   "ts=typescript",
   "js=javascript",
 }
+
+function ConvertVueFilenameToCamelCase()
+  -- 1. If the file extension is not .vue, return nothing
+  if vim.fn.expand("%:e") ~= "vue" then
+    return
+  end
+
+  -- 2. Get the filename of the current buffer without the path or extension
+  local filename = vim.fn.expand("%:t:r")
+
+  -- 3. Convert the snake-case filename to CamelCase
+  local camelcase = filename:gsub("%-([a-z])", function(c)
+    return c:upper()
+  end)
+  camelcase = camelcase:gsub("^%l", string.upper)
+
+  -- 4. Place the CamelCase name in the + register
+  vim.fn.setreg("+", camelcase)
+  return camelcase
+end
+
+function GetVueStyleImport()
+  local importStatement = string.format("import %s from '@/%%s';", ConvertVueFilenameToCamelCase())
+  local filePath = vim.fn.substitute(vim.fn.expand("%"), ".*src/", "", "")
+  vim.fn.setreg('"', importStatement:format(filePath))
+  return "<cmd>echom 'Import statement copied to register \"' . v:register . '\"'<cr>"
+end
