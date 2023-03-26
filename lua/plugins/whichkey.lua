@@ -45,6 +45,13 @@ return {
           p = { "<cmd>BufferLineTogglePin<CR>", "Toggle pin" },
           q = { "<cmd>BufferLinePickClose<CR>", "Pick to close" },
         },
+        C = {
+          name = "Console Commands",
+          c = "<cmd>!cd portals/management && npx eslint --fix %:p && cd -<cr>",
+          "Lint Fix File - Management",
+          m = "<cmd>!cd portals/customer && npx eslint --fix %:p && cd -<cr>",
+          "Lint Fix File - Customer",
+        },
         c = { "<cmd>CodeActionMenu<CR>", "Code Actions" },
         d = { "<cmd>lua vim.diagnostic.open_float({ border = 'rounded' })<CR>", "Line Diagnostics" },
         D = { "<cmd>delm! | delm A-Z0-9<CR>", "Delete All Marks" },
@@ -141,13 +148,6 @@ return {
         W = { "<cmd>WhichKey<CR>", "WhichKey" },
         -- Extra write command here is a hack to work around situations where the formatter fails because no formatting occurs
         w = { "<cmd>write | FormatWrite<CR>", "Format and Write Buffer" },
-        Y = {
-          name = "Yarn Lint",
-          c = "<cmd>!cd portals/management && npx eslint --fix %:p && cd -<cr>",
-          "Run yarn lint on current buffer",
-          m = "<cmd>!cd portals/customer && npx eslint --fix %:p && cd -<cr>",
-          "Run yarn lint on current buffer",
-        },
         y = {
           name = "Yank",
           a = { '<cmd>let @+ = expand("%:p")<cr>', "Absolute Path" },
