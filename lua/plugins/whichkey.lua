@@ -161,11 +161,11 @@ return {
       })
 
       wk.register({
-        name = "Navigate to",
+        name = "Go to",
         D = "Declaration",
         d = "Definition",
         r = "References",
-      }, { prefix = "n" })
+      }, { prefix = "g" })
     end,
   },
 }
