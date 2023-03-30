@@ -16,19 +16,18 @@ return {
         },
       },
       defaults = {
-        layout_config = {
-          vertical = { width = 0.5 },
-          -- other layout configuration here
-        },
+        layout_strategy = "vertical",
         file_ignore_patterns = { ".git/", "node_modules/", "env/" }, -- ignore git
         winblend = 0,
+        preview_cutoff = 10000, -- set preview_cutoff to prevent cutting off the results list
+        wrap_results = true,
       },
       pickers = {
         find_files = {
-          theme = "ivy",
+          -- theme = "dropdown",
         },
         live_grep = {
-          theme = "ivy",
+          -- theme = "dropdown",
         },
       },
     },
