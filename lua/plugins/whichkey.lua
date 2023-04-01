@@ -48,8 +48,8 @@ return {
         },
         C = {
           name = "Console Commands",
-          c = { "<cmd>!cd portals/management && npx eslint --fix %:p && cd -<cr>", "Lint Fix File - Management" },
-          m = { "<cmd>!cd portals/customer && npx eslint --fix %:p && cd -<cr>", "Lint Fix File - Customer" },
+          m = { "<cmd>!cd portals/management && npx eslint --fix %:p && cd -<cr>", "Lint Fix File - Management" },
+          c = { "<cmd>!cd portals/customer && npx eslint --fix %:p && cd -<cr>", "Lint Fix File - Customer" },
         },
         c = { "<cmd>CodeActionMenu<CR>", "Code Actions" },
         d = { "<cmd>lua vim.diagnostic.open_float({ border = 'rounded' })<CR>", "Line Diagnostics" },
