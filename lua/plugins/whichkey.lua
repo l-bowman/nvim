@@ -125,8 +125,8 @@ return {
           R = { "<cmd>e! | Octo pr reload<cr>", "Reload Buffer and PR" },
           t = { "<cmd>Octo pr list wyyerd/monorepo states=OPEN labels=team\\ orion<cr>", "Show Orion Team PRs" },
         },
+        R = { "<cmd>LspRestart | e!<CR>", "Refresh LSP and Buffer" },
         r = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
-        R = { "<cmd>LspRestart<CR>", "Restart LSP" },
         S = {
           name = "Spectre - find and replace",
           s = { "<cmd>lua require('spectre').open_visual()<CR>", "Open Spectre" },
