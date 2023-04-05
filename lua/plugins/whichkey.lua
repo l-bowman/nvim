@@ -115,6 +115,10 @@ return {
         },
         o = {
           name = "Octo",
+          A = {
+            name = "Add Reviewers",
+            c = { "<cmd>Octo reviewer add ctil<cr>", "Colin Tilleman" },
+          },
           a = { "<cmd>Octo comment add<cr>", "Add Comment" },
           c = { "<cmd>Octo pr checkout<cr>", "Checkout PR" },
           d = { "<cmd>Octo comment delete<cr>", "Delete Comment" },
@@ -124,6 +128,8 @@ return {
           p = { "<cmd>Octo search is:pr author:l-bowman<cr>", "Show All My PRs" },
           r = { "<cmd>Octo thread resolve<cr>", "Resolve Thread" },
           R = { "<cmd>e! | Octo pr reload<cr>", "Reload Buffer and PR" },
+          s = { "<cmd>e! | Octo review start<cr>", "Start Review" },
+          S = { "<cmd>e! | Octo review submit<cr>", "Submit Review" },
           t = { "<cmd>Octo pr list wyyerd/monorepo states=OPEN labels=team\\ orion<cr>", "Show Orion Team PRs" },
         },
         R = { "<cmd>e! | LspRestart<CR>", "Refresh LSP and Buffer" },
