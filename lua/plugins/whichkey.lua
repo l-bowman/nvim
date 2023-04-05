@@ -105,6 +105,7 @@ return {
           r = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
           R = { "<cmd> lua vim.lsp.buf.references()<CR>", "List references" },
         },
+        M = { "<cmd>Mason<CR>", "Mason" },
         m = {
           name = "Harpoon Marks",
           a = { "<cmd>lua require('harpoon.mark').add_file()<CR>", "Add File Mark" },
@@ -125,7 +126,7 @@ return {
           R = { "<cmd>e! | Octo pr reload<cr>", "Reload Buffer and PR" },
           t = { "<cmd>Octo pr list wyyerd/monorepo states=OPEN labels=team\\ orion<cr>", "Show Orion Team PRs" },
         },
-        R = { "<cmd>LspRestart | e!<CR>", "Refresh LSP and Buffer" },
+        R = { "<cmd>e! | LspRestart<CR>", "Refresh LSP and Buffer" },
         r = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
         S = {
           name = "Spectre - find and replace",
