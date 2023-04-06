@@ -117,7 +117,10 @@ return {
           name = "Octo",
           A = {
             name = "Add Reviewers",
-            c = { "<cmd>Octo reviewer add ctil<cr>", "Colin Tilleman" },
+            j = { "<cmd>Octo reviewer add JordanMajd<cr>", "Jordan Majd" },
+            m = { "<cmd>Octo reviewer add Matt-Sredojevic<cr>", "Matt Sredojevic" },
+            s = { "<cmd>Octo reviewer add stearnsc<cr>", "Colin Stearns" },
+            t = { "<cmd>Octo reviewer add ctil<cr>", "Colin Tilleman" },
           },
           a = { "<cmd>Octo comment add<cr>", "Add Comment" },
           c = { "<cmd>Octo pr checkout<cr>", "Checkout PR" },

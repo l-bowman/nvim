@@ -89,3 +89,25 @@ function GetVueStyleImport()
   vim.fn.setreg('"', importStatement:format(filePath))
   return "<cmd>echom 'Import statement copied to register \"' . v:register . '\"'<cr>"
 end
+
+-- rename file
+
+function Rename_buffer_file(substring, replacement)
+  local current_buf = vim.api.nvim_get_current_buf()
+  local old_name = vim.api.nvim_buf_get_name(current_buf)
+
+  -- Replace the substring in the filename
+  local new_name = old_name:gsub(substring, replacement)
+
+  -- Check if the new filename is different from the old filename
+  if new_name ~= old_name then
+    -- Rename the file on disk
+    os.rename(old_name, new_name)
+
+    -- Update the buffer name in Neovim
+    vim.api.nvim_buf_set_name(current_buf, new_name)
+
+    -- Update the buffer statusline
+    vim.cmd("redraws")
+  end
+end
