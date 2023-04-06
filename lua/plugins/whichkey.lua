@@ -127,6 +127,7 @@ return {
           d = { "<cmd>Octo comment delete<cr>", "Delete Comment" },
           h = { "<cmd>Octo pr checks<cr>", "Health Checks" },
           m = { "<cmd>Octo pr merge squash<cr>", "Squash Merge PR" },
+          O = { "<cmd>Octo pr create<cr>", "Open PR" },
           o = { "<cmd>Octo search is:pr is:open author:l-bowman<cr>", "Show All My Open PRs" },
           p = { "<cmd>Octo search is:pr author:l-bowman<cr>", "Show All My PRs" },
           r = { "<cmd>Octo thread resolve<cr>", "Resolve Thread" },
