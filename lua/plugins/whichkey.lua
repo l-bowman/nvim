@@ -41,7 +41,7 @@ return {
           A = { "<cmd>bufdo bd<CR>", "Close all" },
           a = { "<cmd>BufferLineCloseLeft<CR><cmd>BufferLineCloseRight<CR>", "Close all but current" },
           b = { "<cmd>BufferLinePick<CR>", "Pick" },
-          c = { "<cmd>:bd<CR>", "Close buffer" },
+          c = { "<cmd>bd<CR>", "Close buffer" },
           h = { "<cmd>BufferLineCloseLeft<CR>", "Close all to left" },
           l = { "<cmd>BufferLineCloseRight<CR>", "Close all to right" },
           p = { "<cmd>BufferLineTogglePin<CR>", "Toggle pin" },
