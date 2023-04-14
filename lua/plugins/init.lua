@@ -22,7 +22,7 @@ return {
   { "j-hui/fidget.nvim", opts = { window = { border = "rounded", blend = 0 } } },
 
   { "numToStr/Comment.nvim", opts = {} },
-  "rmagatti/auto-session",
+  { "rmagatti/auto-session", opts = { auto_session_use_git_branch = true } },
   -- "airblade/vim-gitgutter",
   "mhinz/vim-signify",
   "weilbith/nvim-code-action-menu",
