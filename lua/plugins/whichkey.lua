@@ -38,7 +38,7 @@ return {
         },
         b = {
           name = "Bufferline",
-          A = { "<cmd>bd<CR>", "Close all" },
+          A = { "<cmd>bufdo bd<CR>", "Close all" },
           a = { "<cmd>BufferLineCloseLeft<CR><cmd>BufferLineCloseRight<CR>", "Close all but current" },
           b = { "<cmd>BufferLinePick<CR>", "Pick" },
           c = { "<cmd>:bd<CR>", "Close buffer" },
