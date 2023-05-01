@@ -59,8 +59,8 @@ return {
         f = {
           name = "Find with Telescope",
           a = { "<cmd>Telescope session-lens search_session<CR>", "Search Sessions" },
-          B = { "<cmd>Telescope buffers<cr>", "Find Buffer" },
-          b = { "<cmd>Telescope bookmarks<cr>", "Find Bookmark" },
+          B = { "<cmd>Telescope bookmarks<cr>", "Find Bookmark" },
+          b = { "<cmd>Telescope git_branches<cr>", "Find Branch" },
           d = { "<cmd>Telescope diagnostics<cr>", "Document Diagnostics" },
           e = { "<cmd>Easypick<CR>", "Easypick" },
           F = { "<cmd>Telescope file_browser<CR>", "Browse Files" },
@@ -72,6 +72,7 @@ return {
           M = { "<cmd>Telescope man_pages<CR>", "Man Pages" },
           m = { "<cmd>Telescope marks<CR>", "Marks" },
           n = { "<cmd>TodoTelescope<cr>", "Find Notes" },
+          o = { "<cmd>Telescope buffers<cr>", "Open Buffer" },
           q = {
             name = "Live Grep Quickfix List",
             f = { "<cmd>lua Search_qflist('find_files')<CR>", "Find Files" },
