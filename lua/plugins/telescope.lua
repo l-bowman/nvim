@@ -44,9 +44,6 @@ return {
       local telescope = require("telescope")
 
       telescope.setup(opts)
-      require("session-lens").setup({})
-
-      -- telescope.load_extension("session-lens")
       telescope.load_extension("file_browser")
       telescope.load_extension("live_grep_args")
       telescope.load_extension("harpoon")
