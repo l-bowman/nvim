@@ -32,7 +32,7 @@ return {
         a = {
           name = "Auto Sessions",
           d = { "<cmd>DeleteSession<cr>", "Delete session" },
-          r = { "<cmd>RestoreSession<cr>", "Restore session" },
+          r = { "<cmd>%bd!<CR><cmd>SessionRestore<cr>", "Restore session" },
           S = { "<cmd>SaveSession<cr>", "Save session" },
           s = { "<cmd>SearchSession<cr>", "Search sessions" },
         },
