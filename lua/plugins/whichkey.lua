@@ -161,7 +161,7 @@ return {
         u = { "<cmd>UndotreeToggle<CR><cmd>UndotreeFocus<CR>", "Undotree" },
         W = { "<cmd>WhichKey<CR>", "WhichKey" },
         -- Extra write command here is a hack to work around situations where the formatter fails because no formatting occurs
-        w = { "<cmd>write | FormatWrite<CR>", "Format and Write Buffer" },
+        w = { "<cmd>write | SaveSession | FormatWrite<CR>", "Format and Write Buffer" },
         y = {
           name = "Yank",
           a = { '<cmd>let @+ = expand("%:p")<cr>', "Absolute Path" },
