@@ -31,10 +31,10 @@ return {
       wk.register({
         a = {
           name = "Auto Sessions",
-          d = { "<cmd>DeleteSession<cr>", "Delete session" },
+          d = { "<cmd>SessionDelete<cr>", "Delete session" },
           r = { "<cmd>%bd!<CR><cmd>SessionRestore<cr>", "Restore session" },
-          S = { "<cmd>SaveSession<cr>", "Save session" },
-          s = { "<cmd>SearchSession<cr>", "Search sessions" },
+          S = { "<cmd>SessionSave<cr>", "Save session" },
+          s = { "<cmd>SessionSearch<cr>", "Search sessions" },
         },
         b = {
           name = "Bufferline",
