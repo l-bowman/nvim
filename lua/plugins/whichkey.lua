@@ -161,6 +161,8 @@ return {
         u = { "<cmd>UndotreeToggle<CR><cmd>UndotreeFocus<CR>", "Undotree" },
         W = { "<cmd>WhichKey<CR>", "WhichKey" },
         -- Extra write command here is a hack to work around situations where the formatter fails because no formatting occurs
+        -- TODO: figure out how to call the SessionSave command after the first
+        -- write.
         w = { "<cmd>write | FormatWrite | SessionSave<cr>", "Format and Write Buffer" },
         y = {
           name = "Yank",
