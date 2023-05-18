@@ -24,14 +24,14 @@ return {
 
   { "numToStr/Comment.nvim", opts = {} },
   -- { "rmagatti/auto-session", opts = { auto_session_use_git_branch = true } },
-  {
-    "rmagatti/auto-session",
-    config = function()
-      require("auto-session").setup({
-        opts = { auto_session_use_git_branch = true, auto_save_enabled = false },
-      })
-    end,
-  },
+  -- {
+  --   "rmagatti/auto-session",
+  --   config = function()
+  --     require("auto-session").setup({
+  --       opts = { auto_session_use_git_branch = true },
+  --     })
+  --   end,
+  -- },
   -- "airblade/vim-gitgutter",
   "mhinz/vim-signify",
   "weilbith/nvim-code-action-menu",

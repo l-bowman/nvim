@@ -84,7 +84,6 @@ return {
       _G.Search_qflist = search_qflist
 
       telescope.load_extension("bookmarks")
-      telescope.load_extension("session-lens")
     end,
   },
 }

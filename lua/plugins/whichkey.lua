@@ -1,33 +1,31 @@
 return {
   {
     "folke/which-key.nvim",
-    opts = {
-      plugins = {
-        spelling = {
-          enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
-          suggestions = 20, -- how many suggestions should be shown in the list?
-        },
-      },
-      window = {
-        border = "single", -- none, single, double, shadow
-        position = "bottom", -- bottom, top
-        margin = { 0, 0, 0, 0 }, -- extra window margin [top, right, bottom, left]
-        padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
-        -- winblend = 0,
-      },
-      triggers_blacklist = {
-        -- list of mode / prefixes that should never be hooked by WhichKey
-        -- this is mostly relevant for key maps that start with a native binding
-        -- most people should not need to change this
-        i = { "j", "k" },
-        v = { "j", "k" },
-      },
-    },
-    config = function(_, opts)
-      local wk = require("which-key")
 
-      wk.setup(opts)
-      -- register key bindings with <leader> prefix
+    config = function()
+      local wk = require("which-key")
+      wk.setup({
+        plugins = {
+          spelling = {
+            enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
+            suggestions = 20, -- how many suggestions should be shown in the list?
+          },
+        },
+        window = {
+          border = "single", -- none, single, double, shadow
+          position = "bottom", -- bottom, top
+          margin = { 0, 0, 0, 0 }, -- extra window margin [top, right, bottom, left]
+          padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
+          -- winblend = 0,
+        },
+        triggers_blacklist = {
+          -- list of mode / prefixes that should never be hooked by WhichKey
+          -- this is mostly relevant for key maps that start with a native binding
+          -- most people should not need to change this
+          i = { "j", "k" },
+          v = { "j", "k" },
+        },
+      })
       wk.register({
         a = {
           name = "Auto Sessions",
