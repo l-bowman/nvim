@@ -11,9 +11,10 @@ return {
       context_commentstring = {
         enable = true,
       },
+      ignore_install = { "help" },
       ensure_installed = {
         "bash",
-        "help",
+        "vimdoc",
         "html",
         "javascript",
         "typescript",
@@ -32,7 +33,6 @@ return {
         "go",
         "python",
         "rust",
-        "help",
         "vim",
         "css",
         "scss",
@@ -115,9 +115,6 @@ return {
     },
     config = function(_, opts)
       require("nvim-treesitter.configs").setup(opts)
-      -- FIX: for nvim-autotag - not actually working
-      local ts_utils = require("nvim-treesitter.ts_utils")
-      ts_utils.get_node_text = vim.treesitter.query.get_node_text
 
       -- Detect astro files and set filetype
       vim.api.nvim_create_autocmd("BufEnter", {
