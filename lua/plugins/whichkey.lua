@@ -8,8 +8,8 @@ function _G.paste_figma_color_variable_name()
   local variable_name = string.gsub(clip_content, "^.+/", "") -- remove everything before '/'
   if variable_name ~= "" then
     variable_name = variable_name .. ";" -- append ';'
-    vim.fn.setreg("+", variable_name) -- set the content to register a
-    vim.cmd('normal! "+p') -- paste the content of register a
+    vim.fn.setreg("+", variable_name) -- set the content to register +
+    vim.cmd('normal! "+p') -- paste the content of register +
   end
 end
 
