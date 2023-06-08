@@ -1,3 +1,39 @@
+-- local actions = require("telescope.actions")
+-- local action_state = require("telescope.actions.state") -- additional require
+-- local builtin = require("telescope.builtin")
+--
+-- function _G.reload_and_checkout_with_telescope()
+--   builtin.git_branches({
+--     attach_mappings = function(prompt_bufnr, map)
+--       map("i", "<CR>", function()
+--         local selection = action_state.get_selected_entry() -- correct function call
+--         actions.close(prompt_bufnr)
+--
+--         -- Checkout the selected branch
+--         local command = string.format("git checkout %s", selection.value)
+--         vim.fn.system(command)
+--
+--         -- Then, run the SessionReload command
+--         vim.cmd("SessionRestore")
+--       end)
+--
+--       map("n", "<CR>", function()
+--         local selection = action_state.get_selected_entry() -- correct function call
+--         actions.close(prompt_bufnr)
+--
+--         -- Checkout the selected branch
+--         local command = string.format("git checkout %s", selection.value)
+--         vim.fn.system(command)
+--
+--         -- Then, run the SessionReload command
+--         vim.cmd("SessionRestore")
+--       end)
+--
+--       return true
+--     end,
+--   })
+-- end
+
 return {
   {
     "nvim-telescope/telescope.nvim",

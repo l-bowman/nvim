@@ -1,3 +1,18 @@
+_G.sessionSaveAndFormatWrite = function()
+  -- vim.cmd("SessionSave")
+  vim.cmd("w | FormatWrite")
+end
+
+function _G.paste_figma_color_variable_name()
+  local clip_content = vim.fn.getreg("+") -- get the content of the system clipboard
+  local variable_name = string.gsub(clip_content, "^.+/", "") -- remove everything before and including '/'
+  if variable_name ~= "" then
+    variable_name = variable_name .. ";" -- append ';'
+    vim.fn.setreg("+", variable_name) -- set the content to register a
+    vim.cmd('normal! "+p') -- paste the content of register a
+  end
+end
+
 return {
   {
     "folke/which-key.nvim",
@@ -138,6 +153,10 @@ return {
           T = { "<cmd>e! | Octo tag add<cr>", "Add Tag" },
           t = { "<cmd>Octo pr list wyyerd/monorepo states=OPEN labels=team\\ orion<cr>", "Show Orion Team PRs" },
         },
+        p = {
+          name = "Paste Special",
+          f = { "<cmd>lua paste_figma_color_variable_name()<cr>", "Figma Variable Name" },
+        },
         R = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
         r = { "<cmd>e! | LspRestart<CR>", "Refresh LSP and Buffer" },
         S = {
@@ -161,7 +180,7 @@ return {
         W = { "<cmd>WhichKey<CR>", "WhichKey" },
         -- Extra write command here is a hack to work around situations where the formatter fails because no formatting occurs
         -- write.
-        w = { "<cmd>write | FormatWrite<cr>", "Format and Write Buffer" },
+        w = { "<cmd>lua sessionSaveAndFormatWrite()<cr>", "Save Session and Format and Write Buffer" },
         y = {
           name = "Yank",
           a = { '<cmd>let @+ = expand("%:p")<cr>', "Absolute Path" },
