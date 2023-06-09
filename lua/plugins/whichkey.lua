@@ -164,9 +164,9 @@ return {
           name = "Paste Special",
           b = {
             "<cmd>lua paste_figma_color_variable_name(true)<cr>",
-            "Figma Background Color Variable Name",
+            "Background Color",
           },
-          c = { "<cmd>lua paste_figma_color_variable_name(false)<cr>", "Figma Color Variable Name" },
+          c = { "<cmd>lua paste_figma_color_variable_name(false)<cr>", "Color" },
         },
         R = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
         r = { "<cmd>e! | LspRestart<CR>", "Refresh LSP and Buffer" },
