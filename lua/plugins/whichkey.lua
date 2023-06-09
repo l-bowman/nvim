@@ -3,14 +3,21 @@ _G.sessionSaveAndFormatWrite = function()
   vim.cmd("w | FormatWrite")
 end
 
-function _G.paste_figma_color_variable_name()
+function _G.paste_figma_color_variable_name(background)
   local clip_content = vim.fn.getreg("+") -- get the content of the system clipboard
-  local variable_name = string.gsub(clip_content, "^.+/", "") -- remove everything before '/'
-  if variable_name ~= "" then
-    variable_name = variable_name .. ";" -- append ';'
-    vim.fn.setreg("+", variable_name) -- set the content to register +
-    vim.cmd('normal! "+p') -- paste the content of register +
+  local variable_name = string.gsub(clip_content, "^.+/", "") -- remove everything before and including '/'
+  local prefix = "color: " -- default prefix
+
+  if background then -- if the argument is true, change the prefix
+    prefix = "background-color: "
   end
+
+  if string.find(clip_content, prefix) == nil and variable_name ~= "" then
+    variable_name = prefix .. variable_name .. ";" -- prepend prefix, append ';'
+    vim.fn.setreg("+", variable_name) -- set the modified content back into the + register
+  end
+  vim.cmd("normal! o") -- Start a new line
+  vim.cmd('normal! "+p') -- paste the content of the + register
 end
 
 return {
@@ -155,7 +162,11 @@ return {
         },
         p = {
           name = "Paste Special",
-          f = { "<cmd>lua paste_figma_color_variable_name()<cr>", "Figma Variable Name" },
+          b = {
+            "<cmd>lua paste_figma_color_variable_name(true)<cr>",
+            "Figma Background Color Variable Name",
+          },
+          c = { "<cmd>lua paste_figma_color_variable_name(false)<cr>", "Figma Color Variable Name" },
         },
         R = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
         r = { "<cmd>e! | LspRestart<CR>", "Refresh LSP and Buffer" },
