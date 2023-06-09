@@ -86,7 +86,7 @@ return {
           e = { "<cmd>Easypick<CR>", "Easypick" },
           F = { "<cmd>Telescope file_browser<CR>", "Browse Files" },
           f = { [[<cmd> lua require"telescope.builtin".find_files({ hidden = true })<CR>]], "Find File" },
-          g = { "<cmd>lua require('telescope.builtin').live_grep()<CR>", "Live Grep" },
+          g = { "<cmd>Telescope live_grep_args<CR>", "Live Grep" },
           H = { "<cmd>Telescope harpoon marks<CR>", "Harpoon Marks" },
           h = { "<cmd>Telescope help_tags<CR>", "Search Help" },
           k = { "<cmd>Telescope keymaps<CR>", "Key Mappings" },
