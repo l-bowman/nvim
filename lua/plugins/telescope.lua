@@ -49,6 +49,22 @@ return {
         bookmarks = {
           selected_browser = "chrome",
         },
+        live_grep_args = {
+          auto_quoting = true, -- enable/disable auto-quoting
+          mappings = {
+            i = {
+              -- TODO: Below mappings don't seem to work.
+              ["<C-i>"] = function()
+                return require("telescope-live-grep-args.actions").quote_prompt()
+              end,
+              ["<C-t>"] = function()
+                return require("telescope-live-grep-args.actions").quote_prompt({ postfix = " -t " })
+              end,
+              -- ['<C-g>'] = lga_actions.quote_prompt { postfix = ' services/graph' },
+              -- ['<C-i>'] = lga_actions.quote_prompt { postfix = ' -i ' },
+            },
+          },
+        },
       },
       defaults = {
         layout_strategy = "vertical",
@@ -77,7 +93,6 @@ return {
     },
     config = function(_, opts)
       local telescope = require("telescope")
-
       telescope.setup(opts)
       telescope.load_extension("file_browser")
       telescope.load_extension("live_grep_args")

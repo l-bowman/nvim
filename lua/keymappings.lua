@@ -15,6 +15,7 @@ end
 local border_options = { float = { border = "rounded" } }
 
 -- NOTE<cmd> <leader> prefixed mappings are in whichkey-settings.lua
+--
 
 local mappings = {
   i = {
