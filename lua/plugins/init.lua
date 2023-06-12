@@ -23,15 +23,6 @@ return {
   { "j-hui/fidget.nvim", opts = { window = { border = "rounded", blend = 0 } }, tag = "legacy" },
 
   { "numToStr/Comment.nvim", opts = {} },
-  -- { "rmagatti/auto-session", opts = { auto_session_use_git_branch = true } },
-  -- {
-  --   "rmagatti/auto-session",
-  --   config = function()
-  --     require("auto-session").setup({
-  --       opts = { auto_session_use_git_branch = true },
-  --     })
-  --   end,
-  -- },
   -- "airblade/vim-gitgutter",
   "mhinz/vim-signify",
   "weilbith/nvim-code-action-menu",
