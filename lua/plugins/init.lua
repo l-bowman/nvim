@@ -20,7 +20,7 @@ return {
   "lukas-reineke/indent-blankline.nvim",
 
   -- Useful status updates for LSP
-  { "j-hui/fidget.nvim", opts = { window = { border = "rounded", blend = 0 } } },
+  { "j-hui/fidget.nvim", opts = { window = { border = "rounded", blend = 0 } }, tag = "legacy" },
 
   { "numToStr/Comment.nvim", opts = {} },
   -- { "rmagatti/auto-session", opts = { auto_session_use_git_branch = true } },

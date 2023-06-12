@@ -45,6 +45,7 @@ return {
     },
     lazy = false,
     opts = {
+
       extensions = {
         bookmarks = {
           selected_browser = "chrome",
