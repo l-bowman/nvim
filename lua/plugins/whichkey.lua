@@ -3,21 +3,42 @@ _G.sessionSaveAndFormatWrite = function()
   vim.cmd("w | FormatWrite")
 end
 
-function _G.paste_figma_color_variable_name(background)
+function _G.paste_figma_color_variable(mode)
   local clip_content = vim.fn.getreg("+") -- get the content of the system clipboard
   local variable_name = string.gsub(clip_content, "^.+/", "") -- remove everything before and including '/'
-  local prefix = "color: " -- default prefix
+  local prefix = ""
 
-  if background then -- if the argument is true, change the prefix
+  if mode == "background" then -- if the mode is background, change the prefix
     prefix = "background-color: "
+  elseif mode == "color" then -- if the mode is color, set the prefix
+    prefix = "color: "
+  elseif mode == "bg-color" or mode == "text-color" then -- if the mode is bg-color or text-color, make the necessary modifications
+    variable_name = string.gsub(variable_name, "^%$", "") -- remove everything before and including '$'
+    variable_name = mode == "bg-color" and "bg-" .. variable_name or "text-" .. variable_name -- prepend 'bg-' or 'text-', depending on the mode
+
+    local split_location = variable_name:find("_[^_]*$")
+    if split_location then
+      local part1 = variable_name:sub(1, split_location - 1)
+      local part2 = variable_name:sub(split_location + 1)
+      part1 = string.gsub(part1, "_", "-") -- replace underscores with '-'
+      variable_name = part1 .. "-" .. part2
+    else
+      variable_name = string.gsub(variable_name, "_", "-") -- replace underscores with '-'
+    end
   end
 
-  if string.find(clip_content, prefix) == nil and variable_name ~= "" then
-    variable_name = prefix .. variable_name .. ";" -- prepend prefix, append ';'
-    vim.fn.setreg("+", variable_name) -- set the modified content back into the + register
+  if variable_name ~= "" then
+    variable_name = prefix .. variable_name -- prepend prefix
+    if mode == "color" or mode == "background" then -- if mode is color or background, append ';'
+      variable_name = variable_name .. ";"
+    end
+    vim.fn.setreg("0", variable_name) -- set the modified content back into the '0' register
   end
-  vim.cmd("normal! o") -- Start a new line
-  vim.cmd('normal! "+p') -- paste the content of the + register
+
+  if mode ~= "bg-color" and mode ~= "text-color" then
+    vim.cmd("normal! o") -- Start a new line only if the mode is not 'bg-color' or 'text-color'
+  end
+  vim.cmd('normal! "0p') -- paste the content of the '0' register
 end
 
 return {
@@ -162,11 +183,16 @@ return {
         },
         p = {
           name = "Paste Special",
-          b = {
-            "<cmd>lua paste_figma_color_variable_name(true)<cr>",
+          B = {
+            "<cmd>lua paste_figma_color_variable('background')<cr>",
             "Background Color",
           },
-          c = { "<cmd>lua paste_figma_color_variable_name(false)<cr>", "Color" },
+          b = {
+            "<cmd>lua paste_figma_color_variable('bg-color')<cr>",
+            "bg-color",
+          },
+          C = { "<cmd>lua paste_figma_color_variable('color')<cr>", "Color" },
+          c = { "<cmd>lua paste_figma_color_variable('text-color')<cr>", "text-color" },
         },
         R = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
         r = { "<cmd>e! | LspRestart<CR>", "Refresh LSP and Buffer" },

@@ -17,8 +17,8 @@ local function custom_warning_indicator()
     return ""
   end
 end
-return {
 
+return {
   {
     "nvim-lualine/lualine.nvim",
     opts = {
