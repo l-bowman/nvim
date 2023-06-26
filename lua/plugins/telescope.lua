@@ -9,7 +9,7 @@ function _G.checkout_branch_and_reload_session()
         local selection = action_state.get_selected_entry() -- correct function call
         actions.close(prompt_bufnr)
 
-        -- Then, run the SessionReload command
+        -- Save session
         vim.cmd("SessionSave")
 
         -- Checkout the selected branch
@@ -19,7 +19,7 @@ function _G.checkout_branch_and_reload_session()
         -- Close all buffers
         vim.cmd("bufdo bd")
 
-        -- Then, run the SessionReload command
+        -- Restore session
         vim.cmd("SessionRestore")
       end)
       return true
