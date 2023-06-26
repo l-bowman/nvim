@@ -102,7 +102,7 @@ return {
           name = "Find with Telescope",
           a = { "<cmd>Telescope session-lens search_session<CR>", "Search Sessions" },
           B = { "<cmd>Telescope bookmarks<cr>", "Find Bookmark" },
-          b = { "<cmd>Telescope git_branches<cr>", "Find Branch" },
+          b = { "<cmd>lua checkout_branch_and_reload_session()<cr>", "Find Branch" },
           d = { "<cmd>Telescope diagnostics<cr>", "Document Diagnostics" },
           e = { "<cmd>Easypick<CR>", "Easypick" },
           F = { "<cmd>Telescope file_browser<CR>", "Browse Files" },
