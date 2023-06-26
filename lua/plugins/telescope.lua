@@ -1,12 +1,12 @@
 local actions = require("telescope.actions")
-local action_state = require("telescope.actions.state") -- additional require
+local action_state = require("telescope.actions.state")
 local builtin = require("telescope.builtin")
 
 function _G.checkout_branch_and_reload_session()
   builtin.git_branches({
     attach_mappings = function(prompt_bufnr, map)
       map("i", "<CR>", function()
-        local selection = action_state.get_selected_entry() -- correct function call
+        local selection = action_state.get_selected_entry()
         actions.close(prompt_bufnr)
 
         -- Save session
