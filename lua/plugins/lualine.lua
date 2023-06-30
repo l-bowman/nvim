@@ -1,8 +1,3 @@
--- local function is_inside_specific_folder()
---   local target_folder = "/Users/lukebowman/Documents/dev/codereview"
---   local current_working_directory = vim.fn.getcwd()
---   return current_working_directory:find(target_folder, 1, true) ~= nil
--- end
 local function is_on_master_branch()
   local git_branch_cmd = "git rev-parse --abbrev-ref HEAD 2>/dev/null"
   local current_branch = vim.fn.system(git_branch_cmd):gsub("%s+", "")
