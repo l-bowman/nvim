@@ -105,11 +105,14 @@ return {
         },
         C = {
           name = "Console Commands",
-          D = { "<cmd>!rm -f /Users/lukebowman/.local/share/nvim/sessions/*<cr>", "Remove All Sessions" },
-          m = { "<cmd>!cd portals/management && npx eslint --fix %:p && cd -<cr>", "Lint Fix File - Management" },
+          a = { "<cmd>2TermExec cmd='just build-apollo-full'<cr>", "Build Apollo Full" },
           C = { "<cmd>bufdo bd | :cd /Users/lukebowman/.config/nvim<cr>", "Open NVIM Config" },
           c = { "<cmd>!cd portals/customer && npx eslint --fix %:p && cd -<cr>", "Lint Fix File - Customer" },
-          r = { "<cmd>!just reset-db<cr>", "Reset DB" },
+          D = { "<cmd>!rm -f /Users/lukebowman/.local/share/nvim/sessions/*<cr>", "Remove All Sessions" },
+          g = { "<cmd>2TermExec cmd='just clean-git-branches'<cr>", "Clean Git Branches" },
+          m = { "<cmd>!cd portals/management && npx eslint --fix %:p && cd -<cr>", "Lint Fix File - Management" },
+          p = { "<cmd>2TermExec cmd='just build-protos'<cr>", "Build Protos" },
+          r = { "<cmd>2TermExec cmd='just reset-db'<cr>", "Reset DB" },
         },
         c = { "<cmd>CodeActionMenu<CR>", "Code Actions" },
         d = { "<cmd>lua vim.diagnostic.open_float({ border = 'rounded' })<CR>", "Line Diagnostics" },
@@ -214,8 +217,8 @@ return {
           w = { "<cmd>lua require('spectre').open_visual({select_word=true})<CR>", "Search for word under cursor" },
         },
         s = { "<cmd>lua vim.o.spell = not vim.o.spell<cr>", "Toggle spell check" },
-        T = { "<cmd>TodoTelescope<CR>", "List Todos" },
-        t = {
+        t = { "<cmd>ToggleTerm<CR>", "Toggle Terminal" },
+        T = {
           name = "Trouble",
           d = { "<cmd>Trouble lsp_definitions<CR>", "Definitions" },
           D = { "<cmd>Trouble document_diagnostics<CR>", "Buffer Diagnostics" },
