@@ -12,12 +12,12 @@ function _G.checkout_branch_and_reload_session()
         -- Save session
         vim.cmd("SessionSave")
 
+        -- Close all buffers
+        vim.cmd("bufdo bd")
+
         -- Checkout the selected branch
         local command = string.format("git checkout %s", selection.value)
         vim.fn.system(command)
-
-        -- Close all buffers
-        vim.cmd("bufdo bd")
 
         -- Restore session
         vim.cmd("SessionRestore")

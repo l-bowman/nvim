@@ -41,6 +41,20 @@ function _G.paste_figma_color_variable(mode)
   vim.cmd('normal! "0p') -- paste the content of the '0' register
 end
 
+_G.diffview_file_history = function()
+  -- Get the absolute path of the current file
+  local abs_path = vim.api.nvim_buf_get_name(0)
+
+  -- Get the working directory path
+  local cwd = vim.fn.getcwd()
+
+  -- Find the relative path
+  local relative_path = abs_path:match("^" .. cwd .. "/(.*)") or abs_path
+
+  -- Execute the DiffviewFileHistory command with the relative path
+  vim.cmd("DiffviewFileHistory " .. relative_path)
+end
+
 return {
   {
     "folke/which-key.nvim",
@@ -128,17 +142,12 @@ return {
         g = {
           name = "Git",
           a = { "<cmd>Git stage . | Git commit -m 'wip' | Git push<CR>", "Stage, Commit WIP, and Push" },
-          c = { "<cmd>Git commit -m 'wip'<CR>", "Commit WIP" },
-          d = { "<cmd>Gdiffsplit<CR>", "Show Diff (index on right)" },
+          c = { "<cmd>DiffviewClose<CR>", "Close Diffview" },
+          d = { "<cmd>DiffviewOpen origin/master<CR>", "Diff with origin/master" },
+          f = { "<cmd>lua diffview_file_history()<CR>", "File History" },
           g = { "<cmd>0Git<CR>", "0Git" },
-          h = {
-            "<cmd>Gllog origin/master -100 --decorate --first-parent<CR>",
-            "Last 100 Merge Commits (origin/master)",
-          },
-          l = { "<cmd>0Gllog<CR>", "Show File Revisions" },
           p = { "<cmd>Git push<CR>", "Push" },
           s = { "<cmd>Git stage .<CR>", "Stage All" },
-          v = { "<cmd>Gvdiffsplit origin/master<CR>", "Diff with origin/master" },
         },
         L = { "<cmd>Lazy<CR>", "Lazy" },
         l = {
