@@ -55,6 +55,16 @@ _G.diffview_file_history = function()
   vim.cmd("DiffviewFileHistory " .. relative_path)
 end
 
+function _G.checkout_new_branch()
+  local command = [[!git checkout -b lb/]]
+  -- The keys function works by sending a string as if you typed it
+  -- So first go to normal mode with <Esc>
+  -- Then start the command with :
+  -- Then insert our command
+  -- But don't press enter (that's why we leave out the <CR>)
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>:" .. command, true, false, true), "n", false)
+end
+
 return {
   {
     "folke/which-key.nvim",
@@ -148,6 +158,7 @@ return {
         g = {
           name = "Git",
           a = { "<cmd>Git stage . | Git commit -m 'wip' | Git push<CR>", "Stage, Commit WIP, and Push" },
+          b = { "<cmd>lua checkout_new_branch()<cr>", "New Branch" },
           c = { "<cmd>DiffviewClose<CR>", "Close Diffview" },
           d = { "<cmd>DiffviewOpen origin/master<CR>", "Diff with origin/master" },
           f = { "<cmd>lua diffview_file_history()<CR>", "File History" },

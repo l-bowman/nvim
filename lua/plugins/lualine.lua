@@ -27,7 +27,7 @@ return {
       },
       sections = {
         lualine_a = { "mode" },
-        lualine_b = { "branch" },
+        lualine_b = { "branch", "diff", "diagnostics" },
         lualine_c = { "encoding", "filetype", custom_warning_indicator },
         lualine_x = {
           { "filename", file_status = true, path = 1 },
@@ -46,7 +46,7 @@ return {
         lualine_z = {},
       },
       tabline = {},
-      extensions = { "fugitive", "nvim-tree" },
+      extensions = { "fugitive", "nvim-tree", "trouble" },
     },
   },
 }
