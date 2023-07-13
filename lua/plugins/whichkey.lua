@@ -163,6 +163,7 @@ return {
           d = { "<cmd>DiffviewOpen origin/master<CR>", "Diff with origin/master" },
           f = { "<cmd>lua diffview_file_history()<CR>", "File History" },
           g = { "<cmd>0Git<CR>", "0Git" },
+          o = { "<cmd>GBrowse master:%<CR>", "Open in GitHub" },
           p = { "<cmd>Git push<CR>", "Push" },
           s = { "<cmd>Git stage .<CR>", "Stage All" },
         },
