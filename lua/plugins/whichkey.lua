@@ -116,9 +116,9 @@ return {
         C = {
           name = "Console Commands",
           a = { "<cmd>2TermExec cmd='just build-apollo-full'<cr>", "Build Apollo Full" },
-          C = { "<cmd>bufdo bd | :cd /Users/lukebowman/.config/nvim<cr>", "Open NVIM Config" },
+          C = { "<cmd>bufdo bd | :cd ~/.config/nvim<cr>", "Open NVIM Config" },
           c = { "<cmd>!cd portals/customer && npx eslint --fix %:p && cd -<cr>", "Lint Fix File - Customer" },
-          D = { "<cmd>!rm -f /Users/lukebowman/.local/share/nvim/sessions/*<cr>", "Remove All Sessions" },
+          D = { "<cmd>!rm -f ~/.local/share/nvim/sessions/*<cr>", "Remove All Sessions" },
           g = { "<cmd>2TermExec cmd='just clean-git-branches'<cr>", "Clean Git Branches" },
           m = { "<cmd>!cd portals/management && npx eslint --fix %:p && cd -<cr>", "Lint Fix File - Management" },
           p = { "<cmd>2TermExec cmd='just build-protos'<cr>", "Build Protos" },
