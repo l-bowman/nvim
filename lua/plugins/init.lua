@@ -1,6 +1,5 @@
 return {
   -- NOTE: plugins here require little to no configuratin
-
   "tpope/vim-fugitive",
   "tpope/vim-rhubarb",
   "tpope/vim-surround",
