@@ -65,6 +65,22 @@ function _G.checkout_new_branch()
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>:" .. command, true, false, true), "n", false)
 end
 
+local function qf_toggle()
+  local qf_exists = false
+  for _, win in pairs(vim.fn.getwininfo()) do
+    if win["quickfix"] == 1 then
+      qf_exists = true
+    end
+  end
+  if qf_exists == true then
+    vim.cmd("cclose")
+    return
+  end
+  if not vim.tbl_isempty(vim.fn.getqflist()) then
+    vim.cmd("copen")
+  end
+end
+
 return {
   {
     "folke/which-key.nvim",
@@ -221,6 +237,7 @@ return {
           C = { "<cmd>lua paste_figma_color_variable('color')<cr>", "Color" },
           c = { "<cmd>lua paste_figma_color_variable('text-color')<cr>", "text-color" },
         },
+        q = { qf_toggle, "Toggle Quickfix list" },
         R = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
         r = { "<cmd>e! | LspRestart<CR>", "Refresh LSP and Buffer" },
         S = {
