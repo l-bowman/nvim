@@ -22,8 +22,11 @@ return {
       local luasnip = require("luasnip")
 
       -- html snippets in javascript and javascriptreact
-      luasnip.filetype_extend("javascriptreact", { "html" })
-      luasnip.filetype_extend("typescriptreact", { "html" })
+      luasnip.filetype_extend("javascriptreact", { "html", "jsdoc", "react-es7" })
+      luasnip.filetype_extend("typescriptreact", { "html", "tsdoc", "react-ts" })
+
+      luasnip.filetype_extend("javascript", { "jsdoc" })
+      luasnip.filetype_extend("typescript", { "tsdoc" })
 
       local loader = require("luasnip/loaders/from_vscode")
       loader.lazy_load()
@@ -57,7 +60,7 @@ return {
           ["<C-p>"] = cmp.mapping.select_prev_item(),
           ["<C-n>"] = cmp.mapping.select_next_item(),
           ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-f>"] = cmp.mapping.scroll_docs(4),
+          ["<C-u>"] = cmp.mapping.scroll_docs(4),
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.close(),
           ["<CR>"] = cmp.mapping.confirm({

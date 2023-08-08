@@ -25,6 +25,7 @@ local mappings = {
     { "<C-'>", "``<esc>i" },
   },
   n = {
+    { "<Leader>P", "i<C-R>0<esc>" }, -- Paste the last yank in place.
     { "<C-Up>", "<cmd>resize -2<CR>", { silent = true } },
     { "<C-Down>", "<cmd>resize +2<CR>", { silent = true } },
     { "<C-Left>", "<cmd>vertical resize -2<CR>", { silent = true } },

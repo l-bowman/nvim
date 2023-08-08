@@ -69,6 +69,7 @@ return {
           function()
             return {
               exe = "rustfmt",
+              -- exe = "just fmt-rust",
               stdin = true,
             }
           end,

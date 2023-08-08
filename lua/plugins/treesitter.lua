@@ -21,6 +21,12 @@ return {
         "tsx",
         "json",
         "lua",
+        "comment",
+        "graphql",
+        "svelte",
+        "prisma",
+        "toml",
+        "jsdoc",
         "astro",
         "vue",
         "markdown",
@@ -36,6 +42,8 @@ return {
         "vim",
         "css",
         "scss",
+        "gitignore",
+        "gitcommit",
       }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
       -- ignore_install = {}, -- List of parsers to ignore installing
       highlight = {
@@ -121,6 +129,13 @@ return {
         pattern = { "*.astro" },
         callback = function()
           vim.cmd([[ set filetype=astro ]])
+        end,
+      })
+      -- Detect jsx files and set filetype to javascript
+      vim.api.nvim_create_autocmd("BufEnter", {
+        pattern = { "*.jsx" },
+        callback = function()
+          vim.cmd([[set filetype=javascript]])
         end,
       })
     end,
