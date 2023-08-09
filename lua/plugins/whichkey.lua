@@ -238,6 +238,7 @@ return {
           T = { "<cmd>e! | Octo tag add<cr>", "Add Tag" },
           t = { "<cmd>Octo pr list wyyerd/monorepo states=OPEN labels=team\\ orion<cr>", "Show Orion Team PRs" },
         },
+        P = { "i<C-R>0<esc>", "Paste the last yank in place" },
         p = {
           name = "Paste Special",
           B = {
