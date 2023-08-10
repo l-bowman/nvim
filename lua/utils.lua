@@ -4,6 +4,10 @@ _G.toggle_tmux_pane = function()
 end
 
 _G.find_nearest_test = function()
+  -- Store the current window and buffer ID
+  local original_win_id = vim.api.nvim_get_current_win()
+  local original_buf_id = vim.api.nvim_get_current_buf()
+
   local pattern = [[test("\([^"]*\)"]]
 
   local current_line = vim.api.nvim_win_get_cursor(0)[1]
@@ -40,7 +44,6 @@ _G.find_nearest_test = function()
   end
 
   -- Retrieve the file path
-  local filepath = vim.fn.expand("%:p")
   local filedir = vim.fn.expand("%:p:h")
   local filename = vim.fn.expand("%:t")
 
@@ -56,7 +59,6 @@ _G.find_nearest_test = function()
     end
   end
 
-  -- Determine the command to run
   local cmd_to_run = string.format(
     'cd %s && echo "Running Playwright Test . . ." && npx playwright test %s -g "%s"',
     filedir,
@@ -64,20 +66,22 @@ _G.find_nearest_test = function()
     matched_text
   )
 
-  -- If terminal exists, we switch to it and run the command, else we initialize a terminal with the command.
   if terminal_exists then
-    -- vim.cmd('silent! call term_sendkeys("", "\\003' .. cmd_to_run .. '\\n")') -- CTRL-C to ensure we're at the command prompt, then send the command
-    vim.cmd('silent! call term_sendkeys("", "\\003' .. vim.fn.escape(cmd_to_run, '"\\') .. '\\n")')
-  else
-    vim.cmd("vsplit | terminal " .. cmd_to_run) -- Start the terminal with the desired command
+    for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+      local buffer_name = vim.api.nvim_buf_get_name(bufnr)
+      local buf_type = vim.api.nvim_buf_get_option(bufnr, "buftype")
+
+      if buf_type == "terminal" then
+        local term_name = vim.fn.fnamemodify(buffer_name, ":t")
+        if term_name == "PlaywrightTesting" then
+          vim.api.nvim_buf_delete(bufnr, { force = true })
+        end
+      end
+    end
   end
 
-  -- -- Display output to user
-  -- if matched_text ~= "" then
-  --   vim.api.nvim_out_write("Found: " .. matched_text .. "\n")
-  --   vim.api.nvim_out_write("Directory Path: " .. filedir .. "\n")
-  --   vim.api.nvim_out_write("File Name: " .. filename .. "\n")
-  -- else
-  --   vim.api.nvim_out_write("Pattern not found.\n")
-  -- end
+  vim.cmd("vsplit | terminal " .. cmd_to_run) -- Start the terminal with the desired command
+  vim.cmd("file " .. "PlaywrightTesting") -- Set the name of the terminal buffer
+  vim.api.nvim_set_current_win(original_win_id)
+  vim.api.nvim_set_current_buf(original_buf_id)
 end
