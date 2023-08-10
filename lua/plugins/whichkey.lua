@@ -197,6 +197,7 @@ return {
           u = { "<cmd>/update(<CR>", "update(" },
           w = { "<cmd>/watch: <CR>", "watch: " },
         },
+        k = { "<cmd>WhichKey<CR>", "WhichKey" },
         L = { "<cmd>Lazy<CR>", "Lazy" },
         l = {
           name = "LSP",
@@ -261,8 +262,20 @@ return {
           w = { "<cmd>lua require('spectre').open_visual({select_word=true})<CR>", "Search for word under cursor" },
         },
         s = { "<cmd>lua vim.o.spell = not vim.o.spell<cr>", "Toggle spell check" },
-        t = { "<cmd>lua toggle_tmux_pane()<CR>", "Toggle Tmux" },
         T = {
+          name = "Test",
+          c = { "<cmd>lua close_test_terminal()<CR>", "Close Test Terminal" },
+          F = { "<cmd>lua run_all_tests(20)<CR>", "Run Playwright Test File 20 Times" },
+          f = { "<cmd>lua run_all_tests()<CR>", "Run Playwright Test File" },
+          l = { "<cmd>lua run_last_test()<CR>", "Run Last Playwright Test" },
+          N = { "<cmd>lua run_nearest_test(20)<CR>", "Run Nearest Playwright Test 20 Times" },
+          n = { "<cmd>lua run_nearest_test()<CR>", "Run Nearest Playwright Test" },
+        },
+        t = { "<cmd>lua toggle_tmux_pane()<CR>", "Toggle Tmux" },
+        u = { "<cmd>UndotreeToggle<CR><cmd>UndotreeFocus<CR>", "Undotree" },
+        -- Extra write command here is a hack to work around situations where the formatter fails because no formatting occurs
+        -- write.
+        W = {
           name = "Trouble",
           d = { "<cmd>Trouble lsp_definitions<CR>", "Definitions" },
           D = { "<cmd>Trouble document_diagnostics<CR>", "Buffer Diagnostics" },
@@ -272,10 +285,6 @@ return {
           T = { "<cmd>TodoTrouble<CR>", "Todos" },
           w = { "<cmd>Trouble workspace_diagnostics<CR>", "Workspace Diagnostics" },
         },
-        u = { "<cmd>UndotreeToggle<CR><cmd>UndotreeFocus<CR>", "Undotree" },
-        W = { "<cmd>WhichKey<CR>", "WhichKey" },
-        -- Extra write command here is a hack to work around situations where the formatter fails because no formatting occurs
-        -- write.
         w = { "<cmd>lua sessionSaveAndFormatWrite()<cr>", "Save Session and Format and Write Buffer" },
         y = {
           name = "Yank",

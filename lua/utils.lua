@@ -51,18 +51,24 @@ end
 
 local function construct_cmd(filedir, repeat_count, filename, matched_text)
   local cmd
+  local running_message = repeat_count
+      and string.format("Running nearest Playwright Test '%s' with a repeat count of %d...", matched_text, repeat_count)
+    or string.format("Running nearest Playwright Test '%s'...", matched_text)
+
   if repeat_count then
     cmd = string.format(
-      'cd %s && echo "Running Playwright Test . . ." && npx playwright test --repeat-each=%d %s -g "%s"',
+      'cd %s && echo "%s" && npx playwright test --repeat-each=%d %s -g "%s"',
       filedir,
+      running_message,
       repeat_count,
       filename,
       matched_text
     )
   else
     cmd = string.format(
-      'cd %s && echo "Running Playwright Test . . ." && npx playwright test %s -g "%s"',
+      'cd %s && echo "%s" && npx playwright test %s -g "%s"',
       filedir,
+      running_message,
       filename,
       matched_text
     )
@@ -113,7 +119,11 @@ end
 _G.run_all_tests = function(repeat_count)
   local original_win_id, original_buf_id, filedir, filename = get_current_context()
 
-  local cmd_prefix = string.format('cd %s && echo "Running Playwright Test . . ."', filedir)
+  local running_message = repeat_count
+      and string.format("Running all Playwright Tests in '%s' with a repeat count of %d...", filename, repeat_count)
+    or string.format("Running all Playwright Tests in '%s'...", filename)
+
+  local cmd_prefix = string.format('cd %s && echo "%s"', filedir, running_message)
   local cmd_suffix = repeat_count and string.format("npx playwright test --repeat-each=%d %s", repeat_count, filename)
     or string.format("npx playwright test %s", filename)
   local cmd_to_run = cmd_prefix .. " && " .. cmd_suffix
