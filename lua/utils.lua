@@ -57,11 +57,17 @@ _G.find_nearest_test = function()
   end
 
   -- Determine the command to run
-  local cmd_to_run = string.format('cd %s && npx playwright test %s -g "%s"', filedir, filename, matched_text)
+  local cmd_to_run = string.format(
+    'cd %s && echo "Running Playwright Test . . ." && npx playwright test %s -g "%s"',
+    filedir,
+    filename,
+    matched_text
+  )
 
   -- If terminal exists, we switch to it and run the command, else we initialize a terminal with the command.
   if terminal_exists then
-    vim.cmd('silent! call term_sendkeys("", "\\003' .. cmd_to_run .. '\\n")') -- CTRL-C to ensure we're at the command prompt, then send the command
+    -- vim.cmd('silent! call term_sendkeys("", "\\003' .. cmd_to_run .. '\\n")') -- CTRL-C to ensure we're at the command prompt, then send the command
+    vim.cmd('silent! call term_sendkeys("", "\\003' .. vim.fn.escape(cmd_to_run, '"\\') .. '\\n")')
   else
     vim.cmd("vsplit | terminal " .. cmd_to_run) -- Start the terminal with the desired command
   end
