@@ -4,7 +4,7 @@ _G.toggle_tmux_pane = function()
 end
 
 -- playwright crap
-_G.run_nearest_test = function()
+_G.run_nearest_test = function(repeat_count)
   -- Store the current window and buffer ID
   local original_win_id = vim.api.nvim_get_current_win()
   local original_buf_id = vim.api.nvim_get_current_buf()
@@ -54,6 +54,15 @@ _G.run_nearest_test = function()
     filename,
     matched_text
   )
+  if repeat_count then
+    cmd_to_run = string.format(
+      'cd %s && echo "Running Playwright Test . . ." && npx playwright test --repeat-each=%d %s -g "%s"',
+      filedir,
+      repeat_count,
+      filename,
+      matched_text
+    )
+  end
 
   for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
     local buffer_name = vim.api.nvim_buf_get_name(bufnr)
@@ -74,7 +83,7 @@ _G.run_nearest_test = function()
 end
 
 -- add function to test entire file instead of just the nearest test
-_G.run_all_tests = function()
+_G.run_all_tests = function(repeat_count)
   -- Store the current window and buffer ID
   local original_win_id = vim.api.nvim_get_current_win()
   local original_buf_id = vim.api.nvim_get_current_buf()
@@ -85,6 +94,15 @@ _G.run_all_tests = function()
 
   local cmd_to_run =
     string.format('cd %s && echo "Running Playwright Test . . ." && npx playwright test %s', filedir, filename)
+
+  if repeat_count then
+    cmd_to_run = string.format(
+      'cd %s && echo "Running Playwright Test . . ." && npx playwright test --repeat-each=%d %s',
+      filedir,
+      repeat_count,
+      filename
+    )
+  end
 
   for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
     local buffer_name = vim.api.nvim_buf_get_name(bufnr)
