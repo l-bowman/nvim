@@ -3,67 +3,69 @@ _G.toggle_tmux_pane = function()
   vim.cmd("!tmux display-message 'Test Message'")
 end
 
--- playwright crap
-_G.run_nearest_test = function(repeat_count)
-  -- Store the current window and buffer ID
-  local original_win_id = vim.api.nvim_get_current_win()
-  local original_buf_id = vim.api.nvim_get_current_buf()
+-- Helper functions:
 
-  local pattern = [[test("\([^"]*\)"]]
+local function get_nearest_test_pattern()
+  return [[test("\([^"]*\)"]]
+end
 
-  local current_line = vim.api.nvim_win_get_cursor(0)[1]
+local function get_current_line_number()
+  return vim.api.nvim_win_get_cursor(0)[1]
+end
 
-  -- Search backwards
+local function find_nearest_test_position(current_line)
+  local pattern = get_nearest_test_pattern()
   local prev_pos = vim.fn.searchpos(pattern, "bn")
-
-  -- Search forwards
   local next_pos = vim.fn.searchpos(pattern, "n")
 
   local semicolon_pos = vim.fn.searchpos(";", "n")
+  local valid_forward_search = not (semicolon_pos[1] > 0 and (next_pos[1] == 0 or semicolon_pos[1] < next_pos[1]))
 
-  -- Check if a semicolon is encountered before the next test() pattern
-  local valid_forward_search = true
-  if semicolon_pos[1] > 0 and (next_pos[1] == 0 or semicolon_pos[1] < next_pos[1]) then
-    valid_forward_search = false
-  end
-
-  local chosen_line = 0
+  local chosen_line = prev_pos[1]
   if
     prev_pos[1] == 0
     or (next_pos[1] > 0 and valid_forward_search and next_pos[1] - current_line < current_line - prev_pos[1])
   then
     chosen_line = next_pos[1]
-  else
-    chosen_line = prev_pos[1]
   end
 
-  -- Fetch the matched text
-  local matched_text = ""
-  if chosen_line > 0 then
-    matched_text = vim.fn.matchstr(vim.fn.getline(chosen_line), pattern, "\\1")
-    matched_text = matched_text:match('"(.-)"')
-  end
+  return chosen_line
+end
 
-  -- Retrieve the file path
+local function get_test_name_from_line(line_number)
+  local pattern = get_nearest_test_pattern()
+  local matched_text = vim.fn.matchstr(vim.fn.getline(line_number), pattern, "\\1")
+  return matched_text:match('"(.-)"')
+end
+
+local function get_current_context()
+  local original_win_id = vim.api.nvim_get_current_win()
+  local original_buf_id = vim.api.nvim_get_current_buf()
   local filedir = vim.fn.expand("%:p:h")
   local filename = vim.fn.expand("%:t")
+  return original_win_id, original_buf_id, filedir, filename
+end
 
-  local cmd_to_run = string.format(
-    'cd %s && echo "Running Playwright Test . . ." && npx playwright test %s -g "%s"',
-    filedir,
-    filename,
-    matched_text
-  )
+local function construct_cmd(filedir, repeat_count, filename, matched_text)
   if repeat_count then
-    cmd_to_run = string.format(
+    return string.format(
       'cd %s && echo "Running Playwright Test . . ." && npx playwright test --repeat-each=%d %s -g "%s"',
       filedir,
       repeat_count,
       filename,
       matched_text
     )
+  else
+    return string.format(
+      'cd %s && echo "Running Playwright Test . . ." && npx playwright test %s -g "%s"',
+      filedir,
+      filename,
+      matched_text
+    )
   end
+end
 
+local function close_existing_test_terminals()
   for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
     local buffer_name = vim.api.nvim_buf_get_name(bufnr)
     local buf_type = vim.api.nvim_buf_get_option(bufnr, "buftype")
@@ -75,63 +77,46 @@ _G.run_nearest_test = function(repeat_count)
       end
     end
   end
+end
 
-  vim.cmd("vsplit | terminal " .. cmd_to_run) -- Start the terminal with the desired command
-  vim.cmd("file " .. "PlaywrightTesting") -- Set the name of the terminal buffer
+local function execute_in_terminal(cmd)
+  vim.cmd("vsplit | terminal " .. cmd)
+  vim.cmd("file PlaywrightTesting")
+end
+
+-- Main functions:
+
+_G.run_nearest_test = function(repeat_count)
+  local original_win_id, original_buf_id, filedir, filename = get_current_context()
+
+  local current_line = get_current_line_number()
+  local chosen_line = find_nearest_test_position(current_line)
+
+  local matched_text = chosen_line > 0 and get_test_name_from_line(chosen_line) or ""
+
+  local cmd_to_run = construct_cmd(filedir, repeat_count, filename, matched_text)
+  close_existing_test_terminals()
+  execute_in_terminal(cmd_to_run)
+
   vim.api.nvim_set_current_win(original_win_id)
   vim.api.nvim_set_current_buf(original_buf_id)
 end
 
--- add function to test entire file instead of just the nearest test
 _G.run_all_tests = function(repeat_count)
-  -- Store the current window and buffer ID
-  local original_win_id = vim.api.nvim_get_current_win()
-  local original_buf_id = vim.api.nvim_get_current_buf()
+  local original_win_id, original_buf_id, filedir, filename = get_current_context()
 
-  -- Retrieve the file path
-  local filedir = vim.fn.expand("%:p:h")
-  local filename = vim.fn.expand("%:t")
+  local cmd_prefix = string.format('cd %s && echo "Running Playwright Test . . ."', filedir)
+  local cmd_suffix = repeat_count and string.format("npx playwright test --repeat-each=%d %s", repeat_count, filename)
+    or string.format("npx playwright test %s", filename)
+  local cmd_to_run = cmd_prefix .. " && " .. cmd_suffix
 
-  local cmd_to_run =
-    string.format('cd %s && echo "Running Playwright Test . . ." && npx playwright test %s', filedir, filename)
+  close_existing_test_terminals()
+  execute_in_terminal(cmd_to_run)
 
-  if repeat_count then
-    cmd_to_run = string.format(
-      'cd %s && echo "Running Playwright Test . . ." && npx playwright test --repeat-each=%d %s',
-      filedir,
-      repeat_count,
-      filename
-    )
-  end
-
-  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
-    local buffer_name = vim.api.nvim_buf_get_name(bufnr)
-    local buf_type = vim.api.nvim_buf_get_option(bufnr, "buftype")
-
-    if buf_type == "terminal" then
-      local term_name = vim.fn.fnamemodify(buffer_name, ":t")
-      if term_name == "PlaywrightTesting" then
-        vim.api.nvim_buf_delete(bufnr, { force = true })
-      end
-    end
-  end
-
-  vim.cmd("vsplit | terminal " .. cmd_to_run) -- Start the terminal with the desired command
-  vim.cmd("file " .. "PlaywrightTesting") -- Set the name of the terminal buffer
   vim.api.nvim_set_current_win(original_win_id)
   vim.api.nvim_set_current_buf(original_buf_id)
 end
 
 _G.close_test_terminal = function()
-  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
-    local buffer_name = vim.api.nvim_buf_get_name(bufnr)
-    local buf_type = vim.api.nvim_buf_get_option(bufnr, "buftype")
-
-    if buf_type == "terminal" then
-      local term_name = vim.fn.fnamemodify(buffer_name, ":t")
-      if term_name == "PlaywrightTesting" then
-        vim.api.nvim_buf_delete(bufnr, { force = true })
-      end
-    end
-  end
+  close_existing_test_terminals()
 end
