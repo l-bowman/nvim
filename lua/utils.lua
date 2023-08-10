@@ -3,7 +3,7 @@ _G.toggle_tmux_pane = function()
   vim.cmd("!tmux display-message 'Test Message'")
 end
 
--- playwright
+-- playwright crap
 _G.run_nearest_test = function()
   -- Store the current window and buffer ID
   local original_win_id = vim.api.nvim_get_current_win()
@@ -54,6 +54,37 @@ _G.run_nearest_test = function()
     filename,
     matched_text
   )
+
+  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+    local buffer_name = vim.api.nvim_buf_get_name(bufnr)
+    local buf_type = vim.api.nvim_buf_get_option(bufnr, "buftype")
+
+    if buf_type == "terminal" then
+      local term_name = vim.fn.fnamemodify(buffer_name, ":t")
+      if term_name == "PlaywrightTesting" then
+        vim.api.nvim_buf_delete(bufnr, { force = true })
+      end
+    end
+  end
+
+  vim.cmd("vsplit | terminal " .. cmd_to_run) -- Start the terminal with the desired command
+  vim.cmd("file " .. "PlaywrightTesting") -- Set the name of the terminal buffer
+  vim.api.nvim_set_current_win(original_win_id)
+  vim.api.nvim_set_current_buf(original_buf_id)
+end
+
+-- add function to test entire file instead of just the nearest test
+_G.run_all_tests = function()
+  -- Store the current window and buffer ID
+  local original_win_id = vim.api.nvim_get_current_win()
+  local original_buf_id = vim.api.nvim_get_current_buf()
+
+  -- Retrieve the file path
+  local filedir = vim.fn.expand("%:p:h")
+  local filename = vim.fn.expand("%:t")
+
+  local cmd_to_run =
+    string.format('cd %s && echo "Running Playwright Test . . ." && npx playwright test %s', filedir, filename)
 
   for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
     local buffer_name = vim.api.nvim_buf_get_name(bufnr)
