@@ -3,6 +3,9 @@ _G.toggle_tmux_pane = function()
   vim.cmd("!tmux display-message 'Test Message'")
 end
 
+-- PLAYWRIGHT CRAP -> Future plugin
+local last_test_command = nil
+
 -- Helper functions:
 
 local function get_nearest_test_pattern()
@@ -47,8 +50,9 @@ local function get_current_context()
 end
 
 local function construct_cmd(filedir, repeat_count, filename, matched_text)
+  local cmd
   if repeat_count then
-    return string.format(
+    cmd = string.format(
       'cd %s && echo "Running Playwright Test . . ." && npx playwright test --repeat-each=%d %s -g "%s"',
       filedir,
       repeat_count,
@@ -56,13 +60,17 @@ local function construct_cmd(filedir, repeat_count, filename, matched_text)
       matched_text
     )
   else
-    return string.format(
+    cmd = string.format(
       'cd %s && echo "Running Playwright Test . . ." && npx playwright test %s -g "%s"',
       filedir,
       filename,
       matched_text
     )
   end
+
+  -- Set the last test command
+  last_test_command = cmd
+  return cmd
 end
 
 local function close_existing_test_terminals()
@@ -115,6 +123,20 @@ _G.run_all_tests = function(repeat_count)
 
   vim.api.nvim_set_current_win(original_win_id)
   vim.api.nvim_set_current_buf(original_buf_id)
+end
+
+_G.run_last_test = function()
+  if last_test_command then
+    local original_win_id, original_buf_id = get_current_context()
+
+    close_existing_test_terminals()
+    execute_in_terminal(last_test_command)
+
+    vim.api.nvim_set_current_win(original_win_id)
+    vim.api.nvim_set_current_buf(original_buf_id)
+  else
+    print("No tests have been run yet.")
+  end
 end
 
 _G.close_test_terminal = function()
