@@ -73,7 +73,6 @@ _G.run_nearest_test = function()
   vim.api.nvim_set_current_buf(original_buf_id)
 end
 
--- add function to close terminal buffer with name "PlaywrightTesting"
 _G.close_test_terminal = function()
   for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
     local buffer_name = vim.api.nvim_buf_get_name(bufnr)
