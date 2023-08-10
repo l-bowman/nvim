@@ -23,3 +23,6 @@ require("lazy").setup("plugins", lazy_opts)
 
 -- keymappings
 require("keymappings")
+
+--utils
+require("utils")

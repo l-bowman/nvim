@@ -9,6 +9,7 @@ return {
   "voldikss/vim-browser-search",
   "ThePrimeagen/harpoon",
   "sindrets/diffview.nvim",
+  "christoomey/vim-tmux-navigator",
 
   "windwp/nvim-ts-autotag", -- auto close and rename tags
   -- "simonward87/nvim-ts-autotag", -- Not sure why Will moved to this. Needs

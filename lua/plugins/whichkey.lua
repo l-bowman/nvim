@@ -261,7 +261,7 @@ return {
           w = { "<cmd>lua require('spectre').open_visual({select_word=true})<CR>", "Search for word under cursor" },
         },
         s = { "<cmd>lua vim.o.spell = not vim.o.spell<cr>", "Toggle spell check" },
-        t = { "<cmd>ToggleTerm<CR>", "Toggle Terminal" },
+        t = { "<cmd>lua toggle_tmux_pane()<CR>", "Toggle Tmux" },
         T = {
           name = "Trouble",
           d = { "<cmd>Trouble lsp_definitions<CR>", "Definitions" },
@@ -294,6 +294,14 @@ return {
         d = "Definition",
         r = "References",
       }, { prefix = "g" })
+
+      wk.register({
+        G = {
+          name = "ChatGPT",
+          a = { "<cmd>Chat alphabetize<CR>", "Alphabetize" },
+          o = { "<cmd>Chat opt<CR>", "Optimize" },
+        },
+      }, { mode = "v" })
     end,
   },
 }
