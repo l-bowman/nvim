@@ -273,8 +273,6 @@ return {
         },
         t = { "<cmd>lua toggle_tmux_pane()<CR>", "Toggle Tmux" },
         u = { "<cmd>UndotreeToggle<CR><cmd>UndotreeFocus<CR>", "Undotree" },
-        -- Extra write command here is a hack to work around situations where the formatter fails because no formatting occurs
-        -- write.
         W = {
           name = "Trouble",
           d = { "<cmd>Trouble lsp_definitions<CR>", "Definitions" },
