@@ -153,9 +153,8 @@ local function is_within_range(value, min, max)
   return value >= min and value <= max
 end
 
-_G.extract_and_print_video_path = function()
+_G.play_test_video = function()
   local pattern = "test%-results/.+%.webm"
-
   local start_line = vim.fn.line("w0")
   local end_line = vim.fn.line("w$")
   local cursor_line = vim.fn.line(".")
@@ -165,8 +164,6 @@ _G.extract_and_print_video_path = function()
 
   for i = start_line, end_line do
     local line = tostring(vim.fn.getline(i))
-
-    -- Check if this line contains part of the video path
     if line:find("test%-results/") then
       local next_line = tostring(vim.fn.getline(i + 1) or "")
       local combined_lines = line .. "\n" .. next_line
@@ -180,11 +177,26 @@ _G.extract_and_print_video_path = function()
     end
   end
 
-  if path and is_within_range(cursor_line, path_start_line, path_end_line) then
-    print("Extracted path:", path)
-  else
+  if not path or not is_within_range(cursor_line, path_start_line, path_end_line) then
     print("Path not found or cursor not on the path!")
+    return
   end
+
+  local root_path = vim.fn.getcwd()
+
+  local open_cmd
+  if vim.fn.has("mac") == 1 then
+    open_cmd = "open"
+  elseif vim.fn.has("unix") == 1 then
+    open_cmd = "xdg-open"
+  else
+    print("Unsupported OS for this operation!")
+    return
+  end
+
+  -- Use find to locate the file and open the first match
+  local cmd = string.format("cd %s && %s $(find . -type f | grep '%s' | head -1)", root_path, open_cmd, path)
+  vim.fn.system(cmd)
 end
 
 _G.close_test_terminal = function()
