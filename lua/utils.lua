@@ -149,6 +149,44 @@ _G.run_last_test = function()
   end
 end
 
+local function is_within_range(value, min, max)
+  return value >= min and value <= max
+end
+
+_G.extract_and_print_video_path = function()
+  local pattern = "test%-results/.+%.webm"
+
+  local start_line = vim.fn.line("w0")
+  local end_line = vim.fn.line("w$")
+  local cursor_line = vim.fn.line(".")
+
+  local path_start_line, path_end_line
+  local path
+
+  for i = start_line, end_line do
+    local line = tostring(vim.fn.getline(i))
+
+    -- Check if this line contains part of the video path
+    if line:find("test%-results/") then
+      local next_line = tostring(vim.fn.getline(i + 1) or "")
+      local combined_lines = line .. "\n" .. next_line
+      path = combined_lines:match(pattern)
+      path_start_line = i
+
+      if path then
+        path_end_line = path:find("\n") and i + 1 or i
+        break
+      end
+    end
+  end
+
+  if path and is_within_range(cursor_line, path_start_line, path_end_line) then
+    print("Extracted path:", path)
+  else
+    print("Path not found or cursor not on the path!")
+  end
+end
+
 _G.close_test_terminal = function()
   close_existing_test_terminals()
 end
