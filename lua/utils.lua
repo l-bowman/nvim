@@ -227,24 +227,40 @@ _G.play_test_trace = function()
   end
 
   local root_path = vim.fn.getcwd()
-
-  -- We'll use `find` to locate the trace directory.
   path = path:gsub("\n", "") -- Remove any newline from the output
 
   local find_cmd =
     string.format("find %s -type d -name 'test-results' -exec find {} -type f -name 'trace.zip' \\;", root_path)
-  local trace_directory = vim.fn.system(find_cmd .. " | grep -F '" .. path .. "' | xargs -I{} dirname {} | head -1")
 
-  if not trace_directory or trace_directory == "" then
-    print("Directory containing the trace file not found!")
-    return
+  -- Function to handle the callback from the asynchronous job
+  local on_job_exit = function(j, exit_code, event)
+    if exit_code ~= 0 then
+      print("Error finding the trace directory!")
+      return
+    end
+
+    local trace_directory =
+      vim.fn.systemlist(find_cmd .. " | grep -F '" .. path .. "' | xargs -I{} dirname {} | head -1")[1]
+    if not trace_directory or trace_directory == "" then
+      print("Directory containing the trace file not found!")
+      return
+    end
+
+    trace_directory = trace_directory:gsub("\n", "") -- Remove any newline from the output
+
+    -- Use the command to open the trace
+    local cmd = string.format("cd %s && npx playwright show-trace %s", trace_directory, path)
+    vim.fn.jobstart(cmd, {
+      on_exit = function(j, exit_code, event)
+        if exit_code ~= 0 then
+          print("Error executing the playwright command!")
+        end
+      end,
+    })
   end
 
-  trace_directory = trace_directory:gsub("\n", "") -- Remove any newline from the output
-
-  -- Use the command to open the trace
-  local cmd = string.format("cd %s && npx playwright show-trace %s", trace_directory, path)
-  vim.fn.system(cmd)
+  -- Start the job asynchronously
+  vim.fn.jobstart(find_cmd, { on_exit = on_job_exit })
 end
 
 _G.close_test_terminal = function()
