@@ -5,6 +5,9 @@ end
 
 -- PLAYWRIGHT CRAP -> Future plugin
 local last_test_command = nil
+_G.playwright_test_config = _G.playwright_test_config or {}
+_G.playwright_test_config.test_directories =
+  { "~/Documents/dev/monorepo/portals/management/tests", "/absolute/path/to/your/tests2" }
 
 -- Helper functions:
 
@@ -99,6 +102,55 @@ local function execute_in_terminal(cmd)
 end
 
 -- Main functions:
+-- Configuration table for the plugin
+_G.playwright_test_config = _G.playwright_test_config or {}
+
+-- Function to check and get the test directory
+local function get_test_directory()
+  local test_dirs = _G.playwright_test_config.test_directories
+  if not test_dirs or #test_dirs == 0 then
+    print("Please configure the test directories.")
+    return nil
+  elseif #test_dirs == 1 then
+    return test_dirs[1]
+  else
+    local display_options = { "Select a test directory:" }
+    for i, dir in ipairs(test_dirs) do
+      table.insert(display_options, string.format("%d. %s", i, dir))
+    end
+
+    local choice = vim.fn.inputlist(display_options)
+    if choice < 1 or choice > #test_dirs then
+      print("Invalid selection.")
+      return nil
+    end
+    return test_dirs[choice]
+  end
+end
+
+-- Function to run all tests
+_G.run_all_tests_in_dir = function(repeat_count)
+  local test_dir = get_test_directory() -- fetch the test directory from config or user input
+  if not test_dir then
+    return
+  end -- If no valid directory, exit the function
+
+  local cmd = "cd " .. test_dir .. " && npx playwright test"
+
+  -- If repeat_count is provided, add it to the command
+  if repeat_count and tonumber(repeat_count) then
+    cmd = cmd .. " --repeat-each=" .. tostring(repeat_count)
+  end
+
+  -- Close any existing test terminals and execute the command in a new terminal (assuming we're in Neovim)
+  close_existing_test_terminals()
+  execute_in_terminal(cmd)
+
+  -- Restore the original window and buffer context
+  local original_win_id, original_buf_id = get_current_context()
+  vim.api.nvim_set_current_win(original_win_id)
+  vim.api.nvim_set_current_buf(original_buf_id)
+end
 
 _G.run_nearest_test = function(repeat_count)
   local original_win_id, original_buf_id, filedir, filename = get_current_context()
@@ -215,11 +267,9 @@ end
 
 _G.play_test_trace = function()
   local pattern = "test%-results/.+%.zip"
-  local start_line = vim.fn.line("w0")
-  local end_line = vim.fn.line("w$")
   local cursor_line = vim.fn.line(".")
 
-  local path, path_start_line, path_end_line = find_pattern_path(pattern, start_line, end_line, cursor_line)
+  local path = find_pattern_path(pattern, vim.fn.line("w0"), vim.fn.line("w$"), cursor_line)
 
   if not path then
     print("Path is nil!")
@@ -233,8 +283,8 @@ _G.play_test_trace = function()
     string.format("find %s -type d -name 'test-results' -exec find {} -type f -name 'trace.zip' \\;", root_path)
 
   -- Function to handle the callback from the asynchronous job
-  local on_job_exit = function(j, exit_code, event)
-    if exit_code ~= 0 then
+  local on_job_exit = function(_, find_exit_code)
+    if find_exit_code ~= 0 then
       print("Error finding the trace directory!")
       return
     end
@@ -251,8 +301,8 @@ _G.play_test_trace = function()
     -- Use the command to open the trace
     local cmd = string.format("cd %s && npx playwright show-trace %s", trace_directory, path)
     vim.fn.jobstart(cmd, {
-      on_exit = function(j, exit_code, event)
-        if exit_code ~= 0 then
+      on_exit = function(_, play_exit_code)
+        if play_exit_code ~= 0 then
           print("Error executing the playwright command!")
         end
       end,
