@@ -149,16 +149,13 @@ _G.run_last_test = function()
   end
 end
 
-local function is_within_range(value, min, max)
-  return value >= min and value <= max
+-- This function checks if the cursor is within a given range.
+local function is_within_range(cursor_line, start_line, end_line)
+  return cursor_line >= start_line and cursor_line <= end_line
 end
 
-_G.play_test_video = function()
-  local pattern = "test%-results/.+%.webm"
-  local start_line = vim.fn.line("w0")
-  local end_line = vim.fn.line("w$")
-  local cursor_line = vim.fn.line(".")
-
+-- This function abstracts the common logic of finding a path based on a pattern.
+local function find_pattern_path(pattern, start_line, end_line, cursor_line)
   local path_start_line, path_end_line
   local path
 
@@ -172,19 +169,36 @@ _G.play_test_video = function()
 
       if path then
         path_end_line = path:find("\n") and i + 1 or i
+      end
+
+      -- If we found a path and the cursor is within its range, break the loop.
+      if path and is_within_range(cursor_line, path_start_line, path_end_line) then
         break
+      else
+        path = nil
       end
     end
   end
 
-  if not path or not is_within_range(cursor_line, path_start_line, path_end_line) then
-    print("Path not found or cursor not on the path!")
+  return path, path_start_line, path_end_line
+end
+
+_G.play_test_video = function()
+  local pattern = "test%-results/.+%.webm"
+  local start_line = vim.fn.line("w0")
+  local end_line = vim.fn.line("w$")
+  local cursor_line = vim.fn.line(".")
+
+  local path, path_start_line, path_end_line = find_pattern_path(pattern, start_line, end_line, cursor_line)
+
+  if not path then
+    print("Path not found!")
     return
   end
 
   local root_path = vim.fn.getcwd()
-
   local open_cmd
+
   if vim.fn.has("mac") == 1 then
     open_cmd = "open"
   elseif vim.fn.has("unix") == 1 then
@@ -196,6 +210,40 @@ _G.play_test_video = function()
 
   -- Use find to locate the file and open the first match
   local cmd = string.format("cd %s && %s $(find . -type f | grep '%s' | head -1)", root_path, open_cmd, path)
+  vim.fn.system(cmd)
+end
+
+_G.play_test_trace = function()
+  local pattern = "test%-results/.+%.zip"
+  local start_line = vim.fn.line("w0")
+  local end_line = vim.fn.line("w$")
+  local cursor_line = vim.fn.line(".")
+
+  local path, path_start_line, path_end_line = find_pattern_path(pattern, start_line, end_line, cursor_line)
+
+  if not path then
+    print("Path is nil!")
+    return
+  end
+
+  local root_path = vim.fn.getcwd()
+
+  -- We'll use `find` to locate the trace directory.
+  path = path:gsub("\n", "") -- Remove any newline from the output
+
+  local find_cmd =
+    string.format("find %s -type d -name 'test-results' -exec find {} -type f -name 'trace.zip' \\;", root_path)
+  local trace_directory = vim.fn.system(find_cmd .. " | grep -F '" .. path .. "' | xargs -I{} dirname {} | head -1")
+
+  if not trace_directory or trace_directory == "" then
+    print("Directory containing the trace file not found!")
+    return
+  end
+
+  trace_directory = trace_directory:gsub("\n", "") -- Remove any newline from the output
+
+  -- Use the command to open the trace
+  local cmd = string.format("cd %s && npx playwright show-trace %s", trace_directory, path)
   vim.fn.system(cmd)
 end
 
