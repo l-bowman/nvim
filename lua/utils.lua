@@ -250,3 +250,16 @@ end
 _G.close_test_terminal = function()
   close_existing_test_terminals()
 end
+
+-- Close any buffer named "PlaywrightTesting"
+_G.close_playwright_buffer = function()
+  local buffers = vim.api.nvim_list_bufs()
+  for _, buf in ipairs(buffers) do
+    local name = vim.api.nvim_buf_get_name(buf)
+    if string.find(name, "PlaywrightTesting") then
+      vim.api.nvim_buf_delete(buf, { force = true })
+    end
+  end
+end
+
+vim.cmd([[autocmd VimEnter * lua close_playwright_buffer()]])
