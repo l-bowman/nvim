@@ -303,13 +303,13 @@ return {
         r = "References",
       }, { prefix = "g" })
 
-      wk.register({
-        G = {
-          name = "ChatGPT",
-          a = { "<cmd>Chat alphabetize<CR>", "Alphabetize" },
-          o = { "<cmd>Chat opt<CR>", "Optimize" },
-        },
-      }, { mode = "v" })
+      -- wk.register({
+      --   G = {
+      --     name = "ChatGPT",
+      --     a = { "<cmd>Chat alphabetize<CR>", "Alphabetize" },
+      --     o = { "<cmd>Chat opt<CR>", "Optimize" },
+      --   },
+      -- }, { mode = "v" })
     end,
   },
 }

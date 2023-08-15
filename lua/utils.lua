@@ -4,10 +4,16 @@ _G.toggle_tmux_pane = function()
 end
 
 -- PLAYWRIGHT CRAP -> Future plugin
+local playwright = {}
+
+-- Initialization
+playwright.config = {
+  test_directories = {
+    "~/Documents/dev/monorepo/portals/management/tests",
+    "/absolute/path/to/your/tests2",
+  },
+}
 local last_test_command = nil
-_G.playwright_test_config = _G.playwright_test_config or {}
-_G.playwright_test_config.test_directories =
-  { "~/Documents/dev/monorepo/portals/management/tests", "/absolute/path/to/your/tests2" }
 
 -- Helper functions:
 
@@ -101,10 +107,6 @@ local function execute_in_terminal(cmd)
   vim.cmd("file PlaywrightTesting")
 end
 
--- Main functions:
--- Configuration table for the plugin
-_G.playwright_test_config = _G.playwright_test_config or {}
-
 -- Function to check and get the test directory
 local function get_test_directory()
   local test_dirs = _G.playwright_test_config.test_directories
@@ -128,8 +130,12 @@ local function get_test_directory()
   end
 end
 
+-- Main functions:
+-- Configuration table for the plugin
+_G.playwright_test_config = _G.playwright_test_config or {}
+
 -- Function to run all tests
-_G.run_all_tests_in_dir = function(repeat_count)
+function playwright.run_all_tests_in_dir(repeat_count)
   local test_dir = get_test_directory() -- fetch the test directory from config or user input
   if not test_dir then
     return
@@ -152,7 +158,7 @@ _G.run_all_tests_in_dir = function(repeat_count)
   vim.api.nvim_set_current_buf(original_buf_id)
 end
 
-_G.run_nearest_test = function(repeat_count)
+function playwright.run_nearest_test(repeat_count)
   local original_win_id, original_buf_id, filedir, filename = get_current_context()
 
   local current_line = get_current_line_number()
@@ -168,7 +174,7 @@ _G.run_nearest_test = function(repeat_count)
   vim.api.nvim_set_current_buf(original_buf_id)
 end
 
-_G.run_all_tests = function(repeat_count)
+function playwright.run_all_tests(repeat_count)
   local original_win_id, original_buf_id, filedir, filename = get_current_context()
 
   local running_message = repeat_count
@@ -187,7 +193,7 @@ _G.run_all_tests = function(repeat_count)
   vim.api.nvim_set_current_buf(original_buf_id)
 end
 
-_G.run_last_test = function()
+function playwright.run_last_test()
   if last_test_command then
     local original_win_id, original_buf_id = get_current_context()
 
@@ -235,7 +241,7 @@ local function find_pattern_path(pattern, start_line, end_line, cursor_line)
   return path, path_start_line, path_end_line
 end
 
-_G.play_test_video = function()
+function playwright.play_test_video()
   local pattern = "test%-results/.+%.webm"
   local start_line = vim.fn.line("w0")
   local end_line = vim.fn.line("w$")
@@ -265,7 +271,7 @@ _G.play_test_video = function()
   vim.fn.system(cmd)
 end
 
-_G.play_test_trace = function()
+function playwright.play_test_trace()
   local pattern = "test%-results/.+%.zip"
   local cursor_line = vim.fn.line(".")
 
@@ -313,12 +319,12 @@ _G.play_test_trace = function()
   vim.fn.jobstart(find_cmd, { on_exit = on_job_exit })
 end
 
-_G.close_test_terminal = function()
+function playwright.close_test_terminal()
   close_existing_test_terminals()
 end
 
 -- Close any buffer named "PlaywrightTesting"
-_G.close_playwright_buffer = function()
+function playwright.close_playwright_buffer()
   local buffers = vim.api.nvim_list_bufs()
   for _, buf in ipairs(buffers) do
     local name = vim.api.nvim_buf_get_name(buf)
@@ -328,4 +334,8 @@ _G.close_playwright_buffer = function()
   end
 end
 
-vim.cmd([[autocmd VimEnter * lua close_playwright_buffer()]])
+-- Set up the global namespace
+_G.playwright = playwright
+
+-- Autocommands
+vim.cmd([[autocmd VimEnter * lua playwright.close_playwright_buffer()]])
