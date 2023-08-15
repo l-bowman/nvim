@@ -6,7 +6,9 @@ end
 -- PLAYWRIGHT CRAP -> Future plugin
 local playwright = {}
 
--- Initialization
+--------------------------
+-- Plugin Initialization
+--------------------------
 playwright.config = {
   test_directories = {
     "~/Documents/dev/monorepo/portals/management/tests",
@@ -15,8 +17,9 @@ playwright.config = {
 }
 local last_test_command = nil
 
--- Helper functions:
-
+--------------------------
+-- Utility Functions
+--------------------------
 local function get_nearest_test_pattern()
   return [[test("\([^"]*\)"]]
 end
@@ -25,18 +28,18 @@ local function get_current_line_number()
   return vim.api.nvim_win_get_cursor(0)[1]
 end
 
-local function find_nearest_test_position(current_line)
+local function find_nearest_test_line(current_line)
   local pattern = get_nearest_test_pattern()
   local prev_pos = vim.fn.searchpos(pattern, "bn")
   local next_pos = vim.fn.searchpos(pattern, "n")
 
   local semicolon_pos = vim.fn.searchpos(";", "n")
-  local valid_forward_search = not (semicolon_pos[1] > 0 and (next_pos[1] == 0 or semicolon_pos[1] < next_pos[1]))
+  local is_valid_forward_search = not (semicolon_pos[1] > 0 and (next_pos[1] == 0 or semicolon_pos[1] < next_pos[1]))
 
   local chosen_line = prev_pos[1]
   if
     prev_pos[1] == 0
-    or (next_pos[1] > 0 and valid_forward_search and next_pos[1] - current_line < current_line - prev_pos[1])
+    or (next_pos[1] > 0 and is_valid_forward_search and next_pos[1] - current_line < current_line - prev_pos[1])
   then
     chosen_line = next_pos[1]
   end
@@ -50,15 +53,15 @@ local function get_test_name_from_line(line_number)
   return matched_text:match('"(.-)"')
 end
 
-local function get_current_context()
+local function get_current_editor_context()
   local original_win_id = vim.api.nvim_get_current_win()
   local original_buf_id = vim.api.nvim_get_current_buf()
-  local filedir = vim.fn.expand("%:p:h")
-  local filename = vim.fn.expand("%:t")
-  return original_win_id, original_buf_id, filedir, filename
+  local file_directory = vim.fn.expand("%:p:h")
+  local file_name = vim.fn.expand("%:t")
+  return original_win_id, original_buf_id, file_directory, file_name
 end
 
-local function construct_cmd(filedir, repeat_count, filename, matched_text)
+local function build_test_command(file_directory, repeat_count, file_name, matched_text)
   local cmd
   local running_message = repeat_count
       and string.format("Running nearest Playwright Test '%s' with a repeat count of %d...", matched_text, repeat_count)
@@ -67,18 +70,18 @@ local function construct_cmd(filedir, repeat_count, filename, matched_text)
   if repeat_count then
     cmd = string.format(
       'cd %s && echo "%s" && npx playwright test --repeat-each=%d %s -g "%s"',
-      filedir,
+      file_directory,
       running_message,
       repeat_count,
-      filename,
+      file_name,
       matched_text
     )
   else
     cmd = string.format(
       'cd %s && echo "%s" && npx playwright test %s -g "%s"',
-      filedir,
+      file_directory,
       running_message,
-      filename,
+      file_name,
       matched_text
     )
   end
@@ -107,9 +110,9 @@ local function execute_in_terminal(cmd)
   vim.cmd("file PlaywrightTesting")
 end
 
--- Function to check and get the test directory
-local function get_test_directory()
-  local test_dirs = _G.playwright_test_config.test_directories
+-- Fetch or prompt for the test directory
+local function select_test_directory()
+  local test_dirs = playwright.config.test_directories
   if not test_dirs or #test_dirs == 0 then
     print("Please configure the test directories.")
     return nil
@@ -134,9 +137,9 @@ end
 -- Configuration table for the plugin
 _G.playwright_test_config = _G.playwright_test_config or {}
 
--- Function to run all tests
-function playwright.run_all_tests_in_dir(repeat_count)
-  local test_dir = get_test_directory() -- fetch the test directory from config or user input
+--Execute all tests
+function playwright.run_all_tests_in_directory(repeat_count)
+  local test_dir = select_test_directory() -- fetch the test directory from config or user input
   if not test_dir then
     return
   end -- If no valid directory, exit the function
@@ -153,20 +156,20 @@ function playwright.run_all_tests_in_dir(repeat_count)
   execute_in_terminal(cmd)
 
   -- Restore the original window and buffer context
-  local original_win_id, original_buf_id = get_current_context()
+  local original_win_id, original_buf_id = get_current_editor_context()
   vim.api.nvim_set_current_win(original_win_id)
   vim.api.nvim_set_current_buf(original_buf_id)
 end
 
 function playwright.run_nearest_test(repeat_count)
-  local original_win_id, original_buf_id, filedir, filename = get_current_context()
+  local original_win_id, original_buf_id, file_directory, file_name = get_current_editor_context()
 
   local current_line = get_current_line_number()
-  local chosen_line = find_nearest_test_position(current_line)
+  local chosen_line = find_nearest_test_line(current_line)
 
   local matched_text = chosen_line > 0 and get_test_name_from_line(chosen_line) or ""
 
-  local cmd_to_run = construct_cmd(filedir, repeat_count, filename, matched_text)
+  local cmd_to_run = build_test_command(file_directory, repeat_count, file_name, matched_text)
   close_existing_test_terminals()
   execute_in_terminal(cmd_to_run)
 
@@ -175,15 +178,15 @@ function playwright.run_nearest_test(repeat_count)
 end
 
 function playwright.run_all_tests(repeat_count)
-  local original_win_id, original_buf_id, filedir, filename = get_current_context()
+  local original_win_id, original_buf_id, file_directory, file_name = get_current_editor_context()
 
   local running_message = repeat_count
-      and string.format("Running all Playwright Tests in '%s' with a repeat count of %d...", filename, repeat_count)
-    or string.format("Running all Playwright Tests in '%s'...", filename)
+      and string.format("Running all Playwright Tests in '%s' with a repeat count of %d...", file_name, repeat_count)
+    or string.format("Running all Playwright Tests in '%s'...", file_name)
 
-  local cmd_prefix = string.format('cd %s && echo "%s"', filedir, running_message)
-  local cmd_suffix = repeat_count and string.format("npx playwright test --repeat-each=%d %s", repeat_count, filename)
-    or string.format("npx playwright test %s", filename)
+  local cmd_prefix = string.format('cd %s && echo "%s"', file_directory, running_message)
+  local cmd_suffix = repeat_count and string.format("npx playwright test --repeat-each=%d %s", repeat_count, file_name)
+    or string.format("npx playwright test %s", file_name)
   local cmd_to_run = cmd_prefix .. " && " .. cmd_suffix
 
   close_existing_test_terminals()
@@ -195,7 +198,7 @@ end
 
 function playwright.run_last_test()
   if last_test_command then
-    local original_win_id, original_buf_id = get_current_context()
+    local original_win_id, original_buf_id = get_current_editor_context()
 
     close_existing_test_terminals()
     execute_in_terminal(last_test_command)
@@ -241,7 +244,7 @@ local function find_pattern_path(pattern, start_line, end_line, cursor_line)
   return path, path_start_line, path_end_line
 end
 
-function playwright.play_test_video()
+function playwright.open_test_video()
   local pattern = "test%-results/.+%.webm"
   local start_line = vim.fn.line("w0")
   local end_line = vim.fn.line("w$")
@@ -271,7 +274,7 @@ function playwright.play_test_video()
   vim.fn.system(cmd)
 end
 
-function playwright.play_test_trace()
+function playwright.open_test_trace()
   local pattern = "test%-results/.+%.zip"
   local cursor_line = vim.fn.line(".")
 
