@@ -20,6 +20,11 @@ local last_test_command = nil
 --------------------------
 -- Utility Functions
 --------------------------
+local function reset_editor_context(original_win_id, original_buf_id)
+  vim.api.nvim_set_current_win(original_win_id)
+  vim.api.nvim_set_current_buf(original_buf_id)
+end
+
 local function get_nearest_test_pattern()
   return [[test("\([^"]*\)"]]
 end
@@ -157,8 +162,7 @@ function playwright.run_all_tests_in_directory(repeat_count)
 
   -- Restore the original window and buffer context
   local original_win_id, original_buf_id = get_current_editor_context()
-  vim.api.nvim_set_current_win(original_win_id)
-  vim.api.nvim_set_current_buf(original_buf_id)
+  reset_editor_context(original_win_id, original_buf_id)
 end
 
 function playwright.run_nearest_test(repeat_count)
@@ -173,8 +177,7 @@ function playwright.run_nearest_test(repeat_count)
   close_existing_test_terminals()
   execute_in_terminal(cmd_to_run)
 
-  vim.api.nvim_set_current_win(original_win_id)
-  vim.api.nvim_set_current_buf(original_buf_id)
+  reset_editor_context(original_win_id, original_buf_id)
 end
 
 function playwright.run_all_tests(repeat_count)
@@ -192,8 +195,7 @@ function playwright.run_all_tests(repeat_count)
   close_existing_test_terminals()
   execute_in_terminal(cmd_to_run)
 
-  vim.api.nvim_set_current_win(original_win_id)
-  vim.api.nvim_set_current_buf(original_buf_id)
+  reset_editor_context(original_win_id, original_buf_id)
 end
 
 function playwright.run_last_test()
@@ -203,8 +205,7 @@ function playwright.run_last_test()
     close_existing_test_terminals()
     execute_in_terminal(last_test_command)
 
-    vim.api.nvim_set_current_win(original_win_id)
-    vim.api.nvim_set_current_buf(original_buf_id)
+    reset_editor_context(original_win_id, original_buf_id)
   else
     print("No tests have been run yet.")
   end
