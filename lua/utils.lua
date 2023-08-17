@@ -17,6 +17,9 @@ playwright.config = {
 }
 local last_test_command = nil
 
+-- Configuration table for the plugin
+_G.playwright_test_config = _G.playwright_test_config or {}
+
 --------------------------
 -- Utility Functions
 --------------------------
@@ -35,21 +38,33 @@ end
 
 local function find_nearest_test_line(current_line)
   local pattern = get_nearest_test_pattern()
-  local prev_pos = vim.fn.searchpos(pattern, "bn")
-  local next_pos = vim.fn.searchpos(pattern, "n")
 
-  local semicolon_pos = vim.fn.searchpos(";", "n")
-  local is_valid_forward_search = not (semicolon_pos[1] > 0 and (next_pos[1] == 0 or semicolon_pos[1] < next_pos[1]))
-
-  local chosen_line = prev_pos[1]
-  if
-    prev_pos[1] == 0
-    or (next_pos[1] > 0 and is_valid_forward_search and next_pos[1] - current_line < current_line - prev_pos[1])
-  then
-    chosen_line = next_pos[1]
+  -- Check if the current line matches the test pattern
+  if vim.fn.matchstr(vim.fn.getline(current_line), pattern) ~= "" then
+    return current_line
   end
 
-  return chosen_line
+  -- Special handling for blank line: Check if there's a test pattern anywhere below up to a semicolon
+  if vim.fn.trim(vim.fn.getline(current_line)) == "" then
+    local line_below = vim.fn.searchpos(pattern, "n")
+    local semicolon_pos = vim.fn.search(";", "ncW", current_line)
+
+    if line_below[1] ~= 0 and (semicolon_pos == 0 or semicolon_pos > line_below[1]) then
+      return line_below[1]
+    end
+  end
+
+  -- Search downwards from the cursor position for the test pattern
+  local next_pos = vim.fn.searchpos(pattern, "n")
+
+  -- If the downward search did not find any matches or a semicolon is found before the next test pattern
+  if next_pos[1] == 0 or vim.fn.search(";", "ncW", current_line) < next_pos[1] then
+    -- Search upwards from the cursor position for the test pattern
+    local prev_pos = vim.fn.searchpos(pattern, "b")
+    return prev_pos[1]
+  else
+    return next_pos[1]
+  end
 end
 
 local function get_test_name_from_line(line_number)
@@ -66,26 +81,30 @@ local function get_current_editor_context()
   return original_win_id, original_buf_id, file_directory, file_name
 end
 
-local function build_test_command(file_directory, repeat_count, file_name, matched_text)
+local function build_test_command(file_directory, repeat_count, file_name, matched_text, debug)
   local cmd
   local running_message = repeat_count
       and string.format("Running nearest Playwright Test '%s' with a repeat count of %d...", matched_text, repeat_count)
     or string.format("Running nearest Playwright Test '%s'...", matched_text)
 
+  local debug_flag = debug and "--debug" or ""
+
   if repeat_count then
     cmd = string.format(
-      'cd %s && echo "%s" && npx playwright test --repeat-each=%d %s -g "%s"',
+      'cd %s && echo "%s" && npx playwright test %s --repeat-each=%d %s -g "%s"',
       file_directory,
       running_message,
+      debug_flag,
       repeat_count,
       file_name,
       matched_text
     )
   else
     cmd = string.format(
-      'cd %s && echo "%s" && npx playwright test %s -g "%s"',
+      'cd %s && echo "%s" && npx playwright test %s %s -g "%s"',
       file_directory,
       running_message,
+      debug_flag,
       file_name,
       matched_text
     )
@@ -138,10 +157,9 @@ local function select_test_directory()
   end
 end
 
--- Main functions:
--- Configuration table for the plugin
-_G.playwright_test_config = _G.playwright_test_config or {}
-
+--------------------------
+-- Main Functions
+--------------------------
 --Execute all tests
 function playwright.run_all_tests_in_directory(repeat_count)
   local test_dir = select_test_directory() -- fetch the test directory from config or user input
@@ -165,7 +183,7 @@ function playwright.run_all_tests_in_directory(repeat_count)
   reset_editor_context(original_win_id, original_buf_id)
 end
 
-function playwright.run_nearest_test(repeat_count)
+function playwright.run_nearest_test(repeat_count, debug)
   local original_win_id, original_buf_id, file_directory, file_name = get_current_editor_context()
 
   local current_line = get_current_line_number()
@@ -173,11 +191,15 @@ function playwright.run_nearest_test(repeat_count)
 
   local matched_text = chosen_line > 0 and get_test_name_from_line(chosen_line) or ""
 
-  local cmd_to_run = build_test_command(file_directory, repeat_count, file_name, matched_text)
+  local cmd_to_run = build_test_command(file_directory, repeat_count, file_name, matched_text, debug)
   close_existing_test_terminals()
   execute_in_terminal(cmd_to_run)
 
   reset_editor_context(original_win_id, original_buf_id)
+end
+
+function playwright.debug_nearest_test(repeat_count)
+  playwright.run_nearest_test(repeat_count, true)
 end
 
 function playwright.run_all_tests(repeat_count)
