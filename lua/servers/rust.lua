@@ -6,6 +6,12 @@ require("lspconfig").rust_analyzer.setup({
         enable = true,
         extraArgs = { "--target-dir", "./rust-analyzer-target" },
       },
+      check = {
+        command = "clippy",
+      },
+      diagnostics = {
+        enable = true,
+      },
     },
   },
 })

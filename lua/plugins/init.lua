@@ -25,7 +25,8 @@ return {
   { "numToStr/Comment.nvim", opts = {} },
   -- "airblade/vim-gitgutter",
   "mhinz/vim-signify",
-  "weilbith/nvim-code-action-menu",
+  "weilbith/nvim-code-action-menu", -- This one is not working great.
+
   -- "iamcco/markdown-preview.nvim",
 
   {

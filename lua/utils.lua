@@ -3,6 +3,65 @@ _G.toggle_tmux_pane = function()
   vim.cmd("!tmux display-message 'Test Message'")
 end
 
+-- Toggle terminal
+
+-- Store terminal buffer reference
+local term_buf = nil
+
+-- Define the global function
+_G.toggle_term = function()
+  -- Check if a terminal buffer exists and is displayed in a window
+  local term_win = nil
+  for _, win in pairs(vim.api.nvim_list_wins()) do
+    local buf = vim.api.nvim_win_get_buf(win)
+    if term_buf and buf == term_buf then
+      term_win = win
+      break
+    end
+  end
+
+  -- If terminal window is found and it's the current window, close it
+  if term_win and term_win == vim.api.nvim_get_current_win() then
+    vim.api.nvim_win_close(term_win, false)
+    return
+  end
+
+  -- If terminal window is found but it's not the current window, jump to it
+  if term_win then
+    vim.api.nvim_set_current_win(term_win)
+    return
+  end
+
+  -- Otherwise, create a vertical split to the right and open a terminal
+  vim.cmd("vertical rightbelow split")
+
+  -- Set both the current window and the new split to be 50% of Neovim's total width
+  local total_width = vim.api.nvim_get_option("columns")
+  local half_width = math.floor(total_width / 2)
+  vim.api.nvim_win_set_width(0, half_width)
+  vim.api.nvim_win_set_width(vim.api.nvim_get_current_win(), half_width)
+
+  if term_buf then
+    vim.api.nvim_win_set_buf(0, term_buf)
+  else
+    vim.cmd("terminal")
+    term_buf = vim.api.nvim_get_current_buf()
+  end
+end
+
+-- close empty buffers
+_G.close_empty_buffers = function()
+  local all_bufs = vim.api.nvim_list_bufs()
+  for _, buf in ipairs(all_bufs) do
+    if vim.api.nvim_buf_line_count(buf) <= 1 then
+      local content = vim.api.nvim_buf_get_lines(buf, 0, 1, false)
+      if #content == 0 or content[1] == "" then
+        vim.api.nvim_buf_delete(buf, { force = true })
+      end
+    end
+  end
+end
+
 -- PLAYWRIGHT CRAP -> Future plugin
 local playwright = {}
 

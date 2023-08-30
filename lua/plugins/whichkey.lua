@@ -263,18 +263,7 @@ return {
           w = { "<cmd>lua require('spectre').open_visual({select_word=true})<CR>", "Search for word under cursor" },
         },
         s = { "<cmd>lua vim.o.spell = not vim.o.spell<cr>", "Toggle spell check" },
-        T = {
-          name = "Test",
-          c = { "<cmd>lua playwright.close_test_terminal()<CR>", "Close Test Terminal" },
-          F = { "<cmd>lua playwright.run_all_tests(20)<CR>", "Run Playwright Test File 20 Times" },
-          f = { "<cmd>lua playwright.run_all_tests()<CR>", "Run Playwright Test File" },
-          l = { "<cmd>lua playwright.run_last_test()<CR>", "Run Last Playwright Test" },
-          N = { "<cmd>lua playwright.run_nearest_test(20)<CR>", "Run Nearest Playwright Test 20 Times" },
-          n = { "<cmd>lua playwright.run_nearest_test()<CR>", "Run Nearest Playwright Test" },
-        },
-        t = { "<cmd>lua toggle_tmux_pane()<CR>", "Toggle Tmux" },
-        u = { "<cmd>UndotreeToggle<CR><cmd>UndotreeFocus<CR>", "Undotree" },
-        W = {
+        t = {
           name = "Trouble",
           d = { "<cmd>Trouble lsp_definitions<CR>", "Definitions" },
           D = { "<cmd>Trouble document_diagnostics<CR>", "Buffer Diagnostics" },
@@ -284,6 +273,17 @@ return {
           T = { "<cmd>TodoTrouble<CR>", "Todos" },
           w = { "<cmd>Trouble workspace_diagnostics<CR>", "Workspace Diagnostics" },
         },
+        T = {
+          name = "Test",
+          c = { "<cmd>lua playwright.close_test_terminal()<CR>", "Close Test Terminal" },
+          F = { "<cmd>lua playwright.run_all_tests(20)<CR>", "Run Playwright Test File 20 Times" },
+          f = { "<cmd>lua playwright.run_all_tests()<CR>", "Run Playwright Test File" },
+          l = { "<cmd>lua playwright.run_last_test()<CR>", "Run Last Playwright Test" },
+          N = { "<cmd>lua playwright.run_nearest_test(20)<CR>", "Run Nearest Playwright Test 20 Times" },
+          n = { "<cmd>lua playwright.run_nearest_test()<CR>", "Run Nearest Playwright Test" },
+        },
+        -- t = { "<cmd>lua toggle_tmux_pane()<CR>", "Toggle Tmux" },
+        u = { "<cmd>UndotreeToggle<CR><cmd>UndotreeFocus<CR>", "Undotree" },
         w = { "<cmd>lua sessionSaveAndFormatWrite()<cr>", "Save Session and Format and Write Buffer" },
         y = {
           name = "Yank",
