@@ -4,7 +4,6 @@ _G.toggle_tmux_pane = function()
 end
 
 -- Toggle terminal
-
 -- Store terminal buffer reference
 local term_buf = nil
 
@@ -20,19 +19,19 @@ _G.toggle_term = function()
     end
   end
 
-  -- If terminal window is found and it's the current window, close it
-  if term_win and term_win == vim.api.nvim_get_current_win() then
-    vim.api.nvim_win_close(term_win, false)
-    return
-  end
-
-  -- If terminal window is found but it's not the current window, jump to it
+  -- If terminal window is found, close it
   if term_win then
-    vim.api.nvim_set_current_win(term_win)
+    vim.api.nvim_win_close(term_win, false) -- Close the window
+
+    -- Ensure term_buf is not nil before deleting
+    if term_buf then
+      vim.api.nvim_buf_delete(term_buf, { force = true }) -- Delete the buffer
+      term_buf = nil -- Reset the terminal buffer reference
+    end
     return
   end
 
-  -- Otherwise, create a vertical split to the right and open a terminal
+  -- Otherwise, create a vertical split to the right
   vim.cmd("vertical rightbelow split")
 
   -- Set both the current window and the new split to be 50% of Neovim's total width
@@ -41,12 +40,9 @@ _G.toggle_term = function()
   vim.api.nvim_win_set_width(0, half_width)
   vim.api.nvim_win_set_width(vim.api.nvim_get_current_win(), half_width)
 
-  if term_buf then
-    vim.api.nvim_win_set_buf(0, term_buf)
-  else
-    vim.cmd("terminal")
-    term_buf = vim.api.nvim_get_current_buf()
-  end
+  -- Start the terminal session with tmux and the desired session name
+  vim.cmd("terminal tmux attach -t neovim-terminal || tmux new -s neovim-terminal")
+  term_buf = vim.api.nvim_get_current_buf()
 end
 
 -- close empty buffers
