@@ -17,6 +17,7 @@ return {
   "windwp/nvim-spectre",
   "mhartington/formatter.nvim",
   "kyazdani42/nvim-web-devicons",
+  -- { dir = "~/Documents/dev/timewarp-nvim" },
 
   -- Useful status updates for LSP
   { "j-hui/fidget.nvim", opts = { window = { border = "rounded", blend = 0 } }, tag = "legacy" },
