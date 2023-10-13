@@ -288,12 +288,20 @@ return {
         y = {
           name = "Yank",
           a = { '<cmd>let @+ = expand("%:p")<cr>', "Absolute Path" },
+          b = { '<cmd>normal gg"+yG<cr>', "Buffer" },
+          l = { '<cmd>normal "+yy<cr>', "Line" },
           n = { '<cmd>let @+ = expand("%:t")<cr>', "Filename" },
           r = { '<cmd>let @+ = expand("%")<cr>', "Relative Path (src)" },
           v = { "<cmd>lua GetVueStyleImport()<cr>", "Vue-Style Import" },
         },
-        Z = { "<cmd>TimewarpNextEdit<cr>", "Timewarp Next Edit" },
-        z = { "<cmd>TimewarpPreviousEdit<cr>", "Timewarp Previous Edit" },
+        z = {
+          name = "Timewarp",
+          b = { "<cmd>TimewarpRestorePreNav<cr>", "Move to Cursor Position Before Last Warp" },
+          c = { "<cmd>TimewarpNavigateCurrent<cr>", "Timewarp to Current Warp Point" },
+          i = { "<cmd>TimewarpRestoreInitial<cr>", "Move to Initial Cursor Position Before Warps" },
+          n = { "<cmd>TimewarpNext<cr>", "Timewarp to Next Edit" },
+          p = { "<cmd>TimewarpPrevious<cr>", "Timewarp to Previous Edit" },
+        },
       }, {
         prefix = "<leader>",
       })
