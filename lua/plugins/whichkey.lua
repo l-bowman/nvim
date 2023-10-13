@@ -292,6 +292,8 @@ return {
           r = { '<cmd>let @+ = expand("%")<cr>', "Relative Path (src)" },
           v = { "<cmd>lua GetVueStyleImport()<cr>", "Vue-Style Import" },
         },
+        Z = { "<cmd>TimewarpNextEdit<cr>", "Timewarp Next Edit" },
+        z = { "<cmd>TimewarpPreviousEdit<cr>", "Timewarp Previous Edit" },
       }, {
         prefix = "<leader>",
       })
