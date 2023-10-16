@@ -296,11 +296,11 @@ return {
         },
         z = {
           name = "Timewarp",
-          b = { "<cmd>TimewarpRestorePreNav<cr>", "Move to Cursor Position Before Last Warp" },
-          c = { "<cmd>TimewarpNavigateCurrent<cr>", "Timewarp to Current Warp Point" },
-          i = { "<cmd>TimewarpRestoreInitial<cr>", "Move to Initial Cursor Position Before Warps" },
-          n = { "<cmd>TimewarpNext<cr>", "Timewarp to Next Edit" },
-          p = { "<cmd>TimewarpPrevious<cr>", "Timewarp to Previous Edit" },
+          b = { "<cmd>TimewarpRestoreNav<cr>", "Back to Pre-warp Position" },
+          c = { "<cmd>TimewarpCurrent<cr>", "Current Warp Point" },
+          i = { "<cmd>TimewarpRestoreInitial<cr>", "Initial Position Before Warping" },
+          n = { "<cmd>TimewarpNext<cr>", "Next Edit" },
+          p = { "<cmd>TimewarpPrevious<cr>", "Previous Edit" },
         },
       }, {
         prefix = "<leader>",
