@@ -37,45 +37,6 @@ return {
       "dhruvmanila/browser-bookmarks.nvim",
     },
     lazy = false,
-    opts = {
-
-      extensions = {
-        bookmarks = {
-          selected_browser = "chrome",
-        },
-        live_grep_args = {
-          auto_quoting = true, -- enable/disable auto-quoting
-          mappings = {
-            i = {
-              -- TODO: Below mappings don't seem to work.
-              ["<C-i>"] = function()
-                return require("telescope-live-grep-args.actions").quote_prompt()
-              end,
-              ["<C-t>"] = function()
-                return require("telescope-live-grep-args.actions").quote_prompt({ postfix = " -t " })
-              end,
-              -- ['<C-g>'] = lga_actions.quote_prompt { postfix = ' services/graph' },
-              -- ['<C-i>'] = lga_actions.quote_prompt { postfix = ' -i ' },
-            },
-          },
-        },
-      },
-      defaults = {
-        layout_strategy = "vertical",
-        file_ignore_patterns = { ".git/", "node_modules/", "env/" }, -- ignore git
-        winblend = 0,
-        preview_cutoff = 10000, -- set preview_cutoff to prevent cutting off the results list
-        wrap_results = true,
-      },
-      pickers = {
-        find_files = {
-          -- theme = "dropdown",
-        },
-        live_grep = {
-          -- theme = "dropdown",
-        },
-      },
-    },
     keys = {
       {
         "<leader><space>",
@@ -85,9 +46,45 @@ return {
         desc = "Find Files (root dir)",
       },
     },
-    config = function(_, opts)
+    config = function()
       local telescope = require("telescope")
-      telescope.setup(opts)
+      telescope.setup({
+        defaults = {
+          layout_strategy = "vertical",
+          file_ignore_patterns = { ".git/", "node_modules/", "env/" }, -- ignore git
+          winblend = 0,
+          preview_cutoff = 10000, -- set preview_cutoff to prevent cutting off the results list
+          wrap_results = true,
+        },
+        pickers = {
+          find_files = {
+            -- theme = "dropdown",
+          },
+          live_grep = {
+            -- theme = "dropdown",
+          },
+        },
+        extensions = {
+          live_grep_args = {
+            auto_quoting = true, -- enable/disable auto-quoting
+            mappings = {
+              i = {
+                ["<C-b>"] = require("telescope-live-grep-args.actions").quote_prompt({
+                  postfix = " --iglob 'services/**/*.{rs,rpc}' --iglob '!libraries/**/*'",
+                }),
+                ["<C-k>"] = require("telescope-live-grep-args.actions").quote_prompt(),
+                ["<C-m>"] = require("telescope-live-grep-args.actions").quote_prompt({
+                  postfix = " --iglob 'portals/management/**/*.{vue,ts,js}' --iglob '!portals/management/src/graph/**/*'",
+                }),
+                ["<C-i>"] = require("telescope-live-grep-args.actions").quote_prompt({ postfix = " --iglob " }),
+              },
+            },
+          },
+          bookmarks = {
+            selected_browser = "chrome",
+          },
+        },
+      })
       telescope.load_extension("file_browser")
       telescope.load_extension("live_grep_args")
       telescope.load_extension("harpoon")
@@ -111,10 +108,10 @@ return {
         local args = { search_dirs = filetable }
 
         if mode == "live_grep" then
-          builtin.live_grep(args)
+          builtin.live_grep_args(args)
         elseif mode == "inverse_live_grep" then
           args.additional_args = { "--files-without-match" }
-          builtin.live_grep(args)
+          builtin.live_grep_args(args)
         elseif mode == "find_files" then
           builtin.find_files(args)
         -- elseif mode == "inverse_find_files" then

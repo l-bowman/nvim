@@ -154,7 +154,7 @@ return {
           F = { "<cmd>Telescope file_browser<CR>", "Browse Files" },
           f = { [[<cmd> lua require"telescope.builtin".find_files({ hidden = true })<CR>]], "Find File" },
           G = { "<cmd>Telescope git_status<CR>", "Git Status" },
-          g = { "<cmd>Telescope live_grep<CR>", "Live Grep" },
+          g = { "<cmd>Telescope live_grep_args<CR>", "Live Grep" },
           H = { "<cmd>Telescope harpoon marks<CR>", "Harpoon Marks" },
           h = { "<cmd>Telescope help_tags<CR>", "Search Help" },
           k = { "<cmd>Telescope keymaps<CR>", "Key Mappings" },
@@ -171,6 +171,14 @@ return {
           r = { "<cmd>Telescope lsp_references<cr>", "Find References" },
           T = { "<cmd>TodoTelescope<CR>", "Search Todos" },
           t = { "<cmd>Telescope builtin<cr>", "Telescope builtin" },
+          v = {
+            "<cmd>lua require('telescope-live-grep-args.shortcuts').grep_visual_selection()<CR>",
+            "Grep Visual Selection",
+          },
+          w = {
+            "<cmd>lua require('telescope-live-grep-args.shortcuts').grep_word_under_cursor()<CR>",
+            "Grep Word Under Cursor",
+          },
         },
         g = {
           name = "Git",
@@ -296,11 +304,9 @@ return {
         },
         z = {
           name = "Timewarp",
-          b = { "<cmd>TimewarpRestoreNav<cr>", "Back to Pre-warp Position" },
-          c = { "<cmd>TimewarpCurrent<cr>", "Current Warp Point" },
-          i = { "<cmd>TimewarpRestoreInitial<cr>", "Initial Position Before Warping" },
-          n = { "<cmd>TimewarpNext<cr>", "Next Edit" },
-          p = { "<cmd>TimewarpPrevious<cr>", "Previous Edit" },
+          e = { "<cmd>TimewarpLastEdit<cr>", "Warp to Last Edit" },
+          i = { "<cmd>TimewarpReturn<cr>", "Return to Initial Position" },
+          y = { "<cmd>TimewarpLastYank<cr>", "Warp to Last Yank" },
         },
       }, {
         prefix = "<leader>",
@@ -313,13 +319,20 @@ return {
         r = "References",
       }, { prefix = "g" })
 
-      -- wk.register({
-      --   G = {
-      --     name = "ChatGPT",
-      --     a = { "<cmd>Chat alphabetize<CR>", "Alphabetize" },
-      --     o = { "<cmd>Chat opt<CR>", "Optimize" },
-      --   },
-      -- }, { mode = "v" })
+      wk.register({
+        --   G = {
+        --     name = "ChatGPT",
+        --     a = { "<cmd>Chat alphabetize<CR>", "Alphabetize" },
+        --     o = { "<cmd>Chat opt<CR>", "Optimize" },
+        --   },
+        f = {
+          name = "Find with Telescope",
+          v = {
+            "<cmd>lua require('telescope-live-grep-args.shortcuts').grep_visual_selection()<CR>",
+            "Grep Visual Selection",
+          },
+        },
+      }, { mode = "v" })
     end,
   },
 }
