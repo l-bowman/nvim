@@ -274,6 +274,8 @@ return {
         },
         q = { qf_toggle, "Toggle Quickfix list" },
         R = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
+        --TODO: enable when needed
+        -- R = { "<Plug>RestNvim<CR>", "Run with Rest" },
         r = { "<cmd>e! | LspRestart<CR>", "Refresh LSP and Buffer" },
         S = {
           name = "Spectre - find and replace",

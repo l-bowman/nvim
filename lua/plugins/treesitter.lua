@@ -15,6 +15,7 @@ return {
       ensure_installed = {
         "astro",
         "bash",
+        "clojure",
         "comment",
         "css",
         "gitcommit",
@@ -22,6 +23,7 @@ return {
         "go",
         "graphql",
         "html",
+        "http",
         "javascript",
         "jsdoc",
         "json",
@@ -39,7 +41,6 @@ return {
         "toml",
         "tsx",
         "typescript",
-        "vim",
         "vim",
         "vimdoc",
         "vue",
