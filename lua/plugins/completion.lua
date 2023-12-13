@@ -1,6 +1,5 @@
 return {
   {
-
     "hrsh7th/nvim-cmp",
     dependencies = {
       "hrsh7th/cmp-cmdline", -- command line
@@ -13,6 +12,7 @@ return {
       "rafamadriz/friendly-snippets",
       "onsails/lspkind-nvim",
       { "roobert/tailwindcss-colorizer-cmp.nvim", config = true }, -- tailwind color in suggesions
+      "rambhosale/cmp-bootstrap.nvim",
     },
     event = "InsertEnter",
     config = function()
@@ -47,6 +47,13 @@ return {
             maxwidth = 50,
             before = function(entry, vim_item)
               vim_item = require("tailwindcss-colorizer-cmp").formatter(entry, vim_item)
+              vim_item.menu = ({
+                nvim_lsp = "[LSP]",
+                nvim_lua = "[Lua]",
+                buffer = "[BUF]",
+                -- cmp_bootstrap = "[﯄]",
+                cmp_bootstrap = "[Bootstrap]",
+              })[entry.source.name]
               return vim_item
             end,
           }),
@@ -99,6 +106,7 @@ return {
           { name = "luasnip" },
           { name = "buffer" },
           { name = "path" },
+          { name = "cmp_bootstrap" },
         }),
         experimental = {
           -- native_menu = false,

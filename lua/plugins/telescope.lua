@@ -108,10 +108,10 @@ return {
         local args = { search_dirs = filetable }
 
         if mode == "live_grep" then
-          builtin.live_grep_args(args)
+          builtin.live_grep(args)
         elseif mode == "inverse_live_grep" then
           args.additional_args = { "--files-without-match" }
-          builtin.live_grep_args(args)
+          builtin.live_grep(args)
         elseif mode == "find_files" then
           builtin.find_files(args)
         -- elseif mode == "inverse_find_files" then
