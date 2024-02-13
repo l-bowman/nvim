@@ -13,10 +13,13 @@ return {
       "onsails/lspkind-nvim",
       { "roobert/tailwindcss-colorizer-cmp.nvim", config = true }, -- tailwind color in suggesions
       "rambhosale/cmp-bootstrap.nvim",
+      "Exafunction/codeium.nvim",
     },
     event = "InsertEnter",
     config = function()
       local cmp = require("cmp")
+
+      local codeium = require("codeium")
 
       local lspkind = require("lspkind")
       local luasnip = require("luasnip")
@@ -48,6 +51,7 @@ return {
             before = function(entry, vim_item)
               vim_item = require("tailwindcss-colorizer-cmp").formatter(entry, vim_item)
               vim_item.menu = ({
+                codeium = "[codeium]",
                 nvim_lsp = "[LSP]",
                 nvim_lua = "[Lua]",
                 buffer = "[BUF]",
@@ -102,6 +106,7 @@ return {
           }),
         },
         sources = cmp.config.sources({
+          { name = "codeium" },
           { name = "nvim_lsp" },
           { name = "luasnip" },
           { name = "buffer" },
@@ -119,7 +124,7 @@ return {
 
       -- only enable nvim_lsp in lua files
       vim.cmd(
-        [[ autocmd FileType lua lua require'cmp'.setup.buffer { sources = { { name = 'buffer' },{ name = 'nvim_lua'},{name = "nvim_lsp"}},} ]]
+        [[ autocmd FileType lua lua require'cmp'.setup.buffer { sources = { {name = 'codeium'}, { name = 'buffer' },{ name = 'nvim_lua'},{name = "nvim_lsp"}},} ]]
       )
 
       -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
