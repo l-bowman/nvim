@@ -192,6 +192,11 @@ return {
           p = { "<cmd>Git push<CR>", "Push" },
           s = { "<cmd>Git stage .<CR>", "Stage All" },
         },
+        h = {
+          name = "Hunk",
+          d = { "<cmd>SignifyHunkDiff<CR>", "Diff" },
+          u = { "<cmd>SignifyHunkUndo<CR>", "Undo" },
+        },
         i = {
           name = "Trouble Issues",
           d = { "<cmd>Trouble lsp_definitions<CR>", "Definitions" },
