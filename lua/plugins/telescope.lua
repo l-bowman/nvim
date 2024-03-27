@@ -79,9 +79,6 @@ return {
               },
             },
           },
-          bookmarks = {
-            selected_browser = "chrome",
-          },
         },
       })
       telescope.load_extension("file_browser")
@@ -123,8 +120,6 @@ return {
 
       -- assign function to global variable
       _G.Search_qflist = search_qflist
-
-      telescope.load_extension("bookmarks")
     end,
   },
 }
