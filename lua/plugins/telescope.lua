@@ -34,7 +34,6 @@ return {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope-file-browser.nvim",
       "nvim-telescope/telescope-live-grep-args.nvim",
-      "dhruvmanila/browser-bookmarks.nvim",
     },
     lazy = false,
     keys = {
