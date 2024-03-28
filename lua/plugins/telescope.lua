@@ -68,6 +68,9 @@ return {
             auto_quoting = true, -- enable/disable auto-quoting
             mappings = {
               i = {
+                ["<Tab>"] = function()
+                  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, true, true), "n", true)
+                end, -- prevent tab key from auto-quoting, gawd that was annoying!
                 ["<C-b>"] = require("telescope-live-grep-args.actions").quote_prompt({
                   postfix = " --iglob 'services/**/*.{rs,rpc}' --iglob '!libraries/**/*'",
                 }),
