@@ -11,6 +11,17 @@ return {
   "sindrets/diffview.nvim",
   "christoomey/vim-tmux-navigator",
 
+  { "akinsho/git-conflict.nvim", version = "*", config = true },
+
+  {
+    "echasnovski/mini.nvim",
+    version = false,
+    config = function()
+      require("mini.ai").setup()
+      require("mini.surround").setup()
+    end,
+  },
+
   "windwp/nvim-ts-autotag", -- auto close and rename tags
   -- "simonward87/nvim-ts-autotag", -- Not sure why Will moved to this. Needs
   -- investigation
