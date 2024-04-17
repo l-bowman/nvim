@@ -14,10 +14,12 @@ return {
         openai_params = {
           model = "gpt-4-0125-preview",
           temperature = 0.3,
+          max_tokens = 1000,
         },
         openai_edit_params = {
           model = "gpt-4-0125-preview",
           temperature = 0.3,
+          max_tokens = 1000,
         },
       })
     end,

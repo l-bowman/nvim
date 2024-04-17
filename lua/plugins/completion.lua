@@ -19,8 +19,6 @@ return {
     config = function()
       local cmp = require("cmp")
 
-      local codeium = require("codeium")
-
       local lspkind = require("lspkind")
       local luasnip = require("luasnip")
 

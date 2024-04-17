@@ -91,9 +91,6 @@ local mappings = {
     { "J", "<cmd>m '>+1<CR>gv=gv" }, -- Move selected lines down.
     { "K", "<cmd>m '<-2<CR>gv=gv" }, -- Move selected lines up.
   },
-  x = { -- Visual mode
-    { "<leader>p", '"_dP' }, -- Paste over selected text without overwriting the default register.
-  },
 }
 
 -- Register the defined mappings with default options: silent and noremap.

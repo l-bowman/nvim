@@ -110,13 +110,14 @@ return {
         },
       })
       wk.register({
-        a = {
+        A = {
           name = "Auto Sessions",
           d = { "<cmd>SessionDelete<cr>", "Delete session" },
           r = { "<cmd>%bd!<CR><cmd>SessionRestore<cr>", "Restore session" },
           S = { "<cmd>SessionSave<cr>", "Save session" },
           s = { "<cmd>SessionSearch<cr>", "Search sessions" },
         },
+        a = { "<cmd>CodeActionMenu<CR>", "Code Actions" },
         b = {
           name = "Bufferline",
           A = { "<cmd>bufdo bd<CR>", "Close all" },
@@ -140,7 +141,10 @@ return {
           p = { "<cmd>2TermExec cmd='just build-protos'<cr>", "Build Protos" },
           r = { "<cmd>2TermExec cmd='just reset-db'<cr>", "Reset DB" },
         },
-        c = { "<cmd>CodeActionMenu<CR>", "Code Actions" },
+        c = {
+          name = "ChatGPT",
+          c = { "<cmd>ChatGPT<CR>", "Chat" },
+        },
         d = { "<cmd>lua vim.diagnostic.open_float({ border = 'rounded' })<CR>", "Line Diagnostics" },
         D = { "<cmd>delm! | delm A-Z0-9<CR>", "Delete All Marks" },
         e = { "<cmd>NvimTreeToggle<CR>", "File Tree" },
@@ -328,23 +332,18 @@ return {
         name = "Go to",
         D = "Declaration",
         d = "Definition",
+        i = "Implementation",
         r = "References",
       }, { prefix = "g" })
 
       wk.register({
-        --   G = {
-        --     name = "ChatGPT",
-        --     a = { "<cmd>Chat alphabetize<CR>", "Alphabetize" },
-        --     o = { "<cmd>Chat opt<CR>", "Optimize" },
-        --   },
+        name = "Visual Mode",
+        p = { '"_dP', "Paste over selection without yanking" },
         f = {
-          name = "Find with Telescope",
-          v = {
-            "<cmd>lua require('telescope-live-grep-args.shortcuts').grep_visual_selection()<CR>",
-            "Grep Visual Selection",
-          },
+          "<cmd>lua require('telescope-live-grep-args.shortcuts').grep_visual_selection()<CR>",
+          "Grep Visual Selection",
         },
-      }, { mode = "v" })
+      }, { mode = "v", prefix = "<leader>" })
     end,
   },
 }
