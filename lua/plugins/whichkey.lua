@@ -142,8 +142,7 @@ return {
           r = { "<cmd>2TermExec cmd='just reset-db'<cr>", "Reset DB" },
         },
         c = {
-          name = "ChatGPT",
-          c = { "<cmd>ChatGPT<CR>", "Chat" },
+          c = { "<cmd>ChatGPT<CR>", "ChatGPT" },
         },
         d = { "<cmd>lua vim.diagnostic.open_float({ border = 'rounded' })<CR>", "Line Diagnostics" },
         D = { "<cmd>delm! | delm A-Z0-9<CR>", "Delete All Marks" },
@@ -338,10 +337,19 @@ return {
 
       wk.register({
         name = "Visual Mode",
-        p = { '"_dP', "Paste over selection without yanking" },
+        E = { "<cmd>ChatGPTEditWithInstructions<CR>", "GPT Edit with Instructions" },
+        e = { "<cmd>ChatGPTRun explain_code<CR>", "GPT Explain Code" },
         f = {
           "<cmd>lua require('telescope-live-grep-args.shortcuts').grep_visual_selection()<CR>",
           "Grep Visual Selection",
+        },
+        p = { '"_dP', "Paste over selection without yanking" },
+        s = { "<cmd>ChatGPTRun summarize<CR>", "GPT Summarize" },
+        t = {
+          name = "Translate",
+          e = { "<cmd>ChatGPTRun translate<CR>", "To English" },
+          g = { "<cmd>ChatGPTRun translate German<CR>", "To German" },
+          s = { "<cmd>ChatGPTRun translate Spanish<CR>", "To Spanish" },
         },
       }, { mode = "v", prefix = "<leader>" })
     end,

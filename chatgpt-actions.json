@@ -3,7 +3,7 @@
     "type": "chat",
     "opts": {
       "title": "Version",
-      "template": "What chat gpt version is this?\n",
+      "template": "What ChatGPT version is this?\n",
       "strategy": "display",
       "params": {
         "model": "gpt-4-0125-preview",
@@ -49,8 +49,9 @@
   "translate": {
     "type": "chat",
     "opts": {
+      "title": "Translate",
       "template": "Translate this into {{lang}}:\n\n{{input}}",
-      "strategy": "replace",
+      "strategy": "display",
       "params": {
         "model": "gpt-4-0125-preview",
         "temperature": 0.3
