@@ -11,11 +11,13 @@ return {
     config = function()
       require("chatgpt").setup({
         actions_paths = { "~/.config/nvim/chatgpt-actions.json" },
-        open_ai_params = {
+        openai_params = {
           model = "gpt-4-0125-preview",
+          temperature = 0.3,
         },
         openai_edit_params = {
           model = "gpt-4-0125-preview",
+          temperature = 0.3,
         },
       })
     end,

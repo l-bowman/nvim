@@ -146,7 +146,7 @@ local function build_test_command(file_directory, repeat_count, file_name, match
 
   if repeat_count then
     cmd = string.format(
-      'cd %s && echo "%s" && npx playwright test %s --reporter=html --repeat-each=%d %s -g "%s"',
+      'cd %s && echo "%s" && npx playwright test %s --retries=0 --reporter=html --repeat-each=%d %s -g "%s"',
       file_directory,
       running_message,
       debug_flag,
@@ -156,7 +156,7 @@ local function build_test_command(file_directory, repeat_count, file_name, match
     )
   else
     cmd = string.format(
-      'cd %s && echo "%s" && npx playwright test %s %s --reporter=html -g "%s"',
+      'cd %s && echo "%s" && npx playwright test %s %s --retries=0 --reporter=html -g "%s"',
       file_directory,
       running_message,
       debug_flag,
@@ -222,7 +222,7 @@ function playwright.run_all_tests_in_directory(repeat_count)
     return
   end -- If no valid directory, exit the function
 
-  local cmd = "cd " .. test_dir .. " && npx playwright test --reporter=html"
+  local cmd = "cd " .. test_dir .. " && npx playwright test --retries=0 --reporter=html"
 
   -- If repeat_count is provided, add it to the command
   if repeat_count and tonumber(repeat_count) then
@@ -266,8 +266,8 @@ function playwright.run_all_tests(repeat_count)
 
   local cmd_prefix = string.format('cd %s && echo "%s"', file_directory, running_message)
   local cmd_suffix = repeat_count
-      and string.format("npx playwright test --reporter=html --repeat-each=%d %s", repeat_count, file_name)
-    or string.format("npx playwright test %s --reporter=html", file_name)
+      and string.format("npx playwright test --reporter=html --retries=0 --repeat-each=%d %s", repeat_count, file_name)
+    or string.format("npx playwright test %s --retries=0 --reporter=html", file_name)
   local cmd_to_run = cmd_prefix .. " && " .. cmd_suffix
 
   close_existing_test_terminals()
