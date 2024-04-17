@@ -1,0 +1,102 @@
+{
+  "vue component": {
+    "prefix": "vue",
+    "body": [
+      "<script setup lang=\"ts\">",
+      "$0",
+      "</script>",
+      "",
+      "<template>",
+      "</template>",
+      "",
+      "<style scoped lang=\"scss\">",
+      "@import \"@/styles/variables.scss\";",
+      "</style>"
+    ],
+    "description": "Vue Composition API Component"
+  },
+  "font awesome": {
+    "prefix": "fa",
+    "body": ["import { $0 } from \"@fortawesome/pro-solid-svg-icons\";"],
+    "description": "Font Awesome Import"
+  },
+  "useQuery": {
+    "prefix": "useQuery",
+    "body": [
+      "const { result, refetch } = useQuery<api.$1_${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}>(",
+      "  gql`",
+      "    query $1_${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}() {",
+      "      $0",
+      "    }",
+      "`,",
+      "  computed(() => ({})),",
+      ");"
+    ],
+    "description": "An apollo query"
+  },
+  "import": {
+    "prefix": "imp",
+    "body": ["import { $1 } from \"$2\""],
+    "description": "import ... from ..."
+  },
+  "import component": {
+    "prefix": "imp-comp",
+    "body": ["import $1 from \"@/components/$2.vue\";"],
+    "description": "Import Component"
+  },
+  "defineProps-TS": {
+    "prefix": "defineProps",
+    "body": ["const props = defineProps<{", "\t$0", "}>()"],
+    "description": "A list/hash of attributes that are exposed to accept data from the parent component. "
+  },
+  "defineEmits-TS": {
+    "prefix": "defineEmits",
+    "body": [
+      "const ${1:emit} = defineEmits<{",
+      "\t(e: '${2:event}', ${3:id}: ${4:type}: ${5:type}) ",
+      "\t$0",
+      "}>()"
+    ],
+    "description": "A list of events that component can emits to the parent component. "
+  },
+  "computed": {
+    "prefix": "computed",
+    "body": ["const $1 = computed(() => {", "\t$0", "});"],
+    "description": "Computed properties to be mixed into the Vue instance. "
+  },
+  "computed-ts": {
+    "prefix": "computed-ts",
+    "body": ["const $1 = computed<${2:type}>(() => {", "\t$0", "});"],
+    "description": "Computed properties to be mixed into the Vue instance. "
+  },
+  "ref": {
+    "prefix": "ref",
+    "body": ["const $1 = ref($2)", "$0"],
+    "description": "Ref properties to be mixed into the Vue instance. "
+  },
+  "ref-ts": {
+    "prefix": "ref-ts",
+    "body": ["const $3 = ref<${2:type}>($1)", "$0"],
+    "description": "Ref properties to be mixed into the Vue instance. "
+  },
+  "watch": {
+    "prefix": "watch",
+    "body": ["watch($1, ($2, $3) => {", "$0", "});"],
+    "description": "Watch over a reactive source and call a function in reaction to state changes "
+  },
+  "watchEffect": {
+    "prefix": "watchEffect",
+    "body": ["watchEffect($1, ($2, $3) => {", "$0", "});"],
+    "description": "watchEffect from vue composition "
+  },
+  "onMounted": {
+    "prefix": "onmounted",
+    "body": ["onMounted(() => {$0})"],
+    "description": "Vue mounted lifecycle hook"
+  },
+  "onUnmounted": {
+    "prefix": "onunmounted",
+    "body": ["onUnmounted(() => {$0})"],
+    "description": "Vue unMounted lifecycle hook"
+  }
+}

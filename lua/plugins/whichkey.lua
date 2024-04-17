@@ -183,7 +183,8 @@ return {
         g = {
           name = "Git",
           a = { "<cmd>Git stage . | Git commit -m 'wip' | Git push<CR>", "Stage, Commit WIP, and Push" },
-          b = { "<cmd>lua checkout_new_branch()<cr>", "New Branch" },
+          B = { "<cmd>lua checkout_new_branch()<cr>", "New Branch" },
+          b = { "<cmd>Git blame<CR>", "Blame" },
           c = { "<cmd>DiffviewClose<CR>", "Close Diffview" },
           d = { "<cmd>DiffviewOpen origin/master<CR>", "Diff with origin/master" },
           f = { "<cmd>lua diffview_file_history()<CR>", "File History" },
@@ -191,6 +192,10 @@ return {
           o = { "<cmd>GBrowse master:%<CR>", "Open in GitHub" },
           p = { "<cmd>Git push<CR>", "Push" },
           s = { "<cmd>Git stage .<CR>", "Stage All" },
+        },
+        H = {
+          "<cmd>HelpVert<CR>",
+          "Get Help in a Vertical Split to the Left",
         },
         h = {
           name = "Hunk",

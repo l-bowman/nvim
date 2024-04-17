@@ -421,3 +421,14 @@ _G.playwright = playwright
 
 -- Autocommands
 vim.cmd([[autocmd VimEnter * lua playwright.close_playwright_buffer()]])
+
+-- Function to populate the command prompt
+local function populate_help_search()
+  -- This simulates typing ':vert to help ' into the command line.
+  -- The <C-u> clears the command line in case it is not empty.
+  -- 'i' flag at the end inserts the keys as if typed by the user.
+  vim.fn.feedkeys(vim.api.nvim_replace_termcodes(":vert to help ", true, false, true), "n")
+end
+
+-- Create a command in Neovim to use this function
+vim.api.nvim_create_user_command("HelpVert", populate_help_search, {})
