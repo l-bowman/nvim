@@ -26,3 +26,4 @@ require("keymappings")
 
 --utils
 require("utils")
+require("playwright")

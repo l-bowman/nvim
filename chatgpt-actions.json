@@ -29,6 +29,18 @@
       }
     }
   },
+  "convert_to_composition_api": {
+    "type": "chat",
+    "opts": {
+      "title": "Convert to Composition API",
+      "template": "Convert the following Vue 2 code to Vue 3 Composition API.\n\n```{{filetype}}\n{{input}}\n```\n\n```{{filetype}}",
+      "strategy": "edit",
+      "params": {
+        "model": "gpt-4-0125-preview",
+        "stop": ["```"]
+      }
+    }
+  },
   "grammar_correction": {
     "type": "chat",
     "opts": {
