@@ -3,6 +3,26 @@ _G.sessionSaveAndFormatWrite = function()
   vim.cmd("w | FormatWrite")
 end
 
+function SmartImportPasteAndLint()
+  -- Call SmartImportPaste() function
+  SmartImportPaste()
+
+  -- Call sessionSaveAndFormatWrite() function
+  sessionSaveAndFormatWrite()
+
+  -- Get the current file path
+  local file_path = vim.fn.expand("%:p")
+
+  -- Construct the ESLint command
+  local eslint_cmd = string.format("!cd portals/management && npx eslint --fix %s && cd -", file_path)
+
+  -- Execute the ESLint command
+  vim.cmd(eslint_cmd)
+
+  -- Display a message indicating the completion of the function
+  vim.api.nvim_echo({ { "Special paste and lint complete" } }, true, {})
+end
+
 function _G.paste_figma_color_variable(mode)
   local clip_content = vim.fn.getreg("+") -- get the content of the system clipboard
   local variable_name = string.gsub(clip_content, "^.+/", "") -- remove everything before and including '/'
@@ -284,6 +304,8 @@ return {
           },
           C = { "<cmd>lua paste_figma_color_variable('color')<cr>", "Color" },
           c = { "<cmd>lua paste_figma_color_variable('text-color')<cr>", "text-color" },
+          I = { "<cmd>lua AddSpecifiedImport()<CR>", "Add Specified Import" },
+          i = { "<cmd>lua SmartImportPasteAndLint()<CR>", "Smart Import Paste" },
         },
         q = { qf_toggle, "Toggle Quickfix list" },
         R = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
@@ -307,11 +329,16 @@ return {
         },
         t = { "<cmd>lua toggle_term()<CR>", "Toggle Tmux Terminal" },
         u = { "<cmd>UndotreeToggle<CR><cmd>UndotreeFocus<CR>", "Undotree" },
+        v = {
+          name = "Vue Shortcuts",
+          r = { "<cmd>lua InsertVueRouterCode()<CR>", "Insert Vue Router Code" },
+        },
         w = { "<cmd>lua sessionSaveAndFormatWrite()<cr>", "Save Session and Format and Write Buffer" },
         y = {
           name = "Yank",
           a = { '<cmd>let @+ = expand("%:p")<cr>', "Absolute Path" },
           b = { '<cmd>normal gg"+yG<cr>', "Buffer" },
+          e = { "<cmd>lua ImportWordUnderCursor()<CR>", "Export Under Cursor as Import" },
           l = { '<cmd>normal "+yy<cr>', "Line" },
           n = { '<cmd>let @+ = expand("%:t")<cr>', "Filename" },
           r = { '<cmd>let @+ = expand("%")<cr>', "Relative Path (src)" },
