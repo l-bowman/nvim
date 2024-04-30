@@ -22,6 +22,7 @@ local function insert_vue_router_code()
 
     -- Return to the initial cursor position
     vim.api.nvim_win_set_cursor(0, { cursor_pos[1] + 1, cursor_pos[2] })
+    LintForDuplicateImports(vim.fn.expand("%"))
   end
 end
 

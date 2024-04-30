@@ -68,3 +68,37 @@ end
 
 -- Create a command in Neovim to use this function
 vim.api.nvim_create_user_command("HelpVert", populate_help_search, {})
+
+-- rename file
+
+function Rename_buffer_file(substring, replacement)
+  local current_buf = vim.api.nvim_get_current_buf()
+  local old_name = vim.api.nvim_buf_get_name(current_buf)
+
+  -- Replace the substring in the filename
+  local new_name = old_name:gsub(substring, replacement)
+
+  -- Check if the new filename is different from the old filename
+  if new_name ~= old_name then
+    -- Rename the file on disk
+    os.rename(old_name, new_name)
+
+    -- Update the buffer name in Neovim
+    vim.api.nvim_buf_set_name(current_buf, new_name)
+
+    -- Update the buffer statusline
+    vim.cmd("redraws")
+  end
+end
+
+function DeleteUnchangedGitBuffers()
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    local bufname = vim.api.nvim_buf_get_name(buf)
+    if bufname ~= "" then
+      local git_status = vim.fn.system("git status --porcelain " .. bufname)
+      if git_status == "" then
+        vim.api.nvim_buf_delete(buf, {})
+      end
+    end
+  end
+end
