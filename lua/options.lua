@@ -206,3 +206,15 @@ function Rename_buffer_file(substring, replacement)
     vim.cmd("redraws")
   end
 end
+
+function DeleteUnchangedGitBuffers()
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    local bufname = vim.api.nvim_buf_get_name(buf)
+    if bufname ~= "" then
+      local git_status = vim.fn.system("git status --porcelain " .. bufname)
+      if git_status == "" then
+        vim.api.nvim_buf_delete(buf, {})
+      end
+    end
+  end
+end

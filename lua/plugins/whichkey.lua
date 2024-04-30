@@ -144,6 +144,7 @@ return {
           a = { "<cmd>BufferLineCloseLeft<CR><cmd>BufferLineCloseRight<CR>", "Close all but current" },
           b = { "<cmd>BufferLinePick<CR>", "Pick" },
           c = { "<cmd>bd<CR>", "Close buffer" },
+          g = { "<cmd>lua DeleteUnmodifiedBuffers()<CR>", "Delete Unmodified Buffers (Git)" },
           h = { "<cmd>BufferLineCloseLeft<CR>", "Close all to left" },
           l = { "<cmd>BufferLineCloseRight<CR>", "Close all to right" },
           n = { "<cmd>tabnew<CR>", "New Buffer" },
