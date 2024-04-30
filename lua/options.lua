@@ -146,55 +146,51 @@ function SmartImportPaste()
 end
 
 function AddSpecifiedImport()
-  -- Prompt user for icon name
-  local icon_name = vim.fn.input("Enter import name (e.g., faCircle or ServiceStatus): ")
-
-  -- Prompt user for import type
-  local import_type = vim.fn.input(
-    "Enter import type (1: pro-solid-svg-icons, 2: pro-regular-svg-icons, 3: graph/inputs, 4: lodash, 5: filters): "
-  )
-
-  -- Determine the import statement based on user input
-  local import_module
-  if import_type == "1" then
-    import_module = "@fortawesome/pro-solid-svg-icons"
-  elseif import_type == "2" then
-    import_module = "@fortawesome/pro-regular-svg-icons"
-  elseif import_type == "3" then
-    import_module = "@/graph/inputs"
-  elseif import_type == "4" then
-    import_module = "lodash"
-  elseif import_type == "5" then
-    import_module = "@/utils/filters"
-  else
-    print("Invalid import type")
-    return
-  end
-
-  local current_buffer = vim.api.nvim_get_current_buf()
-  local lines = vim.api.nvim_buf_get_lines(current_buffer, 0, -1, false)
-
-  -- Find the line with the first "<script" tag
-  local script_line = nil
-  for i, line in ipairs(lines) do
-    if line:find("<script") then
-      script_line = i
-      break
+  -- Copy the word under the cursor
+  local icon_name = vim.fn.expand("<cword>")
+  -- Define a list of import options
+  local import_options = {
+    "@fortawesome/pro-solid-svg-icons",
+    "@fortawesome/pro-regular-svg-icons",
+    "@/graph/inputs",
+    "lodash",
+    "@/utils/filters",
+    "vue",
+  }
+  -- Handler function for when an option is selected
+  local function on_choice(import_module)
+    if not import_module then
+      print("Operation cancelled.")
+      return
     end
+    -- At this point, `import_module` is the string selected by the user.
+    -- There's no need to index `import_options` again with `import_module`.
+    local current_buffer = vim.api.nvim_get_current_buf()
+    local lines = vim.api.nvim_buf_get_lines(current_buffer, 0, -1, false)
+    -- Find the line with the first "<script" tag
+    local script_line = nil
+    for i, line in ipairs(lines) do
+      if line:find("<script") then
+        script_line = i
+        break
+      end
+    end
+    -- Create the new import statement
+    local new_import = string.format('import { %s } from "%s";', icon_name, import_module)
+    -- Insert the new import statement on a new line after the "<script" line
+    if script_line then
+      vim.api.nvim_buf_set_lines(current_buffer, script_line, script_line, false, { new_import })
+    else
+      -- If no "<script" line is found, insert the import statement at the top of the buffer
+      vim.api.nvim_buf_set_lines(current_buffer, 0, 0, false, { new_import })
+    end
+    -- Save the file and format
+    vim.cmd("w | FormatWrite")
+    -- Check for duplicate imports
+    lint_for_duplicate_imports(vim.fn.expand("%"))
   end
-
-  -- Create the new import statement
-  local new_import = string.format('import { %s } from "%s";', icon_name, import_module)
-
-  -- Insert the new import statement on a new line after the "<script" line
-  if script_line then
-    vim.api.nvim_buf_set_lines(current_buffer, script_line, script_line, false, { new_import })
-  else
-    -- If no "<script" line is found, insert the import statement at the top of the buffer
-    vim.api.nvim_buf_set_lines(current_buffer, 0, 0, false, { new_import })
-  end
-  vim.cmd("w | FormatWrite")
-  lint_for_duplicate_imports(vim.fn.expand("%"))
+  -- Use vim.ui.select to show the selection menu
+  vim.ui.select(import_options, { prompt = "Select import type:" }, on_choice)
 end
 
 -- rename file

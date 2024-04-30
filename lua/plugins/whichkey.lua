@@ -225,6 +225,7 @@ return {
           d = { "<cmd>SignifyHunkDiff<CR>", "Diff" },
           u = { "<cmd>SignifyHunkUndo<CR>", "Undo" },
         },
+        I = { "<cmd>lua AddSpecifiedImport()<CR>", "Import Word Under Cursor" },
         i = {
           name = "Trouble Issues",
           d = { "<cmd>Trouble lsp_definitions<CR>", "Definitions" },
@@ -304,7 +305,6 @@ return {
           },
           C = { "<cmd>lua paste_figma_color_variable('color')<cr>", "Color" },
           c = { "<cmd>lua paste_figma_color_variable('text-color')<cr>", "text-color" },
-          I = { "<cmd>lua AddSpecifiedImport()<CR>", "Add Specified Import" },
           i = { "<cmd>lua SmartImportPasteAndLint()<CR>", "Smart Import Paste" },
         },
         q = { qf_toggle, "Toggle Quickfix list" },
