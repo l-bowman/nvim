@@ -108,14 +108,6 @@ function GetVueStyleImport()
   return "<cmd>echom 'Import statement copied to register \"' . v:register . '\"'<cr>"
 end
 
-function ImportWordUnderCursor()
-  local current_word = vim.fn.expand("<cword>")
-  local file_path = vim.fn.substitute(vim.fn.expand("%"), ".*src/", "", "")
-  local import_statement = string.format('import { %s } from "@/%s";', current_word, file_path)
-  vim.fn.setreg('"', import_statement)
-  vim.api.nvim_echo({ { "Import statement copied to default register" } }, true, {})
-end
-
 function SmartImportPaste()
   local import_statement = vim.fn.getreg('"')
 
