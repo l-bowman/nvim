@@ -66,7 +66,7 @@ function SmartImportPaste()
     -- If no "<script" line is found, insert the import statement at the top of the buffer
     vim.api.nvim_buf_set_lines(current_buffer, 0, 0, false, { import_statement })
   end
-  vim.cmd("w | FormatWrite")
+  vim.cmd("w")
   LintForDuplicateImports(vim.fn.expand("%"))
 end
 
@@ -78,6 +78,7 @@ function AddSpecifiedImport()
     "@fortawesome/pro-solid-svg-icons",
     "@fortawesome/pro-regular-svg-icons",
     "@/graph/inputs",
+    "@/graph/mutations",
     "lodash",
     "@/utils/filters",
     "vue",
@@ -110,7 +111,7 @@ function AddSpecifiedImport()
       vim.api.nvim_buf_set_lines(current_buffer, 0, 0, false, { new_import })
     end
     -- Save the file and format
-    vim.cmd("w | FormatWrite")
+    vim.cmd("w")
     -- Check for duplicate imports
     LintForDuplicateImports(vim.fn.expand("%"))
   end

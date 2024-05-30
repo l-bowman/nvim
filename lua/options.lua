@@ -39,6 +39,13 @@ vim.g.netrw_liststyle = 3
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- Preview substitutions live, as you type!
+vim.opt.inccommand = "split"
+-- Configure how new splits should be opened
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+vim.g.have_nerd_font = true
+
 -- highlight on yank
 vim.api.nvim_create_autocmd({ "TextYankPost" }, {
   callback = function()

@@ -1,6 +1,7 @@
 _G.sessionSaveAndFormatWrite = function()
   -- vim.cmd("SessionSave")
-  vim.cmd("w | FormatWrite")
+  -- vim.cmd("w | FormatWrite")
+  vim.cmd("w")
 end
 
 function SmartImportPasteAndLint()
