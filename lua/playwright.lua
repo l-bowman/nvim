@@ -84,7 +84,7 @@ local function build_test_command(file_directory, repeat_count, file_name, match
   local repeat_flag = repeat_count and string.format("--repeat-each=%d", repeat_count) or ""
 
   local test_command = string.format(
-    'cd %s && echo "%s" && npx playwright test %s --retries=%d --reporter=%s %s %s -g "%s"',
+    'cd %s && echo "%s" && yarn pt test %s --retries=%d --reporter=%s %s %s -g "%s"',
     file_directory,
     running_message,
     debug_flag,
@@ -146,7 +146,7 @@ function playwright.run_all_tests_in_directory(repeat_count)
   end
 
   local cmd = string.format(
-    "cd %s && npx playwright test --retries=%d --reporter=%s",
+    "cd %s && yarn pt test --retries=%d --reporter=%s",
     test_dir,
     playwright.config.retries,
     playwright.config.reporter
@@ -192,7 +192,7 @@ function playwright.run_all_tests(repeat_count)
   local repeat_flag = repeat_count and string.format("--repeat-each=%d", repeat_count) or ""
 
   local cmd_to_run = string.format(
-    'cd %s && echo "%s" && npx playwright test %s --retries=%d --reporter=%s %s',
+    'cd %s && echo "%s" && yarn pt test %s --retries=%d --reporter=%s %s',
     file_directory,
     running_message,
     repeat_flag,
@@ -276,7 +276,7 @@ function playwright.open_test_trace()
 
     local trace_directory = trace_directory_list[1]:gsub("\n", "")
 
-    local cmd = string.format("cd %s && npx playwright show-trace %s", trace_directory, path)
+    local cmd = string.format("cd %s && yarn pt show-trace %s", trace_directory, path)
     vim.fn.jobstart(cmd, {
       on_exit = function(_, play_exit_code)
         if play_exit_code ~= 0 then
