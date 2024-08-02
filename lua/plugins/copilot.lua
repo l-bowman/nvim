@@ -7,7 +7,7 @@ return {
     config = function()
       require("copilot").setup({
         panel = {
-          auto_refresh = false,
+          auto_refresh = true,
           keymap = {
             accept = "<CR>",
             jump_prev = "[[",

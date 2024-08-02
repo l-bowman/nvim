@@ -13,13 +13,11 @@ return {
         actions_paths = { "~/.config/nvim/chatgpt-actions.json" },
         openai_params = {
           model = "gpt-4-0125-preview",
-          temperature = 0.3,
-          max_tokens = 1000,
+          max_tokens = 4096,
         },
         openai_edit_params = {
           model = "gpt-4-0125-preview",
-          temperature = 0.3,
-          max_tokens = 1000,
+          max_tokens = 4096,
         },
       })
     end,
