@@ -10,8 +10,8 @@ return {
         icons = {
           hint = " ",
           info = " ",
-          warning = " ",
-          error = " ",
+          warning = " ",
+          error = " ",
         },
       },
       -- update_cwd = true,
