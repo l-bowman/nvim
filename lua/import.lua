@@ -29,7 +29,7 @@ end
 function GetVueStyleImport()
   local importStatement = string.format("import %s from '@/%%s';", ConvertVueFilenameToCamelCase())
   local filePath = vim.fn.substitute(vim.fn.expand("%"), ".*src/", "", "")
-  vim.fn.setreg('"', importStatement:format(filePath))
+  vim.fn.setreg('"', importStatement:format(filePath) .. "\n")
   return "<cmd>echom 'Import statement copied to register \"' . v:register . '\"'<cr>"
 end
 

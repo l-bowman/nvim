@@ -1,42 +1,11 @@
 {
-  "version": {
-    "type": "chat",
-    "opts": {
-      "title": "Version",
-      "template": "What ChatGPT version is this?\n",
-      "strategy": "display",
-      "params": {
-        "model": "gpt-4-0125-preview",
-        "temperature": 0.3
-      }
-    },
-    "args": {
-      "lang": {
-        "type": "string",
-        "optional": "true",
-        "default": "english"
-      }
-    }
-  },
   "complete_code": {
     "type": "chat",
     "opts": {
       "template": "Complete the following code written in {{lang}} by pasting the existing code and continuing it.\n\nExisting code:\n```{{filetype}}\n{{input}}\n```\n\n```{{filetype}}\n",
       "strategy": "replace",
       "params": {
-        "model": "gpt-4-0125-preview",
-        "stop": ["```"]
-      }
-    }
-  },
-  "convert_to_composition_api": {
-    "type": "chat",
-    "opts": {
-      "title": "Convert to Composition API",
-      "template": "Convert the following Vue 2 code to Vue 3 Composition API.\n\n```{{filetype}}\n{{input}}\n```\n\n```{{filetype}}",
-      "strategy": "edit",
-      "params": {
-        "model": "gpt-4-0125-preview",
+        "model": "gpt-4o",
         "stop": ["```"]
       }
     }
@@ -47,7 +16,7 @@
       "template": "Correct this to standard {{lang}}:\n\n{{input}}",
       "strategy": "replace",
       "params": {
-        "model": "gpt-4-0125-preview"
+        "model": "gpt-4o"
       }
     },
     "args": {
@@ -61,12 +30,10 @@
   "translate": {
     "type": "chat",
     "opts": {
-      "title": "Translate",
       "template": "Translate this into {{lang}}:\n\n{{input}}",
-      "strategy": "display",
+      "strategy": "replace",
       "params": {
-        "model": "gpt-4-0125-preview",
-        "temperature": 0.3
+        "model": "gpt-4o"
       }
     },
     "args": {
@@ -83,9 +50,7 @@
       "template": "Extract the main keywords from the following text.\n\n{{input}}",
       "strategy": "replace",
       "params": {
-        "model": "gpt-4-0125-preview",
-        "temperature": 0.5,
-        "frequency_penalty": 0.8
+        "model": "gpt-4o"
       }
     }
   },
@@ -95,7 +60,7 @@
       "template": "# An elaborate, high quality docstring for the above function:\n# Writing a good docstring\n\nThis is an example of writing a really good docstring that follows a best practice for the given language. Attention is paid to detailing things like\n* parameter and return types (if applicable)\n* any errors that might be raised or returned, depending on the language\n\nI received the following code:\n\n```{{filetype}}\n{{input}}\n```\n\nThe code with a really good docstring added is below:\n\n```{{filetype}}",
       "strategy": "edit",
       "params": {
-        "model": "gpt-4-0125-preview",
+        "model": "gpt-4o",
         "stop": ["```"]
       }
     }
@@ -106,7 +71,7 @@
       "template": "Implement tests for the following code.\n\nCode:\n```{{filetype}}\n{{input}}\n```\n\nTests:\n```{{filetype}}",
       "strategy": "append",
       "params": {
-        "model": "gpt-4-0125-preview",
+        "model": "gpt-4o",
         "stop": ["```"]
       }
     }
@@ -117,18 +82,7 @@
       "template": "Optimize the following code.\n\nCode:\n```{{filetype}}\n{{input}}\n```\n\nOptimized version:\n```{{filetype}}",
       "strategy": "edit",
       "params": {
-        "model": "gpt-4-1106-preview",
-        "stop": ["```"]
-      }
-    }
-  },
-  "refactor_code": {
-    "type": "chat",
-    "opts": {
-      "template": "Refactor the following code as Senior Developer.\n\nCode:\n```{{filetype}}\n{{input}}\n```\n\nRefactored version:\n```{{filetype}}",
-      "strategy": "edit",
-      "params": {
-        "model": "gpt-4-0125-preview",
+        "model": "gpt-4o",
         "stop": ["```"]
       }
     }
@@ -139,7 +93,7 @@
       "template": "Summarize the following text.\n\nText:\n\"\"\"\n{{input}}\n\"\"\"\n\nSummary:",
       "strategy": "edit",
       "params": {
-        "model": "gpt-4-0125-preview"
+        "model": "gpt-4o"
       }
     }
   },
@@ -149,7 +103,7 @@
       "template": "Fix bugs in the below code\n\nCode:\n```{{filetype}}\n{{input}}\n```\n\nFixed code:\n```{{filetype}}",
       "strategy": "edit",
       "params": {
-        "model": "gpt-4-0125-preview",
+        "model": "gpt-4o",
         "stop": ["```"]
       }
     }
@@ -161,7 +115,7 @@
       "template": "Explain the following code:\n\nCode:\n```{{filetype}}\n{{input}}\n```\n\nUse markdown format.\nHere's what the above code is doing:\n```",
       "strategy": "display",
       "params": {
-        "model": "gpt-4-0125-preview",
+        "model": "gpt-4o",
         "stop": ["```"]
       }
     }
@@ -172,7 +126,7 @@
       "template": "Insert a roxygen skeleton to document this R function:\n\n```{{filetype}}\n[insert]\n\n{{input}}\n\n```",
       "strategy": "prepend",
       "params": {
-        "model": "gpt-4-0125-preview",
+        "model": "gpt-4o",
         "temperature": 0.5,
         "max_tokens": 1024
       }
@@ -184,7 +138,7 @@
       "strategy": "quick_fix",
       "template": "{{input}}",
       "params": {
-        "model": "gpt-4-0125-preview",
+        "model": "gpt-4o",
         "max_tokens": 2048,
         "messages": [
           {

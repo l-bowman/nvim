@@ -113,15 +113,34 @@ return {
           builtin.live_grep(args)
         elseif mode == "find_files" then
           builtin.find_files(args)
-        -- elseif mode == "inverse_find_files" then
-        --   args.additional_args = { "--files-without-match" }
-        --   builtin.find_files(args)
+        elseif mode == "inverse_find_files" then
+          local pattern = vim.fn.input("Exclude pattern: ")
+          if pattern == "" then
+            print("No pattern provided, showing all files.")
+            builtin.find_files({ search_dirs = filetable })
+            return
+          end
+
+          -- Convert the pattern to a Lua pattern
+          local lua_pattern = pattern:gsub("%.", "%%."):gsub("%*", ".*")
+
+          local filtered_files = {}
+          for _, file in ipairs(filetable) do
+            if not file:match(lua_pattern) then
+              table.insert(filtered_files, file)
+            end
+          end
+
+          if #filtered_files == 0 then
+            print("No files found after applying the exclusion pattern.")
+          else
+            builtin.find_files({ search_dirs = filtered_files })
+          end
         else
           print("Invalid mode specified")
         end
       end
 
-      -- assign function to global variable
       _G.Search_qflist = search_qflist
     end,
   },
