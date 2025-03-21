@@ -18,7 +18,7 @@ return {
       markdown = { "prettier" },
       vue = { "prettier" },
       astro = { "prettier" },
-      rust = { "rs" },
+      -- rust = { "rs" },
     },
     format_on_save = {
       -- These options will be passed to conform.format()

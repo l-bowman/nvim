@@ -21,7 +21,6 @@ return {
   "nvim-lua/plenary.nvim",
   "MunifTanjim/nui.nvim",
   "voldikss/vim-browser-search",
-  "ThePrimeagen/harpoon",
   "sindrets/diffview.nvim",
   "christoomey/vim-tmux-navigator",
 

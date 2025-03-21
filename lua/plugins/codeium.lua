@@ -6,6 +6,7 @@ return {
       "hrsh7th/nvim-cmp",
     },
     config = function()
+      -- require("codeium").setup({})
       require("codeium").setup({
         -- Optionally disable cmp source if using virtual text only
         enable_cmp_source = false,

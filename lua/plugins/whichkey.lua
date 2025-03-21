@@ -86,6 +86,61 @@ function _G.checkout_new_branch()
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>:" .. command, true, false, true), "n", false)
 end
 
+function _G.search_changed_files()
+  -- Get the list of changed files
+  local results = vim.fn.systemlist("git diff --name-only master...HEAD")
+  -- Check if there are any results
+  if #results == 0 then
+    print("No changed files found.")
+    return
+  end
+  -- Use Telescope to open the list of changed files
+  require("telescope.builtin").find_files({
+    prompt_title = "Changed Files",
+    cwd = vim.loop.cwd(),
+    search_dirs = results,
+  })
+end
+
+function _G.live_grep_changed_files()
+  local results = vim.fn.systemlist("git diff --name-only master...HEAD")
+  if #results == 0 then
+    print("No changed files found.")
+    return
+  end
+  require("telescope.builtin").live_grep({
+    prompt_title = "Grep Changed Files",
+    search_dirs = results,
+  })
+end
+
+function _G.populate_quickfix_with_changed_files()
+  local results = vim.fn.systemlist("git diff --numstat master...HEAD")
+  if #results == 0 then
+    print("No changed files found.")
+    return
+  end
+  local quickfix_list = {}
+  for _, line in ipairs(results) do
+    local added, deleted, file = line:match("(%d+)%s+(%d+)%s+(.+)")
+    if added and deleted and file then
+      local added_num = tonumber(added)
+      local deleted_num = tonumber(deleted)
+      local changeset_size = added_num + deleted_num
+      local text = string.format("Added: %s, Deleted: %s", added, deleted)
+      table.insert(quickfix_list, { filename = file, text = text, changeset_size = changeset_size })
+    end
+  end
+  table.sort(quickfix_list, function(a, b)
+    return a.changeset_size > b.changeset_size
+  end)
+  for _, item in ipairs(quickfix_list) do
+    item.changeset_size = nil
+  end
+  vim.fn.setqflist(quickfix_list, "r")
+  vim.cmd("copen")
+end
+
 local function qf_toggle()
   local qf_exists = false
   for _, win in pairs(vim.fn.getwininfo()) do
@@ -170,6 +225,9 @@ return {
           { "<leader>Tf", "<cmd>lua playwright.run_all_tests()<CR>", desc = "Run Playwright Test File" },
           { "<leader>Tl", "<cmd>lua playwright.run_last_test()<CR>", desc = "Run Last Playwright Test" },
           { "<leader>Tn", "<cmd>lua playwright.run_nearest_test()<CR>", desc = "Run Nearest Playwright Test" },
+          { "<leader>Td", "<cmd>lua playwright.debug_nearest_test()<CR>", desc = "Debug Nearest Playwright Test" },
+          { "<leader>Tv", "<cmd>lua playwright.open_test_video()<CR>", desc = "Open Test Video" },
+          { "<leader>Tt", "<cmd>lua playwright.open_test_trace()<CR>", desc = "Open Test Trace" },
           { "<leader>a", "<cmd>CodeActionMenu<CR>", desc = "Code Actions" },
           { "<leader>b", group = "Bufferline" },
           { "<leader>bA", "<cmd>bufdo bd<CR>", desc = "Close all" },
@@ -186,6 +244,8 @@ return {
           { "<leader>d", "<cmd>lua vim.diagnostic.open_float({ border = 'rounded' })<CR>", desc = "Line Diagnostics" },
           { "<leader>e", "<cmd>lua require('oil').toggle_float()<CR>", desc = "Oil" },
           { "<leader>f", group = "Find with Telescope" },
+          { "<leader>fc", "<cmd>lua search_changed_files()<cr>", desc = "Changed Files" },
+          { "<leader>fC", "<cmd>lua live_grep_changed_files()<cr>", desc = "Grep Changed Files" },
           { "<leader>fB", "<cmd>Telescope bookmarks<cr>", desc = "Find Bookmark" },
           { "<leader>fF", "<cmd>Telescope file_browser<CR>", desc = "Browse Files" },
           { "<leader>fG", "<cmd>Telescope git_status<CR>", desc = "Git Status" },
@@ -276,6 +336,7 @@ return {
           { "<leader>gg", "<cmd>0Git<CR>", desc = "0Git" },
           { "<leader>go", "<cmd>GBrowse master:%<CR>", desc = "Open in GitHub" },
           { "<leader>gp", "<cmd>Git push<CR>", desc = "Push" },
+          { "<leader>gq", "<cmd>lua populate_quickfix_with_changed_files()<CR>", desc = "Populate Quickfix List" },
           { "<leader>gs", "<cmd>Git stage .<CR>", desc = "Stage All" },
           { "<leader>h", group = "Hunk" },
           { "<leader>hd", "<cmd>SignifyHunkDiff<CR>", desc = "Diff" },
@@ -342,7 +403,18 @@ return {
           { "<leader>pb", "<cmd>lua paste_figma_color_variable('bg-color')<cr>", desc = "bg-color" },
           { "<leader>pc", "<cmd>lua paste_figma_color_variable('text-color')<cr>", desc = "text-color" },
           { "<leader>pi", "<cmd>lua SmartImportPasteAndLint()<CR>", desc = "Smart Import Paste" },
-          { "<leader>q", qf_toggle, desc = "Toggle Quickfix list" },
+          { "<leader>q", group = "Quickfix" },
+          {
+            "<leader>qa",
+            "<cmd>lua add_current_line_to_named_quickfix('my_list')<CR>",
+            desc = "Add Line to Quickfix List",
+          },
+          { "<leader>qo", "<cmd>lua open_named_quickfix('my_list')<CR>", desc = "Open Quickfix List" },
+          { "<leader>ql", "<cmd>lua list_all_quickfix_lists()<CR>", desc = "List Quickfix Lists" },
+          { "<leader>qs", "<cmd>lua save_quickfix_lists()<CR>", desc = "Save Quickfix Lists" },
+          { "<leader>qL", "<cmd>lua load_quickfix_lists()<CR>", desc = "Load Quickfix Lists" },
+          { "<leader>qc", "<cmd>lua clear_saved_quickfix_lists()<CR>", desc = "Clear Quickfix Lists" },
+          { "<leader>qr", "<cmd>lua remove_current_qf_entry()<CR>", desc = "Remove Current Quickfix Entry" },
           -- { "<leader>r", "<cmd>e! | LspRestart | Copilot enable<CR>", desc = "Refresh LSP and Buffer" },
           { "<leader>r", "<cmd>e! | LspRestart<CR>", desc = "Refresh LSP and Buffer" },
           { "<leader>s", group = "Starpower" },
