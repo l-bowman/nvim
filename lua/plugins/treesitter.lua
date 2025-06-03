@@ -35,7 +35,7 @@ return {
         "python",
         "query",
         "regex",
-        "rust",
+        -- "rust",
         "scss",
         "svelte",
         "toml",

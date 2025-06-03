@@ -328,3 +328,28 @@ function _G.checkout_branch_and_reload_session()
     end,
   })
 end
+
+-- Function to read the coding standards from a file
+local function read_coding_standards(file_path)
+  local file = io.open(file_path, "r")
+  if not file then
+    return "Could not read coding standards."
+  end
+  local content = file:read("*all")
+  file:close()
+  return content
+end
+-- Global function to perform code review
+function _G.review_code()
+  -- Path to your coding standards file
+  local coding_standards_path = "/path/to/your/coding_standards.txt"
+  -- Get the changeset using a shell command
+  local changeset = vim.fn.system("git diff HEAD~1 HEAD")
+  -- Read the coding standards
+  local coding_standards = read_coding_standards(coding_standards_path)
+  -- Call the ChatGPT action
+  require("chatgpt").run_action("code_review", {
+    input = changeset,
+    coding_standards = coding_standards,
+  })
+end

@@ -10,6 +10,35 @@
       }
     }
   },
+  "diesel_migration": {
+    "type": "chat",
+    "opts": {
+      "template": "I need the up.sql and down.sql for a Diesel (already installed) migration and the command to create it.",
+      "strategy": "display",
+      "params": {
+        "model": "gpt-4o",
+        "stop": ["```"]
+      }
+    }
+  },
+  "code_review": {
+    "type": "chat",
+    "opts": {
+      "template": "Review the following code changes according to our coding standards and best practices:\n\nCoding Standards:\n{{coding_standards}}\n\nChangeset:\n```diff\n{{input}}\n```\n\nPlease provide feedback on the code quality, potential improvements, and adherence to standards.",
+      "strategy": "display",
+      "params": {
+        "model": "gpt-4o",
+        "stop": ["```"]
+      }
+    },
+    "args": {
+      "coding_standards": {
+        "type": "string",
+        "optional": "true",
+        "default": "Our coding standards and best practices include..."
+      }
+    }
+  },
   "grammar_correction": {
     "type": "chat",
     "opts": {

@@ -31,7 +31,7 @@ return {
     version = false,
     config = function()
       require("mini.ai").setup()
-      require("mini.surround").setup()
+      -- require("mini.surround").setup()
     end,
   },
 
@@ -68,5 +68,11 @@ return {
     config = function()
       require("todo-comments").setup()
     end,
+  },
+  {
+    "mrcjkb/rustaceanvim",
+    version = "^6", -- Recommended
+    lazy = false, -- This plugin is already lazy
+    checkOnSave = false,
   },
 }

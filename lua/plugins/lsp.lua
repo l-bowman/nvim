@@ -9,7 +9,6 @@ return {
       require("servers.astro")
       require("servers.bash")
       require("servers.css")
-      require("servers.deno")
       require("servers.emmet")
       require("servers.eslint")
       require("servers.gql")
@@ -34,10 +33,10 @@ return {
       -- change gutter diagnostic symbols
       local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 
-      for type, icon in pairs(signs) do
-        local hl = "DiagnosticSign" .. type
-        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-      end
+      -- for type, icon in pairs(signs) do
+      --   local hl = "DiagnosticSign" .. type
+      --   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+      -- end
 
       vim.diagnostic.config({
         virtual_text = {
@@ -48,6 +47,17 @@ return {
           source = true,
         },
         severity_sort = true,
+        signs = {
+          severity = {
+            min = vim.diagnostic.severity.HINT,
+          },
+          values = {
+            { name = "DiagnosticSignError", text = " " },
+            { name = "DiagnosticSignWarn", text = " " },
+            { name = "DiagnosticSignHint", text = " " },
+            { name = "DiagnosticSignInfo", text = " " },
+          },
+        },
       })
 
       vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
