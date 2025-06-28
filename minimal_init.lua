@@ -61,6 +61,7 @@ require("lazy").setup(plugins, { ui = { border = "rounded" } })
 require("keymappings")
 -- Utilities
 require("utils")
+require("notes")
 require("playwright")
 require("vue-shortcuts")
 require("import")

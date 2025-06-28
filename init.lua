@@ -26,6 +26,7 @@ require("keymappings")
 
 --utils
 require("utils")
+require("notes")
 require("playwright")
 require("vue-shortcuts")
 require("import")
