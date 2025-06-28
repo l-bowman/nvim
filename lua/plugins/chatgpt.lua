@@ -12,7 +12,7 @@ return {
       require("chatgpt").setup({
         actions_paths = { "~/.config/nvim/chatgpt-actions.json" },
         openai_params = {
-          model = "gpt-4o",
+          model = "gpt-4o-mini",
           max_tokens = 4096,
         },
         openai_edit_params = {

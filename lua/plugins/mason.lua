@@ -26,6 +26,7 @@ return {
     config = function()
       require("mason-lspconfig").setup({
         ensure_installed = {
+          "ts_ls",
           "astro",
           "bashls",
           "cssls",
@@ -41,7 +42,6 @@ return {
           "pyright",
           -- "rust_analyzer",
           "tailwindcss",
-          "ts_ls",
           "vue_ls",
           "yamlls",
         },

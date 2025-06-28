@@ -353,3 +353,36 @@ function _G.review_code()
     coding_standards = coding_standards,
   })
 end
+
+function _G.show_git_diff_shortstat()
+  -- Check if the master branch exists, otherwise use main
+  local branch_check = io.popen("git branch --list master")
+  local master_exists = branch_check:read("*a")
+  branch_check:close()
+  local branch_name = "master"
+  if master_exists == "" then
+    branch_name = "main"
+  end
+  -- Get the output of the git command for unstaged changes compared to the base branch
+  local handle_unstaged = io.popen("git diff --shortstat " .. branch_name)
+  local result_unstaged = handle_unstaged:read("*a")
+  handle_unstaged:close()
+  -- Get the output of the git command for staged changes compared to the base branch
+  local handle_staged = io.popen("git diff --cached --shortstat " .. branch_name)
+  local result_staged = handle_staged:read("*a")
+  handle_staged:close()
+  -- Get the output of the git command for all changes (both staged and unstaged) compared to the base branch
+  local handle_all = io.popen("git diff --shortstat HEAD " .. branch_name)
+  local result_all = handle_all:read("*a")
+  handle_all:close()
+  -- Combine results
+  local result = result_unstaged .. result_staged .. result_all
+  -- Check if the result is empty
+  if result == "" then
+    result = "No changes detected."
+  else
+    -- Optionally, you can format the output to make it clearer
+    result = "Changes compared to " .. branch_name .. ":\n" .. result
+  end
+  require("notify")(result, "info", { title = "Git Diff from master/main" })
+end

@@ -1,54 +1,67 @@
-local chdir = vim.api.nvim_create_augroup("chdir", {})
-
-vim.api.nvim_create_autocmd("BufEnter", {
-  group = chdir,
-  nested = true,
-  callback = function()
-    if vim.bo.filetype:match("^Avante") then
-      vim.go.autochdir = true
-    else
-      vim.go.autochdir = false
-    end
-  end,
-})
-
 return {
   {
-
     "yetone/avante.nvim",
+    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+    -- ⚠️ must add this setting! ! !
+    build = function()
+      -- conditionally use the correct build system for the current OS
+      if vim.fn.has("win32") == 1 then
+        return "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
+      else
+        return "make"
+      end
+    end,
     event = "VeryLazy",
     version = false, -- Never set this value to "*"! Never!
+    ---@module 'avante'
+    ---@type avante.Config
+    mode = "legacy",
     opts = {
       -- add any opts here
       -- for example
+      -- provider = "openai",
+      provider = "claude",
       providers = {
-        openai = {
-          endpoint = "https://api.openai.com/v1",
-          model = "gpt-4o-mini", -- your desired model (or use gpt-4o, etc.)
-          timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
+        -- openai = {
+        --   endpoint = "https://api.openai.com/v1",
+        --   model = "gpt-4o-mini",
+        --   api_key = "OPENAI_API_KEY",
+        --   -- timeout = 30000, -- Timeout in milliseconds
+        --   -- extra_request_body = {
+        --   --   temperature = 0.75,
+        --   --   max_tokens = 20480,
+        --   -- },
+        -- },
+        claude = {
+          endpoint = "https://api.anthropic.com",
+          model = "claude-sonnet-4-20250514",
+          -- model = "claude-3-7-sonnet-20250219",
+          -- api_key = "ANTHROPIC_API_KEY",
+          timeout = 30000,
           extra_request_body = {
-            temperature = 0,
-            max_completion_tokens = 8192, -- Increase this to include reasoning tokens (for reasoning models)
-            --reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
+            temperature = 0.75,
+            max_tokens = 8192,
           },
         },
+        -- provider = "ollama",
+        -- providers = {
+        --   ollama = {
+        --     endpoint = "http://localhost:11434",
+        --     model = "deepseek-r1:8b",
+        --   },
       },
     },
-    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-    build = "make",
-    -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
     dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "stevearc/dressing.nvim",
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
       --- The below dependencies are optional,
       "echasnovski/mini.pick", -- for file_selector provider mini.pick
-      -- "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
+      "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
       "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
       "ibhagwan/fzf-lua", -- for file_selector provider fzf
+      "stevearc/dressing.nvim", -- for input provider dressing
+      "folke/snacks.nvim", -- for input provider snacks
       "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-      -- "zbirenbaum/copilot.lua", -- for providers='copilot'
       {
         -- support for image pasting
         "HakonHarnes/img-clip.nvim",

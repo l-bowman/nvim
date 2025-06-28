@@ -23,6 +23,7 @@ return {
   "voldikss/vim-browser-search",
   "sindrets/diffview.nvim",
   "christoomey/vim-tmux-navigator",
+  "rcarriga/nvim-notify",
 
   { "akinsho/git-conflict.nvim", version = "*", config = true },
 
@@ -69,10 +70,10 @@ return {
       require("todo-comments").setup()
     end,
   },
-  {
-    "mrcjkb/rustaceanvim",
-    version = "^6", -- Recommended
-    lazy = false, -- This plugin is already lazy
-    checkOnSave = false,
-  },
+  -- {
+  --   "mrcjkb/rustaceanvim",
+  --   version = "^6", -- Recommended
+  --   lazy = false, -- This plugin is already lazy
+  --   checkOnSave = false,
+  -- },
 }
