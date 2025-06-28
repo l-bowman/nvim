@@ -20,18 +20,18 @@ return {
       -- add any opts here
       -- for example
       -- provider = "openai",
-      provider = "claude",
+      -- provider = "claude | ollama | openai",
       providers = {
-        -- openai = {
-        --   endpoint = "https://api.openai.com/v1",
-        --   model = "gpt-4o-mini",
-        --   api_key = "OPENAI_API_KEY",
-        --   -- timeout = 30000, -- Timeout in milliseconds
-        --   -- extra_request_body = {
-        --   --   temperature = 0.75,
-        --   --   max_tokens = 20480,
-        --   -- },
-        -- },
+        openai = {
+          endpoint = "https://api.openai.com/v1",
+          model = "o4-mini",
+          api_key = "OPENAI_API_KEY",
+          timeout = 30000, -- Timeout in milliseconds
+          extra_request_body = {
+            -- temperature = 0.75,
+            max_tokens = 8192,
+          },
+        },
         claude = {
           endpoint = "https://api.anthropic.com",
           model = "claude-sonnet-4-20250514",
