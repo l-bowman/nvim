@@ -4,23 +4,26 @@ local builtin = require("telescope.builtin")
 local notes_dir = os.getenv("NOTES_DIR")
 local push_timer = nil
 local is_pushing = false -- Flag to indicate if a push is in progress
+local is_shutting_down = false -- Flag to indicate if Neovim is shutting down
 
--- Helper function to safely execute shell commands with proper path escaping
-local function safe_system(cmd)
+local function safe_git_command(git_cmd)
   if not notes_dir then
     return nil, "Notes directory not set"
   end
-  -- Expand and escape the notes directory path to handle special characters
+  -- Expand the path to handle ~ and relative paths
   local expanded_dir = vim.fn.expand(notes_dir)
+  -- escape the dir path
   local escaped_dir = vim.fn.shellescape(expanded_dir)
-
-  -- Use string.gsub with pattern escaping to handle special characters
-  local pattern = "cd " .. notes_dir:gsub("([^%w])", "%%%1")
-  local full_cmd = cmd:gsub(pattern, "cd " .. escaped_dir)
-
-  local output = vim.fn.system(full_cmd)
+  -- Construct the full command
+  local full_cmd = "cd " .. escaped_dir .. " && " .. git_cmd
+  -- Use systemlist to capture output as a list
+  local output = vim.fn.systemlist(full_cmd)
   local success = vim.v.shell_error == 0
-  return output, success and nil or ("Command failed: " .. full_cmd)
+  -- If the command failed, join the output for a clearer error message
+  if not success then
+    return nil, "Command failed: " .. full_cmd .. "\nOutput: " .. table.concat(output, "\n")
+  end
+  return table.concat(output, "\n"), nil
 end
 
 local function check_notes_dir()
@@ -38,19 +41,24 @@ local function check_notes_dir()
     return false
   end
 
+  -- Check if it's a git repository
+  if vim.fn.isdirectory(expanded_path .. "/.git") == 0 then
+    print("The specified notes directory is not a git repository: " .. expanded_path)
+    return false
+  end
+
   return true
 end
 
+-- Example of improved error handling in PullNotes function
 function PullNotes()
   if not check_notes_dir() then
     return
   end
-
   print("Pulling notes...")
-  local pull_output = safe_system("cd " .. notes_dir .. " && git pull origin main")
-
-  if vim.v.shell_error ~= 0 then
-    print("Error pulling notes: " .. pull_output)
+  local _, pull_err = safe_git_command("git pull origin main")
+  if pull_err then
+    print("Error pulling notes: " .. pull_err)
     return false
   else
     print("Notes pulled successfully.")
@@ -73,20 +81,25 @@ function StartPushTimer()
 
   -- Start a new timer
   push_timer = vim.fn.timer_start(300000, function() -- 300000 milliseconds = 5 minutes
-    if not is_pushing then
+    if not is_pushing and not is_shutting_down then
       StageCommitPushNotes()
     end
   end, { ["repeat"] = -1 }) -- Repeat indefinitely
 end
 
--- Pull Notes when Neovim is opened
-vim.api.nvim_create_autocmd("VimEnter", {
-  callback = function()
-    if PullNotes() then -- Only start timer if pull was successful
-      StartPushTimer()
-    end
-  end,
-})
+-- Pull Notes when Neovim is opened (asynchronously to avoid blocking startup)
+-- Not sure about pulling every time Neovim starts, so commented out for now
+-- vim.api.nvim_create_autocmd("VimEnter", {
+--   callback = function()
+--     -- Start the timer immediately
+--     StartPushTimer()
+--
+--     -- Pull notes asynchronously after a short delay to avoid blocking startup
+--     vim.defer_fn(function()
+--       PullNotes()
+--     end, 1000) -- 1 second delay
+--   end,
+-- })
 
 function StageCommitPushNotes()
   local commit_message = "Auto-commit: Update notes" -- Customize this message as needed
@@ -94,7 +107,7 @@ function StageCommitPushNotes()
     return
   end
 
-  local status_output, status_err = safe_system("cd " .. notes_dir .. " && git status --porcelain")
+  local status_output, status_err = safe_git_command("git status --porcelain")
   if status_err then
     print("Error checking git status: " .. status_err)
     return
@@ -105,21 +118,21 @@ function StageCommitPushNotes()
     is_pushing = true
     print("Staging, committing, and pushing notes...")
 
-    local _, add_err = safe_system("cd " .. notes_dir .. " && git add .")
+    local _, add_err = safe_git_command("git add .")
     if add_err then
       print("Error staging files: " .. add_err)
       is_pushing = false
       return
     end
 
-    local _, commit_err = safe_system("cd " .. notes_dir .. " && git commit -m '" .. commit_message .. "'")
+    local _, commit_err = safe_git_command("git commit -m '" .. commit_message .. "'")
     if commit_err then
       print("Error committing changes: " .. commit_err)
       is_pushing = false
       return
     end
 
-    local _, push_err = safe_system("cd " .. notes_dir .. " && git push")
+    local _, push_err = safe_git_command("git push")
     if push_err then
       print("Error pushing notes: " .. push_err)
     else
@@ -132,6 +145,9 @@ function StageCommitPushNotes()
 end
 
 function PushOnExit()
+  -- Set shutdown flag to prevent timer conflicts
+  is_shutting_down = true
+
   -- Stop the timer to prevent conflicts
   stop_push_timer()
 
@@ -148,7 +164,7 @@ function PushOnExit()
       return
     end
 
-    local status_output, status_err = safe_system("cd " .. notes_dir .. " && git status --porcelain")
+    local status_output, status_err = safe_git_command("git status --porcelain")
     if status_err then
       print("PushOnExit: Error checking git status: " .. status_err)
       is_pushing = false
@@ -159,21 +175,21 @@ function PushOnExit()
     if status_output ~= "" then
       print("PushOnExit: Changes detected, pushing...")
 
-      local _, add_err = safe_system("cd " .. notes_dir .. " && git add .")
+      local _, add_err = safe_git_command("git add .")
       if add_err then
         print("PushOnExit: Error staging files: " .. add_err)
         is_pushing = false
         return
       end
 
-      local _, commit_err = safe_system("cd " .. notes_dir .. " && git commit -m '" .. commit_message .. "'")
+      local _, commit_err = safe_git_command("git commit -m '" .. commit_message .. "'")
       if commit_err then
         print("PushOnExit: Error committing changes: " .. commit_err)
         is_pushing = false
         return
       end
 
-      local _, push_err = safe_system("cd " .. notes_dir .. " && git push")
+      local _, push_err = safe_git_command("git push")
       if push_err then
         print("PushOnExit: Error pushing notes: " .. push_err)
       else
@@ -212,4 +228,40 @@ function LiveGrepNotes()
     prompt_title = "Live Grep Notes",
     cwd = notes_dir,
   })
+end
+
+-- Function to immediately edit a note file by name
+function EditNote(filename)
+  if not filename or filename == "" then
+    print("Error: Please provide a filename to edit")
+    return
+  end
+
+  if not check_notes_dir() then
+    return
+  end
+
+  local expanded_dir = vim.fn.expand(notes_dir or "")
+  -- Ensure we have a valid directory path
+  if expanded_dir == "" then
+    print("Error: Could not expand notes directory path")
+    return
+  end
+  local file_path = expanded_dir .. "/" .. filename
+
+  -- Check if file exists
+  if vim.fn.filereadable(file_path) == 1 then
+    -- File exists, open it
+    vim.cmd("edit " .. vim.fn.fnameescape(file_path))
+    print("Opened note: " .. filename)
+  else
+    -- File doesn't exist, ask user if they want to create it
+    local choice = vim.fn.confirm("File '" .. filename .. "' doesn't exist. Create it?", "&Yes\n&No", 1)
+    if choice == 1 then
+      vim.cmd("edit " .. vim.fn.fnameescape(file_path))
+      print("Created and opened new note: " .. filename)
+    else
+      print("Cancelled editing note: " .. filename)
+    end
+  end
 end
