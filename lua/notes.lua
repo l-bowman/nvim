@@ -88,18 +88,18 @@ function StartPushTimer()
 end
 
 -- Pull Notes when Neovim is opened (asynchronously to avoid blocking startup)
--- Not sure about pulling every time Neovim starts, so commented out for now
--- vim.api.nvim_create_autocmd("VimEnter", {
---   callback = function()
---     -- Start the timer immediately
---     StartPushTimer()
---
---     -- Pull notes asynchronously after a short delay to avoid blocking startup
---     vim.defer_fn(function()
---       PullNotes()
---     end, 1000) -- 1 second delay
---   end,
--- })
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    -- Start the timer immediately
+    StartPushTimer()
+
+    -- Not sure about pulling every time Neovim starts, so commented out for now
+    -- Pull notes asynchronously after a short delay to avoid blocking startup
+    -- vim.defer_fn(function()
+    --   PullNotes()
+    -- end, 1000) -- 1 second delay
+  end,
+})
 
 function StageCommitPushNotes()
   local commit_message = "Auto-commit: Update notes" -- Customize this message as needed
