@@ -6,15 +6,12 @@ return {
   -- NOTE: plugins here require little to no configuratin
   "tpope/vim-fugitive",
   "tpope/vim-rhubarb",
-  -- "tpope/vim-surround",
   {
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
     event = "VeryLazy",
     config = function()
-      require("nvim-surround").setup({
-        -- Configuration here, or leave empty to use defaults
-      })
+      require("nvim-surround").setup({})
     end,
   },
   "tpope/vim-unimpaired",
@@ -37,7 +34,6 @@ return {
   },
 
   "windwp/nvim-ts-autotag", -- auto close and rename tags
-  -- "simonward87/nvim-ts-autotag", -- Not sure why Will moved to this. Needs
   -- investigation
   "windwp/nvim-spectre",
   "mhartington/formatter.nvim",
@@ -49,14 +45,9 @@ return {
   { "numToStr/Comment.nvim", opts = {} },
   -- "airblade/vim-gitgutter",
   "mhinz/vim-signify",
-  -- "weilbith/nvim-code-action-menu", -- This one is not working great.
-  -- Better code action previews
   {
     "aznhe21/actions-preview.nvim",
   },
-  -- "aznhe21/actions-preview.nvim" -- alternative?
-
-  -- "iamcco/markdown-preview.nvim",
 
   {
     "folke/trouble.nvim",

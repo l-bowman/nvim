@@ -1,5 +1,4 @@
 vim.cmd([[set noswapfile]])
-vim.opt.splitright = true --open new splits on the right side
 vim.opt.relativenumber = true
 vim.opt.cursorline = true -- show the cursor line
 vim.opt.cursorcolumn = true -- show the cursor column
@@ -12,7 +11,6 @@ vim.opt.shiftwidth = 2
 vim.opt.expandtab = true -- spaces instead of tabs
 vim.opt.number = true
 vim.opt.textwidth = 80
-vim.opt.linebreak = true
 vim.opt.scrolloff = 10
 -- vim.opt.cmdheight = 2
 vim.opt.showmode = false

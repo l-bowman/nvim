@@ -102,8 +102,8 @@ return {
       local vue_ls_config = {
         init_options = {
           typescript = {
-            tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib"
-          }
+            tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib",
+          },
         },
         on_init = function(client)
           client.handlers["tsserver/request"] = function(_, result, context)
@@ -263,22 +263,15 @@ return {
         settings = {
           Lua = {
             runtime = {
-              -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
               version = "LuaJIT",
             },
             diagnostics = {
-              -- Get the language server to recognize the `vim` global
               globals = { "vim" },
             },
             workspace = {
-              -- Make the server aware of Neovim runtime files
-              library = {
-                vim.env.VIMRUNTIME .. "/lua", -- core Neovim API
-                vim.env.VIMRUNTIME .. "/lua/vim/lsp", -- lspconfig / diagnostics
-                vim.fn.stdpath("config") .. "/lua", -- my config
-              },
+              library = vim.api.nvim_get_runtime_file("", true),
+              checkThirdParty = false,
             },
-            -- Do not send telemetry data containing a randomized but unique identifier
             telemetry = {
               enable = false,
             },
