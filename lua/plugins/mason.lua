@@ -42,6 +42,7 @@ return {
           "pyright",
           -- "rust_analyzer",
           "tailwindcss",
+          "vtsls",
           "vue_ls",
           "yamlls",
         },
