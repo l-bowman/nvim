@@ -3,6 +3,7 @@ vim.opt.relativenumber = true
 vim.opt.cursorline = true -- show the cursor line
 vim.opt.cursorcolumn = true -- show the cursor column
 vim.opt.mouse = "a" -- enable mouse
+-- vim.o.winborder = "rounded"
 -- vim.opt.clipboard = "unnamedplus" -- use system clipboard
 vim.opt.ignorecase = true
 vim.opt.smartcase = true -- ignores case for search unless a capital is used in search

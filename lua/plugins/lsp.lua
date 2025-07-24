@@ -7,8 +7,14 @@ return {
       -- Setup neovim lua configuration
       require("neodev").setup()
 
-      -- rounded border
-      require("lspconfig.ui.windows").default_options.border = "rounded"
+      -- Set border for LSP hover and signature help
+      local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+      ---@diagnostic disable-next-line: duplicate-set-field
+      function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+        opts = opts or {}
+        opts.border = opts.border or "rounded"
+        return orig_util_open_floating_preview(contents, syntax, opts, ...)
+      end
 
       vim.diagnostic.config({
         severity_sort = true,
@@ -43,39 +49,6 @@ return {
       local capabilities = require("blink.cmp").get_lsp_capabilities()
 
       -- TS/JS
-      -- local vue_language_server_path =
-      --   vim.fn.expand("$MASON/packages/vue-language-server/node_modules/@vue/language-server")
-      -- vim.lsp.config("ts_ls", {
-      --   init_options = {
-      --     plugins = {
-      --       {
-      --         name = "@vue/typescript-plugin",
-      --         location = vue_language_server_path,
-      --         languages = { "vue" },
-      --       },
-      --     },
-      --   },
-      --   tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib",
-      --   filetypes = {
-      --     "javascript",
-      --     "javascriptreact",
-      --     "javascript.jsx",
-      --     "typescript",
-      --     "typescriptreact",
-      --     "typescript.tsx",
-      --     "vue",
-      --   },
-      --   cmd = { "typescript-language-server", "--stdio" },
-      --   capabilities = capabilities,
-      -- })
-      -- vim.lsp.enable("ts_ls")
-      --
-      -- -- Vue JS
-      -- vim.lsp.config("vue_ls", { init_options = {}, capabilities = capabilities })
-      -- vim.lsp.enable("vue_ls")
-      --
-      -- TS/JS
-
       -- managed to get vue-language-server working with vtsls following https://github.com/vuejs/language-tools/wiki/Neovim
       local vue_language_server_path = vim.fn.stdpath("data")
         .. "/mason/packages/vue-language-server/node_modules/@vue/language-server"
